@@ -1,0 +1,13 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+        <ag-grid-angular 
+        style="height: 500px;" 
+        class="ag-theme-balham"
+        [rowData]="rowData" 
+        [enableSorting]="true"
+        [enableFilter]="true"
+        [columnDefs]="columnDefs"
+        >
+    </ag-grid-angular>
+</div>
