@@ -104,6 +104,7 @@ app.get('/api/query/:ds', (req, res) => {
 app.post('/loginRequest', (req, res) => {
   console.log('***** LOGIN REQUEST ****** | ' + JSON.stringify(req.body));
   let queryObj = req.body;
+  console.log("queryobj");
   connection.query(
     queryObj.statement,
     queryObj.values,

@@ -1,6 +1,9 @@
 .navbar-brand-custom{
-    margin: 20px;
+    margin: 5px;
     padding-right: 100px;
     color:white !important;
     padding-bottom: 0px !important;
+}
+.bg-dark {
+    background-color: #33679a!important;
 }

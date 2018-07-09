@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.dataTables_paginate a{
+    cursor : pointer;
+}
+.dataTables_paginate > span > a{
+    padding-right : 7px;
+    padding-left : 7px;
+    border: solid white;
+}
+.dataTables_paginate > span > a.current{
+    color : white !important;
+    background-color: #33679a!important; 
+}
+
+.dataTables_paginate > a.disabled{
+    text-decoration: none;
+    color : black !important;
+    background-color: none;
+    cursor : auto; 
+}
+
+
+
