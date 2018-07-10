@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SalesComponent } from './components/sales/sales.component';
 import { SalesReportComponent } from './components/sales-report/sales-report.component';
 import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, Ng
     HomeComponent,
     NavbarComponent,
     SalesComponent,
-    SalesReportComponent
+    SalesReportComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

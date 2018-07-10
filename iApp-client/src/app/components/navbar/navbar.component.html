@@ -6,8 +6,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
   
-    <div class="navbar-collapse" (click)="collapse=false" [hidden]="!collapse">
-      <ul class="navbar-nav mr-auto">
+    <div style="display: inline !important;" class="navbar-collapse" (click)="collapse=false" [hidden]="!collapse">
+      <ul class="navbar-nav mr-auto pull-right">
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink] = "['/home']">Home
             <span class="sr-only">(current)</span>
@@ -20,7 +20,7 @@
           <a class="nav-link" [routerLink] = "['/sales-report']">Sales Report</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Logout</a>
+          <a class="nav-link" href="#" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

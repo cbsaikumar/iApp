@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+.container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    min-height:-webkit-fill-available;
+    margin-bottom: 20px;
+}
 
 .dataTables_paginate a{
     cursor : pointer;
@@ -19,6 +29,22 @@
     color : black !important;
     background-color: none;
     cursor : auto; 
+}
+.dataTables_length{
+    display: inline;
+}
+.dataTables_filter{
+    display: inline;
+    float: right;
+}
+
+.dataTables_info{
+    display: inline;
+}
+.dataTables_paginate{
+    margin-top:2px;
+    display: inline;
+    float: right;
 }
 
 
