@@ -7,7 +7,12 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
-    "mysql": "^2.15.0"
+    "compression": "^1.7.2",
+    "helmet": "^3.12.1",
+    "moment": "^2.22.2",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "body-parser": "^1.18.2",
