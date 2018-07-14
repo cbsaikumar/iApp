@@ -18,11 +18,12 @@ let lastActiveTime = moment();
 process.env['NODE_ENV'] = 'production';
 
 const connection = mysql.createConnection({
-    host: appkeys.db.host,
-    port: appkeys.db.port,
-    user: appkeys.db.username,
-    password: appkeys.db.password,
-    database: appkeys.db.database,
+    host: appkeys.local_db.host,
+    port: appkeys.local_db.port,
+    user: appkeys.local_db.username,
+    password: appkeys.local_db.password,
+    database: appkeys.local_db.database,
+    
 });
 
 const RESULT_STATUS = {
@@ -135,6 +136,7 @@ const returnResult = (err, data) => {
     return resultObj;
 };
 app.get('/api/query/:ds', (req, res) => {
+    console.log("ds", req.params.ds);
     /* STATUS, DATA, ERR */
     let tableName = connection.escape(req.params.ds);
     let sql = 'select * from '.concat(req.params.ds);
@@ -146,13 +148,16 @@ app.get('/api/query/:ds', (req, res) => {
 app.post('/loginRequest', (req, res) => {
     console.log('***** LOGIN REQUEST ****** | ' + JSON.stringify(req.body));
     let queryObj = req.body;
+    console.log("queryobj",queryObj);
     connection.query(
         queryObj.statement,
-        queryObj.values,
+        [queryObj.username,
+        queryObj.password],
         (error, result, fields) => {
-            if (error) {
+            //console.log("error, result, fields", error, result, fields);
+            if (error || !result.length) {
                 console.log('*** LOGIN ERROR *** | ' + JSON.stringify(error));
-                res.send(error);
+                res.send(result);
             } else {
                 console.log('*** LOGIN SUCCESS *** | ' + JSON.stringify(result))                                                                                        ;
                 resultObj = {

@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand navbar-brand-custom">
-      <p>APEX</p>
-    </a>
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark navbar-custom">
+  <a class="navbar-brand" [routerLink]="['/sales']">
+    <img src="https://res.cloudinary.com/candidbusiness/image/upload/v1455406304/dispute-bills-chicago.png" alt="Dispute Bills">
+  </a>
     <button class="navbar-toggler" (click)="collapse=!collapse" type="button" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,18 +10,18 @@
     <div style="display: inline !important;" class="navbar-collapse" (click)="collapse=false" [hidden]="!collapse">
       <ul class="navbar-nav mr-auto pull-right">
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink] = "['/home']">Home
+          <a class="nav-link" [routerLink] = "['/sales']">Sales
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink] = "['/sales']">Sales </a>
+          <a class="nav-link" [routerLink] = "['/estimation']">Estimation </a>
         </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink] = "['/sales-report']">Sales Report</a>
+        <li class="nav-item" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink] = "['/users']">Users</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" (click)="logout()">Logout</a>
+          <a class="nav-link" href="" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

@@ -37,7 +37,6 @@
         </span>
     </div>
 </aside>
-
 <div id="main" #main>
     <div id="ribbon">
         <span *ngIf="showMenu" style="font-size:30px;cursor:pointer; color:aliceblue;" (click)="openNav()">&#9776;</span>
@@ -54,6 +53,7 @@
             <li>Home</li>
             <li>{{title}}</li>
         </ol>
+        <!-- end breadcrumb -->
         <div id="logout" class="btn-header transparent pull-right">
             <span>
                 <a (click)="logout()" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
@@ -61,60 +61,12 @@
                 </a>
             </span>
         </div>
-        <!-- end breadcrumb -->
     </div>
     <app-navbar></app-navbar>
-    <table id="example" class="display table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th>Bid #</th>
-                <th>Received Date</th>
-                <th>Due Date</th>
-                <th>Sent Date</th>
-                <th>Fabricator</th>
-                <th>Project</th>
-                <th>Executive</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-
-    </table>
+    <div class="display">
+        <p>
+            users works!
+        </p>
+    </div>
     <app-footer></app-footer>
 </div>
-
-
-
-
-<!-- <div class="row">
-    <div class="col-md-4">
-        <input *ngIf="config.filtering" placeholder="Filter all columns" [ngTableFiltering]="config.filtering" class="form-control"
-            (tableChanged)="onChangeTable(config)" />
-    </div>
-</div>
-<br>
-<ng-table [config]="config" (tableChanged)="onChangeTable(config)" (cellClicked)="onCellClick($event)" [rows]="rows" [columns]="columns">
-</ng-table>
-<pagination *ngIf="config.paging" class="pagination-sm" [(ngModel)]="page" [totalItems]="length" [itemsPerPage]="itemsPerPage"
-    [maxSize]="maxSize" [boundaryLinks]="true" [rotate]="false" (pageChanged)="onChangeTable(config, $event)" (numPages)="numPages = $event">
-</pagination>
-<pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre> -->
-
-<!-- <h3 class="first">Basic</h3>
-<p-table [value]="cars">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Vin</th>
-            <th>Year</th>
-            <th>Brand</th>
-            <th>Color</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-car>
-        <tr>
-            <td>{{car.vin}}</td>
-            <td>{{car.year}}</td>
-            <td>{{car.brand}}</td>
-            <td>{{car.color}}</td>
-        </tr>
-    </ng-template>
-</p-table> -->

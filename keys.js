@@ -1,9 +1,9 @@
 module.exports = {
-  locaal_db: {
+  local_db: {
     host: 'localhost',
-    port: '8889',
+    port: '',
     username: 'root',
-    password: 'root',
+    password: '',
     database: 'iapp',
   },
   db: {
@@ -12,5 +12,7 @@ module.exports = {
     username: 'root',
     password: 'Irs2rvp6xoni#',
     database: 'iapp',
+    connectTimeout: 30000,
+    acquireTimeout: 20000
   },
 };

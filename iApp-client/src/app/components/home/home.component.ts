@@ -1,8 +1,10 @@
 declare var require: any;
 
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit, ElementRef } from '@angular/core';
 var $ = require('jquery');
 var dt = require('datatables.net');
+
 
 @Component({
   selector: 'app-home',
@@ -12,13 +14,11 @@ var dt = require('datatables.net');
 export class HomeComponent implements OnInit {
   rootNode : any;
 
-  constructor(rootNode : ElementRef) {
+  constructor(rootNode : ElementRef, private authService: AuthService) {
     this.rootNode = rootNode;
    }
 
   ngOnInit() {
-    var ele = $(this.rootNode.nativeElement).find('#example')[0];
-
     $('#example').DataTable();
   }
 
