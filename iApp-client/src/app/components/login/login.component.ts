@@ -21,15 +21,14 @@ export class LoginComponent implements OnInit {
     let password = loginForm.value.password;
 
     this.authService.login(username, password).subscribe((data) => {
-      console.log(data);
       if(data && data.user_token){
-        this.flashMessage.show("You are now logged in", {cssClass:'alert-success text-center', timeout: 5000});
+        this.flashMessage.show("You are now logged in", {cssClass:'alert-success text-center', timeout: 3000});
         sessionStorage.setItem("user_role_code", data.user_role_code);
         sessionStorage.setItem("user_token", data.user_token);
         this.router.navigate(['sales']);
       }
       else{
-        this.flashMessage.show("You are not authorized!", {cssClass:'alert-danger', timeout: 5000});
+        this.flashMessage.show("You are not authorized!", {cssClass:'alert-danger text-center', timeout: 3000});
       }
     });
   }

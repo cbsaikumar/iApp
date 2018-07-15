@@ -1,0 +1,203 @@
+<aside id="left-panel">
+    <div id="mySidenav" #mySidenav class="sidenav">
+        <div class="login-info">
+            <span>
+                <!-- User image size is adjusted inside CSS, it should stay as it -->
+                <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut" style="padding: 0px;">
+                    <img src="../../../assets/imgs/sunny.png" alt="me" class="online">
+                    <span>
+                        john.doe
+                    </span>
+                </a>
+            </span>
+        </div>
+        <ul>
+            <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Sales" [routerLink]="['/sales']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-home"></i>
+                    <span class="menu-item-parent">Sales</span>
+                </a>
+            </li>
+            <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Estimation" [routerLink]="['/estimation']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-list-alt"></i>
+                    <span class="menu-item-parent">Estimation</span>
+                </a>
+            </li>
+            <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Users" [routerLink]="['/users']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-user-circle"></i>
+                    <span class="menu-item-parent">Users</span>
+                </a>
+            </li>
+        </ul>
+
+        <span class="minifyme" data-action="minifyMenu" (click)="closeNav()" style="">
+            <i class="fa fa-arrow-circle-left hit"></i>
+        </span>
+    </div>
+</aside>
+
+<div id="main" #main>
+    <div id="ribbon">
+        <span *ngIf="showMenu" style="font-size:30px;cursor:pointer; color:aliceblue;" (click)="openNav()">&#9776;</span>
+        <span class="ribbon-button-alignment">
+            <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom"
+                data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings."
+                data-html="true">
+                <i class="fa fa-refresh"></i>
+            </span>
+        </span>
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>Home</li>
+            <li>{{title}}</li>
+        </ol>
+        <div id="logout" class="btn-header transparent pull-right">
+            <span>
+                <a (click)="logout()" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
+                    <i class="fa fa-sign-out"></i>
+                </a>
+            </span>
+        </div>
+        <!-- end breadcrumb -->
+    </div>
+    <app-navbar></app-navbar>
+
+    <div class="container">
+        <div class="col-lg-12 well">
+            <div class="row">
+                <form #newLeadForm="ngForm" (ngSubmit)="register(newLeadForm);">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <p>Bid Number</p>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <input type="text" placeholder="Enter Bid Number Here.." name="bid_number" ngModel class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5 class="col-sm-6 form-group">Fabricator Info</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Fabricator Name</label>
+                                <input type="text" ngModel name="fabricator_name" placeholder="Enter Fabricator Name Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Url</label>
+                                <input type="text" ngModel name="url" placeholder="Enter Url Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Phone</label>
+                                <input type="text" ngModel name="phone" placeholder="Enter Phone Here.." class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h5 class="col-sm-6 form-group">Bid Info</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Received Date</label>
+                                <input type="date" ngModel name="received_date" placeholder="Enter Received Date Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Received From</label>
+                                <input type="text" ngModel name="received_from" placeholder="Enter Received From Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Send Date</label>
+                                <input type="date" ngModel name="send_date" placeholder="Enter Send Date Here.." class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Document Received</label>
+                                <input type="text" ngModel name="document_received" placeholder="Enter Document Received Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Document Path</label>
+                                <input type="text" ngModel name="document_path" placeholder="Enter Document Path Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Bid Status</label>
+                                <input type="text" ngModel name="bid_status" placeholder="Enter Bid Status Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Executive</label>
+                                <input type="text" ngModel name="executive" placeholder="Enter Executive Here.." class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4">
+                                <label>Bid Type</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <input ngModel name="bid_type" value="Structural" type="radio">Structural
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <input ngModel name="bid_type" type="radio" value="Miscellaneous">Miscellaneous
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <input ngModel name="bid_type" type="radio" value="Engineering">Engineering
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h5 class="col-sm-6 form-group">Estimation Info</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Bid Type</label>
+                                <input type="text" name="" placeholder="Enter Bid Type Name Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Main Steel Hours</label>
+                                <input type="text" ngModel name="main_steel_hours" placeholder="Enter Main Steel Hours Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Main Steel Estimated Schedule</label>
+                                <input type="date" ngModel name="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.." class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Misc Steel Hours</label>
+                                <input type="number" ngModel name="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Misc Steel Estimated Schedule</label>
+                                <input type="date" ngModel name="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Inclusions</label>
+                            </div>
+                            <div class="col-sm-12 col-lg-12 form-group">
+                                <p *ngFor="let inclusion of misc_inclusions">
+                                    <input type="checkbox" name="inclusions">{{inclusion.misc_inc_desc}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Exclustions</label>
+                            </div>
+                            <div class="col-sm-12 col-lg-12 form-group">
+                                <p *ngFor="let exclusion of misc_exclusions">
+                                    <input type="checkbox" name="exclusions">{{exclusion.misc_exc_desc}}</p>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-md btn-info submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

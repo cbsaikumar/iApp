@@ -13,8 +13,10 @@ export class AdminGuard implements CanActivate {
         }
         // not admin so redirect to login page with the return url
 
-        this.flashMessage.show("You are not authorized to view this page! Hence redirecting to login!", {cssClass:'alert-danger', timeout: 5000});
-        this.router.navigate(['/login']);
+        this.flashMessage.show("You are not authorized to view this page! Hence redirecting to login!", {cssClass:'alert-danger text-center', timeout: 3000});
+        setTimeout(()=>{
+            this.router.navigate(['/login']);
+        }, 3000);
         return false;
     }
 }

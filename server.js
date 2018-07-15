@@ -11,7 +11,7 @@ const helmet = require('helmet');
 const moment = require('moment');
 
 
-const REFRESH_INTERVAL = 1000*60;
+const REFRESH_INTERVAL = 10000*60;
 let connectTime = moment();
 let lastActiveTime = moment();
 
@@ -31,27 +31,6 @@ const RESULT_STATUS = {
     ERROR: 'ERROR',
 };
 
-setInterval(()=>{
-
-
-    let maxWaitTime = connectTime.clone().add(5,'m');
-
-    /*console.log(connectTime.format());
-    console.log(lastActiveTime.format());
-    console.log(maxWaitTime.format());*/
-
-    if(lastActiveTime.isAfter(maxWaitTime,'minute')){
-        connection.end(function(err) {
-            console.log(' Existing Connection Closed!!')
-        });
-        initDBConnection();
-        console.log('Resetting the connection');
-    }
-
-  //  console.log('resetting ');
-
-
-},REFRESH_INTERVAL);
 
 function initDBConnection() {
     connectTime = moment();

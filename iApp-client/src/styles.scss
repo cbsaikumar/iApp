@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 /* left panel styles*/
 
+router-outlet ~ * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  
 @media (max-width: 880px) and (min-width: 768px){
     #left-panel {
         left: -220px;
@@ -398,6 +404,11 @@ img.online {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
+.button-custom:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
 
 
 

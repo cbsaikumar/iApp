@@ -4,10 +4,8 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
-  <div class="row">
-
+  <div class="row well">
     <div class="main">
-
       <h3>Please Log In, or
         <a href="#">Sign Up</a>
       </h3>
@@ -24,14 +22,13 @@
         <span class="span-or">or</span>
       </div>
 
-      <form role="form"  #loginForm="ngForm" (ngSubmit)="login(loginForm);">
+      <form role="form" #loginForm="ngForm" (ngSubmit)="login(loginForm);">
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon">
               <i class="glyphicon glyphicon-user"></i>
             </span>
-            <input class="form-control" ngModel
-            #nameField="ngModel" placeholder="Username" name="username" type="text" required autofocus>
+            <input class="form-control" ngModel #nameField="ngModel" placeholder="Username" name="username" type="text" required autofocus>
           </div>
         </div>
         <div class="form-group">
@@ -39,13 +36,13 @@
             <span class="input-group-addon">
               <i class="glyphicon glyphicon-lock"></i>
             </span>
-            <input class="form-control" ngModel
-            #nameField="ngModel" placeholder="Password" name="password" type="password" value="" required>
+            <input class="form-control" ngModel #nameField="ngModel" placeholder="Password" name="password" type="password" value=""
+              required>
           </div>
         </div>
         <div class="checkbox pull-right">
           <label>
-            <input type="checkbox"> Remember me </label>
+            <input type="checkbox" ngModel #nameField="ngModel" name="remember"> Remember me </label>
         </div>
         <button type="submit" [disabled]="!loginForm.valid" class="btn btn btn-primary">
           Log In

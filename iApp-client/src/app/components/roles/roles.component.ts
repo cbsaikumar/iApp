@@ -8,13 +8,13 @@ var $ = require('jquery');
 var dt = require('datatables.net');
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['../../../../node_modules/datatables.net-dt/css/jquery.dataTables.css', './users.component.css']
+  selector: 'app-roles',
+  templateUrl: './roles.component.html',
+  styleUrls: ['../../../../node_modules/datatables.net-dt/css/jquery.dataTables.css', './roles.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class RolesComponent implements OnInit {
 
-  title: string = "Users";
+  title: string = "Roles";
   showMenu: boolean;
   usersData: any;
   rolesData: any;
@@ -28,23 +28,20 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getUsers().subscribe(data => {
-      console.log("sales", data, typeof (data.data));
-      this.usersData = data.data;
+    this.authService.getRoles().subscribe(data => {
+      console.log("roles", data, typeof (data.data));
+      this.rolesData = data.data;
 
       $('#example').DataTable({
-        data: this.usersData,
+        data: this.rolesData,
         columns: [
-          { data: 'user_name' },
+          { data: 'role_code' },
           {
-            data: 'user_email'
-          },
-          {
-            data: 'user_contact_number'
+            data: 'role_name'
           }
         ]
       });
-    })
+    });
   };
 
   openNav() {

@@ -13,21 +13,27 @@
         </div>
         <ul>
             <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a href="#" title="Dashboard" [routerLink]="['/sales']">
-                    <i class="fa fa-lg fa-fw fa-home"></i>
+                <a href="#" title="Sales" [routerLink]="['/sales']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-home"></i>
                     <span class="menu-item-parent">Sales</span>
                 </a>
             </li>
             <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a href="#" title="Dashboard" [routerLink]="['/estimation']">
-                    <i class="fa fa-lg fa-fw fa-list-alt"></i>
+                <a href="#" title="Estimation" [routerLink]="['/estimation']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-list-alt"></i>
                     <span class="menu-item-parent">Estimation</span>
                 </a>
             </li>
             <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a href="#" title="Dashboard" [routerLink]="['/users']">
-                    <i class="fa fa-lg fa-fw fa-user-circle"></i>
+                <a href="#" title="Users" [routerLink]="['/users']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-user-circle"></i>
                     <span class="menu-item-parent">Users</span>
+                </a>
+            </li>
+            <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Roles" [routerLink]="['/roles']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-users"></i>
+                    <span class="menu-item-parent">Roles</span>
                 </a>
             </li>
         </ul>
@@ -37,6 +43,7 @@
         </span>
     </div>
 </aside>
+
 <div id="main" #main>
     <div id="ribbon">
         <span *ngIf="showMenu" style="font-size:30px;cursor:pointer; color:aliceblue;" (click)="openNav()">&#9776;</span>
@@ -53,7 +60,6 @@
             <li>Home</li>
             <li>{{title}}</li>
         </ol>
-        <!-- end breadcrumb -->
         <div id="logout" class="btn-header transparent pull-right">
             <span>
                 <a (click)="logout()" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
@@ -61,10 +67,23 @@
                 </a>
             </span>
         </div>
+        <!-- end breadcrumb -->
     </div>
     <app-navbar></app-navbar>
-    <p class="display">
-        estimation works!
-    </p>
+    <h4 style="display: inline; color:#33679a !important;" class="ml-4 mt-1 text-primary">Estimation</h4>
+    <div class="container">
+        <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Bid #</th>
+                    <th>Company</th>
+                    <th>Assign Date</th>
+                    <th>Completion Date</th>
+                    <th>Assigned to</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
     <app-footer></app-footer>
 </div>
