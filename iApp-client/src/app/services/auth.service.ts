@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
+import { LeadData } from '../components/new-lead/new-lead.component';
 import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -21,8 +22,7 @@ export class AuthService {
     this.rolesUrl = "http://localhost:5000/api/query/roles";
     this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
     this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
-
-    this.saleInsertUrl = "http://localhost:5000/api/insertRequest/";
+    this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
   }
 
   login(username: string, password: any) {
@@ -42,19 +42,34 @@ export class AuthService {
       .map(res => res.json());
   };
 
-  register(values:any[]){
+  register(data:any){
+    console.log("service", Object.values(data));
     const params = new URLSearchParams();
+    let statement: string = "insert into sales (bid_number, status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
+    //params.append('Content-Type', 'application/json');
+    params.append('statement', statement);
+    params.append('bid_number', data.bid_number);
+    params.append('status', data.status);
+    params.append('bid_type', data.bid_type);
+    params.append('document_path', data.document_path);
+    params.append('document_received', data.document_received);
+    params.append('exclusion', data.exclusion);
+    params.append('executive', data.executive);
+    params.append('fabricator_address', data.fabricator_address);
+    params.append('fabricator', data.fabricator);
+    params.append('inclusion', data.inclusion);
+    params.append('main_steel_est_schedule', data.main_steel_est_schedule);
+    params.append('main_steel_hours', data.main_steel_hours);
+    params.append('misc_steel_est_schedule', data.misc_steel_est_schedule);
+    params.append('misc_steel_hours', data.misc_steel_hours);
+    params.append('fabricator_phone', data.fabricator_phone);
+    params.append('bid_received_date', data.bid_received_date);
+    params.append('bid_received_from', data.bid_received_from);
+    params.append('bid_sent_date', data.bid_sent_date);
+    params.append('fabricator_Url', data.fabricator_Url);
 
-    //let statement: string = "insert into sales (bid_number, bid_received_date ,bid_due_date ,bid_sent_date , executive ,status ,bid_type) values ? ";
-
-    // //params.append('Content-Type', 'application/json');
-    // params.append('statement', statement);
-    // params.append('username', username);
-    // params.append('password', password);
-
-    console.log("params", params);
-
-    return this.http.post(this.loginUrl, params)
+    console.log("url", this.saleInsertUrl);
+    return this.http.post(this.saleInsertUrl, params) 
       .map(res => res.json());
 
   }

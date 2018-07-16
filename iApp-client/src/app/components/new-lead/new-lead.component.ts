@@ -6,9 +6,26 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 var $ = require('jquery');
 var dt = require('datatables.net');
-class Inclusion {
-  constructor(public value: string = '',
-              public isChecked: boolean = false,
+export class LeadData {
+  constructor(public bid_number: string = '', 
+              public bid_received_date : string = '', 
+              public bid_received_from : string = '',
+              public bid_sent_date : string = '', 
+              public bid_type : string = '', 
+              public document_path : string = '', 
+              public document_received : string = '',
+              public exclusion : any[], 
+              public executive : string = '', 
+              public fabricator : string = '',
+              public fabricator_Url : string = '',
+              public fabricator_address : string = '',
+              public fabricator_phone : string = '',
+              public inclusion: any[],
+              public main_steel_est_schedule : string = '',
+              public main_steel_hours : string = '',
+              public misc_steel_est_schedule : string = '',
+              public misc_steel_hours : string = '',
+              public status : string = ''
             ) {
   }
 }
@@ -25,8 +42,8 @@ export class NewLeadComponent implements OnInit {
 
   misc_inclusions: any[];
   misc_exclusions: any[];
-  inclusions: {};
-  exclusions: {};
+  inclusions: any[] = [];
+  exclusions: any[] = [];
 
   @ViewChild('mySidenav') mySideNav: ElementRef;
   @ViewChild('main') main: ElementRef;
@@ -41,20 +58,49 @@ export class NewLeadComponent implements OnInit {
 
   register(newLeadForm){
     console.log("newLeadForm",newLeadForm.value);
+    let newLeadData : LeadData;
+    newLeadData = newLeadForm.value;
+
+    newLeadData.inclusion = this.inclusions;
+    newLeadData.exclusion = this.exclusions;
+    console.log("newLeadData",newLeadData);
+    
+    this.authService.register(newLeadData);
+    
   }
 
   ngOnInit() {
 
     this.authService.getInclusions().subscribe(data => {
-      console.log("inclusions", data, typeof (data.data));
+      
       this.misc_inclusions = data.data;      
     });
 
     this.authService.getExclusions().subscribe(data => {
-      console.log("exclusions", data, typeof (data.data));
+    
       this.misc_exclusions = data.data;      
     });   
   };
+
+  addInclusion(inc, event){
+    if(event.target.checked ===  true){
+      this.inclusions.push(inc.value);
+    }
+    else{
+      let index = this.inclusions.indexOf(inc.value);
+      this.inclusions.splice(index, 1);
+    }
+  }
+
+  addExclusion(exc, event){
+    if(event.target.checked ===  true){
+      this.exclusions.push(exc.value);
+    }
+    else{
+      let index = this.exclusions.indexOf(exc.value);
+      this.exclusions.splice(index, 1);
+    }
+  }
 
   openNav() {
     this.showMenu = false;

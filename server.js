@@ -149,13 +149,15 @@ app.post('/loginRequest', (req, res) => {
         },
     );
 });
-app.post('/api/insertRequest/', (req, res) => {
+app.post('/api/insertRequest', (req, res) => {
     console.log('***** INSERT REQUEST ****** | ' + JSON.stringify(req.body));
-    var updateObj = req.body;
+    var values = req.body;
+    let statement = "insert into sales (bid_number, status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
 
+    //console.log("server Data", updateObj);
     connection.query(
-        updateObj.statement,
-        updateObj.values,
+        statement,
+        values,
         (error, result, fields) => {
             if (error) {
                 console.log('*** INSERT ERROR *** | ' + error);

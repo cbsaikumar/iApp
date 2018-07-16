@@ -95,6 +95,10 @@
                                 <input type="text" ngModel name="phone" placeholder="Enter Phone Here.." class="form-control">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea placeholder="Enter Address Here.." rows="3" class="form-control" ngModel name="fabricator_address"></textarea>
+                        </div>
 
                         <div class="row">
                             <h5 class="col-sm-6 form-group">Bid Info</h5>
@@ -181,7 +185,7 @@
                             </div>
                             <div class="col-sm-12 col-lg-12 form-group">
                                 <p *ngFor="let inclusion of misc_inclusions">
-                                    <input type="checkbox" name="inclusions">{{inclusion.misc_inc_desc}}</p>
+                                    <input type="checkbox" value="{{inclusion.misc_inc_desc}}" #inc (change)="addInclusion(inc, $event)" name="inclusions">{{inclusion.misc_inc_desc}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -190,7 +194,7 @@
                             </div>
                             <div class="col-sm-12 col-lg-12 form-group">
                                 <p *ngFor="let exclusion of misc_exclusions">
-                                    <input type="checkbox" name="exclusions">{{exclusion.misc_exc_desc}}</p>
+                                    <input type="checkbox" value="{{exclusion.misc_exc_desc}}" #exc (change)="addExclusion(exc, $event)" name="exclusions">{{exclusion.misc_exc_desc}}</p>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-md btn-info submit-btn">Submit</button>
