@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { Http, Headers, URLSearchParams, ResponseContentType, RequestOptions } from '@angular/http';
 import { LeadData } from '../components/new-lead/new-lead.component';
 import 'rxjs/add/operator/map';
 
@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
   providedIn: 'root'
 })
 export class AuthService {
+  
+  [x: string]: any;
   private loginUrl: string; 
   private salesUrl: string; 
   private usersUrl: string; 
@@ -42,34 +44,16 @@ export class AuthService {
       .map(res => res.json());
   };
 
-  register(data:any){
-    console.log("service", Object.values(data));
-    const params = new URLSearchParams();
+  register(data:LeadData){
     let statement: string = "insert into sales (bid_number, status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
     //params.append('Content-Type', 'application/json');
-    params.append('statement', statement);
-    params.append('bid_number', data.bid_number);
-    params.append('status', data.status);
-    params.append('bid_type', data.bid_type);
-    params.append('document_path', data.document_path);
-    params.append('document_received', data.document_received);
-    params.append('exclusion', data.exclusion);
-    params.append('executive', data.executive);
-    params.append('fabricator_address', data.fabricator_address);
-    params.append('fabricator', data.fabricator);
-    params.append('inclusion', data.inclusion);
-    params.append('main_steel_est_schedule', data.main_steel_est_schedule);
-    params.append('main_steel_hours', data.main_steel_hours);
-    params.append('misc_steel_est_schedule', data.misc_steel_est_schedule);
-    params.append('misc_steel_hours', data.misc_steel_hours);
-    params.append('fabricator_phone', data.fabricator_phone);
-    params.append('bid_received_date', data.bid_received_date);
-    params.append('bid_received_from', data.bid_received_from);
-    params.append('bid_sent_date', data.bid_sent_date);
-    params.append('fabricator_Url', data.fabricator_Url);
+    //params.append('statement', statement);
+    let headers = { "Content-Type": "application/x-www-form-urlencoded" };
 
-    console.log("url", this.saleInsertUrl);
-    return this.http.post(this.saleInsertUrl, params) 
+    
+    //console.log("url", this.saleInsertUrl);
+
+    return this.http.post(this.saleInsertUrl, data) 
       .map(res => res.json());
 
   }

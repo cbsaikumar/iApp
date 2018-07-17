@@ -7,24 +7,24 @@ import { AuthService } from '../../services/auth.service';
 var $ = require('jquery');
 var dt = require('datatables.net');
 export class LeadData {
-  constructor(public bid_number: string = '', 
-              public bid_received_date : string = '', 
+  constructor(public bid_number: number = 0, 
+              public bid_received_date : Date = null, 
               public bid_received_from : string = '',
-              public bid_sent_date : string = '', 
+              public bid_sent_date : Date = null, 
               public bid_type : string = '', 
               public document_path : string = '', 
               public document_received : string = '',
-              public exclusion : any[], 
+              public exclusion : string='', 
               public executive : string = '', 
               public fabricator : string = '',
               public fabricator_Url : string = '',
               public fabricator_address : string = '',
               public fabricator_phone : string = '',
-              public inclusion: any[],
-              public main_steel_est_schedule : string = '',
-              public main_steel_hours : string = '',
-              public misc_steel_est_schedule : string = '',
-              public misc_steel_hours : string = '',
+              public inclusion: string='',
+              public main_steel_est_schedule : Date = null,
+              public main_steel_hours : number = 0,
+              public misc_steel_est_schedule : Date = null,
+              public misc_steel_hours : number = 0,
               public status : string = ''
             ) {
   }
@@ -56,17 +56,18 @@ export class NewLeadComponent implements OnInit {
     ) {
   }
 
-  register(newLeadForm){
-    console.log("newLeadForm",newLeadForm.value);
+  register(newLeadForm:LeadData){
+    console.log("newLeadForm",newLeadForm);
     let newLeadData : LeadData;
-    newLeadData = newLeadForm.value;
+    newLeadData = newLeadForm;
 
-    newLeadData.inclusion = this.inclusions;
-    newLeadData.exclusion = this.exclusions;
+    newLeadData.inclusion = this.inclusions.toString();
+    newLeadData.exclusion = this.exclusions.toString();
     console.log("newLeadData",newLeadData);
     
-    this.authService.register(newLeadData);
-    
+    this.authService.register(newLeadData).subscribe((data)=>{
+      console.log("subscribe", data);
+    });
   }
 
   ngOnInit() {

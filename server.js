@@ -150,21 +150,37 @@ app.post('/loginRequest', (req, res) => {
     );
 });
 app.post('/api/insertRequest', (req, res) => {
-    console.log('***** INSERT REQUEST ****** | ' + JSON.stringify(req.body));
     var values = req.body;
-    let statement = "insert into sales (bid_number, status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
 
-    //console.log("server Data", updateObj);
-    connection.query(
-        statement,
-        values,
+    values.bid_number = Number(values.bid_number);
+    values.main_steel_est_schedule = null;
+    values.main_steel_hours = Number(values.main_steel_hours);
+    values.misc_steel_est_schedule = null;
+    values.misc_steel_hours = Number(values.misc_steel_hours);
+    values.bid_received_date = null;
+    values.bid_sent_date = null;
+
+    let valuesArray = []
+    for(i in values){
+        valuesArray.push(values[i]);
+    }
+    
+    let statement = 'INSERT INTO sales (bid_number, fabricator,fabricator_Url,fabricator_phone,fabricator_address,bid_received_date,bid_received_from,bid_sent_date,document_received,document_path,status,executive,bid_type,main_steel_hours,main_steel_est_schedule,misc_steel_hours,misc_steel_est_schedule,inclusion,exclusion) VALUES ?';
+
+    console.log("array", valuesArray);
+
+    connection.query({
+        sql:statement,
+        timeout : 4000,
+        values:values         
+    },
         (error, result, fields) => {
             if (error) {
                 console.log('*** INSERT ERROR *** | ' + error);
             } else {
-                console.log('*** INSERT SUCCESS *** | ' + JSON.stringify(result)                                                                                        );
+                console.log('*** INSERT SUCCESS *** | ' + JSON.stringify(result));
+                res.send(result);
             }
-            res.send(result);
         },
     );
 });
