@@ -44,6 +44,8 @@ export class NewLeadComponent implements OnInit {
   misc_exclusions: any[];
   inclusions: any[] = [];
   exclusions: any[] = [];
+  submitSuccess: boolean;
+  submitted: boolean;
 
   @ViewChild('mySidenav') mySideNav: ElementRef;
   @ViewChild('main') main: ElementRef;
@@ -67,6 +69,12 @@ export class NewLeadComponent implements OnInit {
     
     this.authService.register(newLeadData).subscribe((data)=>{
       console.log("subscribe", data);
+      if(data.affectedRows>0){
+        this.submitSuccess = !this.submitSuccess;
+      }
+      else{
+        this.submitted = !this.submitted;
+      }
     });
   }
 

@@ -30,6 +30,12 @@
                     <span class="menu-item-parent">Users</span>
                 </a>
             </li>
+            <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Roles" [routerLink]="['/roles']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-users"></i>
+                    <span class="menu-item-parent">Roles</span>
+                </a>
+            </li>
         </ul>
 
         <span class="minifyme" data-action="minifyMenu" (click)="closeNav()" style="">
@@ -65,7 +71,7 @@
     </div>
     <app-navbar></app-navbar>
 
-    <div class="container">
+    <div class="container" *ngIf="!submitted && !submitSuccess">
         <div class="col-lg-12 well">
             <div class="row">
                 <form #newLeadForm="ngForm" (ngSubmit)="register(newLeadForm.value);">
@@ -75,7 +81,7 @@
                                 <p>Bid Number</p>
                             </div>
                             <div class="col-sm-6 form-group">
-                                <input type="text" placeholder="Enter Bid Number Here.." name="bid_number" ngModel class="form-control">
+                                <input type="text" placeholder="Enter Bid Number Here.." name="bid_number" ngModel class="form-control" required>
                             </div>
                         </div>
                         <div class="row">
@@ -84,20 +90,20 @@
                         <div class="row">
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Fabricator Name</label>
-                                <input type="text" ngModel name="fabricator" placeholder="Enter Fabricator Name Here.." class="form-control">
+                                <input type="text" ngModel name="fabricator" required placeholder="Enter Fabricator Name Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Url</label>
-                                <input type="text" ngModel name="fabricator_Url" placeholder="Enter Url Here.." class="form-control">
+                                <input type="text" ngModel name="fabricator_Url" required placeholder="Enter Url Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Phone</label>
-                                <input type="text" ngModel name="fabricator_phone" placeholder="Enter Phone Here.." class="form-control">
+                                <input type="text" ngModel name="fabricator_phone" required placeholder="Enter Phone Here.." class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <textarea placeholder="Enter Address Here.." rows="3" class="form-control" ngModel name="fabricator_address"></textarea>
+                            <textarea placeholder="Enter Address Here.." rows="3" required class="form-control" ngModel name="fabricator_address"></textarea>
                         </div>
 
                         <div class="row">
@@ -106,33 +112,33 @@
                         <div class="row">
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Received Date</label>
-                                <input type="date" ngModel name="bid_received_date" placeholder="Enter Received Date Here.." class="form-control">
+                                <input type="date" ngModel name="bid_received_date" required placeholder="Enter Received Date Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Received From</label>
-                                <input type="text" ngModel name="bid_received_from" placeholder="Enter Received From Here.." class="form-control">
+                                <input type="text" ngModel name="bid_received_from" required placeholder="Enter Received From Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Send Date</label>
-                                <input type="date" ngModel name="bid_sent_date" placeholder="Enter Send Date Here.." class="form-control">
+                                <input type="date" ngModel name="bid_sent_date" required placeholder="Enter Send Date Here.." class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Document Received</label>
-                                <input type="text" ngModel name="document_received" placeholder="Enter Document Received Here.." class="form-control">
+                                <input type="text" ngModel name="document_received" required placeholder="Enter Document Received Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Document Path</label>
-                                <input type="text" ngModel name="document_path" placeholder="Enter Document Path Here.." class="form-control">
+                                <input type="text" ngModel name="document_path" required placeholder="Enter Document Path Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Bid Status</label>
-                                <input type="text" ngModel name="status" placeholder="Enter Bid Status Here.." class="form-control">
+                                <input type="text" ngModel name="status" required placeholder="Enter Bid Status Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Executive</label>
-                                <input type="text" ngModel name="executive" placeholder="Enter Executive Here.." class="form-control">
+                                <input type="text" ngModel name="executive" required placeholder="Enter Executive Here.." class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -157,26 +163,28 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Bid Type</label>
-                                <input type="text" name="" placeholder="Enter Bid Type Name Here.." class="form-control">
+                                <label>Project Name</label>
+                                <input type="text" name="project_name" ngModel required placeholder="Enter Bid Type Name Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Main Steel Hours</label>
-                                <input type="text" ngModel name="main_steel_hours" placeholder="Enter Main Steel Hours Here.." class="form-control">
+                                <input type="number" ngModel required name="main_steel_hours" placeholder="Enter Main Steel Hours Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Main Steel Estimated Schedule</label>
-                                <input type="date" ngModel name="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.." class="form-control">
+                                <input type="date" ngModel required name="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.."
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Misc Steel Hours</label>
-                                <input type="number" ngModel name="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
+                                <input type="number" ngModel required name="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
                             </div>
                             <div class="col-sm-4 col-lg-4 form-group">
                                 <label>Misc Steel Estimated Schedule</label>
-                                <input type="date" ngModel name="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
+                                <input type="date" ngModel required name="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.."
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -197,10 +205,36 @@
                                     <input type="checkbox" value="{{exclusion.misc_exc_desc}}" #exc (change)="addExclusion(exc, $event)" name="exclusions">{{exclusion.misc_exc_desc}}</p>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-md btn-info submit-btn">Submit</button>
+                        <button type="submit" [disabled]="!newLeadForm.valid" class="btn btn-md btn-info submit-btn">Submit</button>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+    <div class="p-100 container well" *ngIf="submitSuccess">
+        <div class="text-center">
+            <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+        </div>
+        <div class="">
+            <span class="text-center">
+                <h6>You have Successfully submitted the form. You can either add another or go to home.</h6>
+            </span>
+        </div>
+        <div class="alert alert-success text-center">
+            <strong>Success!</strong> Added Successfully.
+        </div>
+    </div>
+    <div class="container well" *ngIf="submitted">
+        <div class="text-center">
+            <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
+        </div>
+        <div class="">
+            <span class="text-center">
+                <h6>Try again. You can either try again or go back.</h6>
+            </span>
+        </div>
+        <div class="alert alert-danger text-center">
+            <strong>Error!</strong> Unsuccessful.
         </div>
     </div>
     <app-footer></app-footer>

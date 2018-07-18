@@ -50,7 +50,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Put all API endpoints under '/api'
 
@@ -60,7 +60,9 @@ const idleCheck = (req,res,next)=>{
     next();
 }
 
-app.use(idleCheck)
+app.use(idleCheck);
+
+
 app.get('/callback', (req, res) => {
     res.send({ express: 'Callback reached!' });
 });
@@ -152,31 +154,26 @@ app.post('/loginRequest', (req, res) => {
 app.post('/api/insertRequest', (req, res) => {
     var values = req.body;
 
-    values.bid_number = Number(values.bid_number);
-    values.main_steel_est_schedule = null;
-    values.main_steel_hours = Number(values.main_steel_hours);
-    values.misc_steel_est_schedule = null;
-    values.misc_steel_hours = Number(values.misc_steel_hours);
-    values.bid_received_date = null;
-    values.bid_sent_date = null;
-
     let valuesArray = []
     for(i in values){
         valuesArray.push(values[i]);
     }
-    
-    let statement = 'INSERT INTO sales (bid_number, fabricator,fabricator_Url,fabricator_phone,fabricator_address,bid_received_date,bid_received_from,bid_sent_date,document_received,document_path,status,executive,bid_type,main_steel_hours,main_steel_est_schedule,misc_steel_hours,misc_steel_est_schedule,inclusion,exclusion) VALUES ?';
 
-    console.log("array", valuesArray);
+    //let statement = "INSERT INTO sales (bid_number, fabricator,fabricator_Url,fabricator_phone,fabricator_address,bid_received_date,bid_received_from,bid_sent_date,document_received,document_path,status,executive,bid_type,main_steel_hours,main_steel_est_schedule,misc_steel_hours,misc_steel_est_schedule,inclusion,exclusion) SET ?";
 
-    connection.query({
-        sql:statement,
-        timeout : 4000,
-        values:values         
-    },
+    let statement = "INSERT INTO sales SET ?";
+
+
+    //"CREATE TABLE sales (bid_number varchar(50), fabricator varchar(50),fabricator_Url varchar(50),fabricator_phone varchar(50),fabricator_address varchar(50),bid_received_date varchar(50),bid_received_from varchar(50),bid_sent_date varchar(50),document_received varchar(50),document_path varchar(50),status varchar(50),executive varchar(50),bid_type varchar(50),main_steel_hours varchar(50),main_steel_est_schedule varchar(50),misc_steel_hours varchar(50),misc_steel_est_schedule varchar(50),inclusion varchar(50),exclusion varchar(50));"
+    let queryString = values.bid_number+''
+
+    var query = connection.query(
+        statement,
+        values,
         (error, result, fields) => {
             if (error) {
                 console.log('*** INSERT ERROR *** | ' + error);
+                res.send(error);
             } else {
                 console.log('*** INSERT SUCCESS *** | ' + JSON.stringify(result));
                 res.send(result);
@@ -219,6 +216,11 @@ app.post('/api/delete/:ds', (req, res) => {
         error: '',
     };
     res.send(result);
+});
+
+app.get('**', function(req, res, next) {
+    //Path to your main file
+    res.status(200).sendFile(path.join(__dirname+'/public/index.html')); 
 });
 
 
