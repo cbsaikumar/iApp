@@ -295,7 +295,7 @@ img.online {
   }
   .sidenav {
     height: 100%;
-    width: 250px;
+    width: 220px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -397,7 +397,7 @@ img.online {
 
 #main {
     transition: margin-left .5s;
-    margin-left: 250px;
+    margin-left: 220px;
 }
 
 @media screen and (max-height: 450px) {
