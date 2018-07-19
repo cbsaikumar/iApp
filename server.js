@@ -18,11 +18,11 @@ let lastActiveTime = moment();
 process.env['NODE_ENV'] = 'production';
 
 const connection = mysql.createConnection({
-    host: appkeys.local_db.host,
-    port: appkeys.local_db.port,
-    user: appkeys.local_db.username,
-    password: appkeys.local_db.password,
-    database: appkeys.local_db.database,
+    host: appkeys.db.host,
+    port: appkeys.db.port,
+    user: appkeys.db.username,
+    password: appkeys.db.password,
+    database: appkeys.db.database,
     
 });
 
@@ -42,7 +42,12 @@ function initDBConnection() {
         }
         console.log('Connected as Id : ' + connection.threadId);
     });
+    connection.on('error', function(err) {
+        if (err.fatal)
+            initDBConnection();
+    });
 }
+
 
 // Serve static files from the React app
 app.use(helmet());

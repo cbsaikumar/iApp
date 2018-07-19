@@ -11,8 +11,6 @@ module.exports = {
     port: '3306',
     username: 'root',
     password: 'Irs2rvp6xoni#',
-    database: 'iapp',
-    connectTimeout: 30000,
-    acquireTimeout: 20000
+    database: 'iapp'
   },
 };
