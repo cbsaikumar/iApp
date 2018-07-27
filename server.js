@@ -18,11 +18,11 @@ let lastActiveTime = moment();
 process.env['NODE_ENV'] = 'production';
 
 const connection = mysql.createConnection({
-    host: appkeys.db.host,
-    port: appkeys.db.port,
-    user: appkeys.db.username,
-    password: appkeys.db.password,
-    database: appkeys.db.database,
+    host: appkeys.local_db.host,
+    port: appkeys.local_db.port,
+    user: appkeys.local_db.username,
+    password: appkeys.local_db.password,
+    database: appkeys.local_db.database,
     
 });
 
@@ -121,6 +121,18 @@ const returnResult = (err, data) => {
     }
     return resultObj;
 };
+
+app.get('/api/query/sales/:bid', (req, res) => {
+    console.log("bid", req.params.bid);
+    /* STATUS, DATA, ERR */
+    let bid_number = connection.escape(req.params.bid);
+    let sql = 'select * from sales where bid_number= '.concat(req.params.bid);
+    //console.log(sql);
+    connection.query(sql, (error, result, fields) => {
+        res.send(returnResult(error, result));
+    });
+});
+
 app.get('/api/query/:ds', (req, res) => {
     console.log("ds", req.params.ds);
     /* STATUS, DATA, ERR */
@@ -131,6 +143,7 @@ app.get('/api/query/:ds', (req, res) => {
         res.send(returnResult(error, result));
     });
 });
+
 app.post('/loginRequest', (req, res) => {
     console.log('***** LOGIN REQUEST ****** | ' + JSON.stringify(req.body));
     let queryObj = req.body;

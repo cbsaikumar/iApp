@@ -1,0 +1,240 @@
+<aside id="left-panel">
+  <div id="mySidenav" #mySidenav class="sidenav">
+    <div class="login-info">
+      <span>
+        <!-- User image size is adjusted inside CSS, it should stay as it -->
+        <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut" style="padding: 0px;">
+          <img src="../../../assets/imgs/sunny.png" alt="me" class="online">
+          <span>
+            john.doe
+          </span>
+        </a>
+      </span>
+    </div>
+    <ul>
+      <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a href="#" title="Sales" [routerLink]="['/sales']">
+          <i class="mr-2 fa fa-lg fa-fw fa-home"></i>
+          <span class="menu-item-parent">Sales</span>
+        </a>
+      </li>
+      <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a href="#" title="Estimation" [routerLink]="['/estimation']">
+          <i class="mr-2 fa fa-lg fa-fw fa-list-alt"></i>
+          <span class="menu-item-parent">Estimation</span>
+        </a>
+      </li>
+      <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a href="#" title="Users" [routerLink]="['/users']">
+          <i class="mr-2 fa fa-lg fa-fw fa-user-circle"></i>
+          <span class="menu-item-parent">Users</span>
+        </a>
+      </li>
+      <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a href="#" title="Roles" [routerLink]="['/roles']">
+          <i class="mr-2 fa fa-lg fa-fw fa-users"></i>
+          <span class="menu-item-parent">Roles</span>
+        </a>
+      </li>
+    </ul>
+
+    <span class="minifyme" data-action="minifyMenu" (click)="closeNav()" style="">
+      <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+  </div>
+</aside>
+
+<div id="main" #main>
+  <div id="ribbon">
+    <span *ngIf="showMenu" style="font-size:30px;cursor:pointer; color:aliceblue;" (click)="openNav()">&#9776;</span>
+    <span class="ribbon-button-alignment">
+      <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom"
+        data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings."
+        data-html="true">
+        <i class="fa fa-refresh"></i>
+      </span>
+    </span>
+
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+      <li>Home</li>
+      <li>{{title}}</li>
+    </ol>
+    <div id="logout" class="btn-header transparent pull-right">
+      <span>
+        <a (click)="logout()" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
+          <i class="fa fa-sign-out"></i>
+        </a>
+      </span>
+    </div>
+    <!-- end breadcrumb -->
+  </div>
+  <app-navbar></app-navbar>
+
+  <div class="container">
+    <div class="col-lg-12 well">
+      <div class="row">
+        <form *ngIf="dataLoaded">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-6 ">
+                <p>Bid Number</p>
+              </div>
+              <div class="col-sm-6 ">
+                <input type="text" placeholder="Enter Bid Number Here.." class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <h5 class="col-sm-6 ">Fabricator Info</h5>
+            </div>
+            <div class="row" [formGroup]="fabriatorInfoForm">
+              <div class="col-sm-4 col-lg-4">
+                <label>Fabricator Name</label>
+                <input type="text" formControlName="fabricator" placeholder="Enter Fabricator Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Url</label>
+                <input type="text" formControlName="fabricator_Url" placeholder="Enter Url Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Phone</label>
+                <input type="text" formControlName="fabricator_phone" placeholder="Enter Phone Here.." class="form-control">
+              </div>
+              <div class="col-sm-12 col-lg-12 col-md-12">
+                <label>Address</label>
+                <textarea placeholder="Enter Address Here.." rows="3" class="form-control" formControlName="fabricator_address"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <h5 class="col-sm-6 ">Bid Info</h5>
+            </div>
+            <div class="row" [formGroup]="bidInfoForm">
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Received Date</label>
+                <input type="date" formControlName="bid_received_date" placeholder="Enter Received Date Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Received From</label>
+                <input type="text" formControlName="bid_received_from" placeholder="Enter Received From Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Send Date</label>
+                <input type="date" formControlName="bid_sent_date" placeholder="Enter Send Date Here.." class="form-control">
+              </div>
+              <div class="row col-sm-12 col-lg-12 col-md-12">
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Document Received</label>
+                  <input type="text" formControlName="document_received" placeholder="Enter Document Received Here.." class="form-control">
+                </div>
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Document Path</label>
+                  <input type="text" formControlName="document_path" placeholder="Enter Document Path Here.." class="form-control">
+                </div>
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Bid Status</label>
+                  <input type="text" formControlName="status" placeholder="Enter Bid Status Here.." class="form-control">
+                </div>
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Executive</label>
+                  <input type="text" formControlName="executive" placeholder="Enter Executive Here.." class="form-control">
+                </div>
+                <div class="row  col-sm-12 col-lg-12 col-md-12">
+                  <div class="col-sm-4 col-lg-4">
+                    <label>Bid Type</label>
+                  </div>
+                </div>
+                <div class="row col-sm-12 col-lg-12 col-md-12">
+                  <div class="col-sm-4 col-lg-4 ">
+                    <input formControlName="bid_type" value="Structural" type="radio">Structural
+                  </div>
+                  <div class="col-sm-4 col-lg-4 ">
+                    <input formControlName="bid_type" type="radio" value="Miscellaneous">Miscellaneous
+                  </div>
+                  <div class="col-sm-4 col-lg-4 ">
+                    <input formControlName="bid_type" type="radio" value="Engineering">Engineering
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <h5 class="col-sm-6 ">Estimation Info</h5>
+            </div>
+            <div class="row" [formGroup]="estimationInfoForm">
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Project</label>
+                <input type="text" formControlName="project_name" placeholder="Enter Bid Type Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Main Steel Hours</label>
+                <input type="number" formControlName="main_steel_hours" placeholder="Enter Main Steel Hours Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Main Steel Estimated Schedule</label>
+                <input type="date" formControlName="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.." class="form-control">
+              </div>
+              <div class="row col-sm-12 col-lg-12 col-md-12">
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Misc Steel Hours</label>
+                  <input type="number" formControlName="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
+                </div>
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Misc Steel Estimated Schedule</label>
+                  <input type="date" formControlName="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
+                </div>
+              </div>
+              <!-- <div class="row col-sm-12 col-lg-12 col-md-12">
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Inclusions</label>
+                </div>
+                <div class="col-sm-12 col-lg-12">
+                  <p *ngFor="let inclusion of misc_inclusions" class="col-md-3 col-lg-3">
+                    <input type="checkbox" value="{{inclusion.misc_inc_desc}}" #inc (change)="addInclusion(inc, $event)" formControlName="inclusions">{{inclusion.misc_inc_desc}}</p>
+                </div>
+              </div> -->
+              <!-- <div class="row col-sm-12 col-lg-12 col-md-12">
+                <div class="col-sm-4 col-lg-4 ">
+                  <label>Exclustions</label>
+                </div>
+                <div class="col-sm-12 col-lg-12 ">
+                  <p *ngFor="let exclusion of misc_exclusions">
+                    <input type="checkbox" value="{{exclusion.misc_exc_desc}}" #exc (change)="addExclusion(exc, $event)" formControlName="exclusions">{{exclusion.misc_exc_desc}}</p>
+                </div>
+              </div> -->
+            </div>
+
+
+            <button type="submit" class="btn btn-md btn-info submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="p-100 container well" *ngIf="submitSuccess">
+    <div class="text-center">
+      <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+    </div>
+    <div class="">
+      <span class="text-center">
+        <h6>You have Successfully submitted the form. You can either add another or go to home.</h6>
+      </span>
+    </div>
+    <div class="alert alert-success text-center">
+      <strong>Success!</strong> Added Successfully.
+    </div>
+  </div>
+  <div class="container well" *ngIf="submitted">
+    <div class="text-center">
+      <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
+    </div>
+    <div class="">
+      <span class="text-center">
+        <h6>Try again. You can either try again or go back.</h6>
+      </span>
+    </div>
+    <div class="alert alert-danger text-center">
+      <strong>Error!</strong> Unsuccessful.
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

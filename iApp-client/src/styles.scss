@@ -410,5 +410,15 @@ img.online {
     transform: translateY(4px);
   }
 
+td.details-control {
+    cursor: pointer;
+}
+
+.dataTable thead tr th.details-control {
+    background-image: none !important;
+}
+tr.shown td.details-control {
+}
+
 
 

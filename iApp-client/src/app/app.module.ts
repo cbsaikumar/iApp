@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {FormsModule, FormGroup, FormControl} from '@angular/forms';
+import {FormsModule, FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {AgGridModule } from 'ag-grid-angular'
 import { HttpModule } from '@angular/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -25,6 +25,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { NewLeadComponent } from './components/new-lead/new-lead.component';
 import { RolesComponent } from './components/roles/roles.component';
+import { SalesDetailsComponent } from './components/sales-details/sales-details.component';
 
 @NgModule({
   declarations: [
@@ -38,13 +39,15 @@ import { RolesComponent } from './components/roles/roles.component';
     UsersComponent,
     SideNavComponent,
     NewLeadComponent,
-    RolesComponent
+    RolesComponent,
+    SalesDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     FlashMessagesModule,
     MDBBootstrapModule.forRoot(),
