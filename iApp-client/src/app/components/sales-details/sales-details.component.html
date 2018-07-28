@@ -131,7 +131,7 @@
               </div>
               <div class="col-sm-4 col-lg-4 ">
                 <label>Bid Status</label>
-                <input type="text" formControlName="status" placeholder="Enter Bid Status Here.." class="form-control">
+                <input type="text" #bidStatus formControlName="status" placeholder="Enter Bid Status Here.." class="form-control">
               </div>
               <div class="col-sm-4 col-lg-4 ">
                 <label>Executive</label>
@@ -158,7 +158,7 @@
             <div class="row">
               <h5 class="col-sm-6 ">Estimation Info</h5>
             </div>
-            <div class="row" [formGroup]="estimationInfoForm">
+            <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value === 'estimated'">
               <div class="col-sm-4 col-lg-4 ">
                 <label>Project</label>
                 <input type="text" formControlName="project_name" placeholder="Enter Bid Type Here.." class="form-control">

@@ -80,9 +80,10 @@ export class SalesDetailsComponent implements OnInit {
           misc_steel_hours: new FormControl(this.salesDetails.misc_steel_hours),
         });
       
-        this.fabriatorInfoForm.disable();
-        this.bidInfoForm.disable();
-        this.estimationInfoForm.disable();
+        // this.fabriatorInfoForm.disable();
+        // this.bidInfoForm.disable();
+        // console.log("status", this.bidInfoForm);
+        // this.estimationInfoForm.disable();
       }
     });
   };
