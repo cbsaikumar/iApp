@@ -91,6 +91,16 @@ export class SalesDetailsComponent implements OnInit {
 
   }
 
+  prepareQuote(){
+    let bid_number = this.salesDetails.bid_number;
+    console.log("sendForEst", bid_number);
+    this.router.navigate(['quote', bid_number]);
+  }
+
+  close(){
+    history.back();
+  }
+
   openNav() {
     this.showMenu = false;
     this.mySideNav.nativeElement.style.width = "250px";

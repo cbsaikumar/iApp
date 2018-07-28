@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams, ResponseContentType, RequestOptions } from '@angular/http';
 import { LeadData } from '../components/new-lead/new-lead.component';
+import { Quote } from '../components/quote/quote.component';
 import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -54,6 +55,25 @@ export class AuthService {
     //console.log("url", this.saleInsertUrl);
 
     return this.http.post(this.saleInsertUrl, data) 
+      .map(res => res.json());
+
+  }
+
+  addQuote(quote:Quote, bid_number:number){
+    let statement: string = "insert into sales (status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
+    //params.append('Content-Type', 'application/json');
+    //params.append('statement', statement);
+    let headers = { "Content-Type": "application/x-www-form-urlencoded" };
+
+    const searchParams = {
+      params: {
+          quote: quote,
+          bid_number: bid_number
+      }
+  }
+    //console.log("url", this.saleInsertUrl);
+
+    return this.http.post(this.saleInsertUrl, searchParams) 
       .map(res => res.json());
 
   }

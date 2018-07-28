@@ -26,6 +26,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { NewLeadComponent } from './components/new-lead/new-lead.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { SalesDetailsComponent } from './components/sales-details/sales-details.component';
+import { QuoteComponent } from './components/quote/quote.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SalesDetailsComponent } from './components/sales-details/sales-details.
     SideNavComponent,
     NewLeadComponent,
     RolesComponent,
-    SalesDetailsComponent
+    SalesDetailsComponent,
+    QuoteComponent
   ],
   imports: [
     BrowserModule,

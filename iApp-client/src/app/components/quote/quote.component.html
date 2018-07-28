@@ -1,0 +1,181 @@
+<aside id="left-panel">
+    <div id="mySidenav" #mySidenav class="sidenav">
+        <div class="login-info">
+            <span>
+                <!-- User image size is adjusted inside CSS, it should stay as it -->
+                <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut" style="padding: 0px;">
+                    <img src="../../../assets/imgs/sunny.png" alt="me" class="online">
+                    <span>
+                        john.doe
+                    </span>
+                </a>
+            </span>
+        </div>
+        <ul>
+            <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Sales" [routerLink]="['/sales']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-home"></i>
+                    <span class="menu-item-parent">Sales</span>
+                </a>
+            </li>
+            <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Estimation" [routerLink]="['/estimation']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-list-alt"></i>
+                    <span class="menu-item-parent">Estimation</span>
+                </a>
+            </li>
+            <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Users" [routerLink]="['/users']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-user-circle"></i>
+                    <span class="menu-item-parent">Users</span>
+                </a>
+            </li>
+            <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a href="#" title="Roles" [routerLink]="['/roles']">
+                    <i class="mr-2 fa fa-lg fa-fw fa-users"></i>
+                    <span class="menu-item-parent">Roles</span>
+                </a>
+            </li>
+        </ul>
+
+        <span class="minifyme" data-action="minifyMenu" (click)="closeNav()" style="">
+            <i class="fa fa-arrow-circle-left hit"></i>
+        </span>
+    </div>
+</aside>
+
+<div id="main" #main>
+    <div id="ribbon">
+        <span *ngIf="showMenu" style="font-size:30px;cursor:pointer; color:aliceblue;" (click)="openNav()">&#9776;</span>
+        <span class="ribbon-button-alignment">
+            <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom"
+                data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings."
+                data-html="true">
+                <i class="fa fa-refresh"></i>
+            </span>
+        </span>
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>Home</li>
+            <li>{{title}}</li>
+        </ol>
+        <div id="logout" class="btn-header transparent pull-right">
+            <span>
+                <a (click)="logout()" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
+                    <i class="fa fa-sign-out"></i>
+                </a>
+            </span>
+        </div>
+        <!-- end breadcrumb -->
+    </div>
+    <app-navbar></app-navbar>
+
+    <div class="container" *ngIf="!submitted && !submitSuccess">
+        <div class="col-lg-12 well">
+            <div class="row">
+                <form #quoteForm="ngForm" (ngSubmit)="addQuote(quoteForm.value);">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <h5 class="col-sm-6 form-group">Estimation Info</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>BidType</label>
+                            </div>
+                            <div class="col-sm-12 col-lg-12 form-group inclusions">
+                                <p *ngFor="let bidType of bidTypes" class="col-lg-3 col-sm-12 col-md-3">
+                                    <input type="checkbox" value="{{bidType}}" #bid (change)="addBidType(bid, $event)" name="bidTypes">{{bidType}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Project Name</label>
+                                <input type="text" name="project_name" ngModel required placeholder="Enter Bid Type Name Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Main Steel Hours</label>
+                                <input type="number" ngModel required name="main_steel_hours" placeholder="Enter Main Steel Hours Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Main Steel Estimated Schedule</label>
+                                <input type="date" ngModel required name="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.."
+                                    class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Quote Price</label>
+                                <input type="number" ngModel required name="quote_price" placeholder="Enter Quote Price Here.."
+                                    class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Engineering Price</label>
+                                <input type="number" ngModel required name="engg_price" placeholder="Enter Engineering Price Here.."
+                                    class="form-control">
+                            </div><div class="col-sm-12 col-lg-12 col-md-12">
+                                <label>Remarks/Commnents</label>
+                                <textarea placeholder="Enter Remarks/Comments Here.." rows="3" class="form-control" ngModel name="comments"></textarea>
+                              </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Misc Steel Hours</label>
+                                <input type="number" ngModel required name="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Misc Steel Estimated Schedule</label>
+                                <input type="date" ngModel required name="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.."
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Inclusions</label>
+                            </div>
+                            <div class="col-sm-12 col-lg-12 form-group inclusions">
+                                <p *ngFor="let inclusion of misc_inclusions" class="col-lg-3 col-sm-12 col-md-3">
+                                    <input type="checkbox" value="{{inclusion.misc_inc_desc}}" #inc (change)="addInclusion(inc, $event)" name="inclusions">{{inclusion.misc_inc_desc}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-lg-4 form-group">
+                                <label>Exclustions</label>
+                            </div>
+                            <div class="col-sm-12 col-lg-12 form-group">
+                                <p *ngFor="let exclusion of misc_exclusions">
+                                    <input type="checkbox" value="{{exclusion.misc_exc_desc}}" #exc (change)="addExclusion(exc, $event)" name="exclusions">{{exclusion.misc_exc_desc}}</p>
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="!quoteForm.valid" class="btn btn-md btn-info submit-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="p-100 container well" *ngIf="submitSuccess">
+        <div class="text-center">
+            <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+        </div>
+        <div class="">
+            <span class="text-center">
+                <h6>Added Quotation data.</h6>
+            </span>
+        </div>
+        <div class="alert alert-success text-center">
+            <strong>Success!</strong> Added Successfully.
+        </div>
+    </div>
+    <div class="container well" *ngIf="submitted">
+        <div class="text-center">
+            <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
+        </div>
+        <div class="">
+            <span class="text-center">
+                <h6>Try again. You can either try again or go back.</h6>
+            </span>
+        </div>
+        <div class="alert alert-danger text-center">
+            <strong>Error!</strong> Unsuccessful.
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

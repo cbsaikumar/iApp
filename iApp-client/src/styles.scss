@@ -417,6 +417,11 @@ td.details-control {
 .dataTable thead tr th.details-control {
     background-image: none !important;
 }
+table.dataTable tbody td.bid_class{
+    color:blue;
+    text-decoration: underline;
+    cursor:pointer;
+}
 tr.shown td.details-control {
 }
 

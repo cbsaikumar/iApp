@@ -29,6 +29,7 @@ export class SalesComponent implements OnInit {
     this.rootNode = rootNode;
   }
   ngOnInit() {
+    let _self = this;
     this.authService.getSales().subscribe(data => {
       console.log("sales", data, typeof (data.data));
       this.salesData = data.data;
@@ -74,11 +75,8 @@ export class SalesComponent implements OnInit {
           },
           { "className": 'bid_class',
             data: 'bid_number',
-            render: (data: any, type: any, row: any, meta) => {
-              return `
-                  <a href="sales/`+data+`">`+data+`</a>`;                
-              }
-           },
+            //<a href="sales/`+data+`">`+data+`</a>`;
+          },
           {
             data: 'bid_received_date',
             type: 'date'
@@ -100,9 +98,17 @@ export class SalesComponent implements OnInit {
 
       $('#example tbody').on('click', 'td:nth-child(2)', function () {
         var table = $('#example').DataTable();
-        console.log(table.cell(this).data());
-        
+        let bid_number = table.cell(this).data();
+        if(bid_number != null){
+          _self.router.navigate(['/sales', bid_number]);
+        }        
       });
+      // $('#example tbody').on('mouseover', 'td:nth-child(2)', function () {
+      //   var table = $('#example').DataTable();
+      //   console.log(table.cell(this).data());
+      //   this.style.color="red";
+        
+      // });
 
       $('#example tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');

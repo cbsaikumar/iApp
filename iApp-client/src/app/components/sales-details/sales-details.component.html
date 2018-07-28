@@ -121,42 +121,40 @@
                 <label>Send Date</label>
                 <input type="date" formControlName="bid_sent_date" placeholder="Enter Send Date Here.." class="form-control">
               </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Document Received</label>
+                <input type="text" formControlName="document_received" placeholder="Enter Document Received Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Document Path</label>
+                <input type="text" formControlName="document_path" placeholder="Enter Document Path Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Bid Status</label>
+                <input type="text" formControlName="status" placeholder="Enter Bid Status Here.." class="form-control">
+              </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Executive</label>
+                <input type="text" formControlName="executive" placeholder="Enter Executive Here.." class="form-control">
+              </div>
+
               <div class="row col-sm-12 col-lg-12 col-md-12">
-                <div class="col-sm-4 col-lg-4 ">
-                  <label>Document Received</label>
-                  <input type="text" formControlName="document_received" placeholder="Enter Document Received Here.." class="form-control">
+                <div class="col-sm-4 col-lg-4">
+                  <label>Bid Type</label>
                 </div>
+              </div>
+              <div class="col-sm-12 col-lg-12 col-md-12">
                 <div class="col-sm-4 col-lg-4 ">
-                  <label>Document Path</label>
-                  <input type="text" formControlName="document_path" placeholder="Enter Document Path Here.." class="form-control">
-                </div>
-                <div class="col-sm-4 col-lg-4 ">
-                  <label>Bid Status</label>
-                  <input type="text" formControlName="status" placeholder="Enter Bid Status Here.." class="form-control">
+                  <input formControlName="bid_type" value="Structural" type="radio">Structural
                 </div>
                 <div class="col-sm-4 col-lg-4 ">
-                  <label>Executive</label>
-                  <input type="text" formControlName="executive" placeholder="Enter Executive Here.." class="form-control">
+                  <input formControlName="bid_type" type="radio" value="Miscellaneous">Miscellaneous
                 </div>
-                <div class="row  col-sm-12 col-lg-12 col-md-12">
-                  <div class="col-sm-4 col-lg-4">
-                    <label>Bid Type</label>
-                  </div>
-                </div>
-                <div class="row col-sm-12 col-lg-12 col-md-12">
-                  <div class="col-sm-4 col-lg-4 ">
-                    <input formControlName="bid_type" value="Structural" type="radio">Structural
-                  </div>
-                  <div class="col-sm-4 col-lg-4 ">
-                    <input formControlName="bid_type" type="radio" value="Miscellaneous">Miscellaneous
-                  </div>
-                  <div class="col-sm-4 col-lg-4 ">
-                    <input formControlName="bid_type" type="radio" value="Engineering">Engineering
-                  </div>
+                <div class="col-sm-4 col-lg-4 ">
+                  <input formControlName="bid_type" type="radio" value="Engineering">Engineering
                 </div>
               </div>
             </div>
-
             <div class="row">
               <h5 class="col-sm-6 ">Estimation Info</h5>
             </div>
@@ -173,16 +171,15 @@
                 <label>Main Steel Estimated Schedule</label>
                 <input type="date" formControlName="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.." class="form-control">
               </div>
-              <div class="row col-sm-12 col-lg-12 col-md-12">
-                <div class="col-sm-4 col-lg-4 ">
-                  <label>Misc Steel Hours</label>
-                  <input type="number" formControlName="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
-                </div>
-                <div class="col-sm-4 col-lg-4 ">
-                  <label>Misc Steel Estimated Schedule</label>
-                  <input type="date" formControlName="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
-                </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Misc Steel Hours</label>
+                <input type="number" formControlName="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
               </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Misc Steel Estimated Schedule</label>
+                <input type="date" formControlName="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
+              </div>
+              
               <!-- <div class="row col-sm-12 col-lg-12 col-md-12">
                 <div class="col-sm-4 col-lg-4 ">
                   <label>Inclusions</label>
@@ -202,9 +199,11 @@
                 </div>
               </div> -->
             </div>
-
-
-            <button type="submit" class="btn btn-md btn-info submit-btn">Submit</button>
+            <div class="row">
+              <button type="button" (click)="prepareQuote()" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-3 col-sm-12">Prepare Quote</button>
+              <button type="button" (click)="sendForEstimation()" class="btn btn-sm btn-info submit-btn m-3 col-lg-3 col-md-3 col-sm-12">Send For Estimation</button>
+              <button type="button" (click)="close()" class="btn btn-sm btn-info submit-btn m-3 col-lg-3 col-md-3 col-sm-12">Close</button>
+            </div>
           </div>
         </form>
       </div>

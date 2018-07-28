@@ -9,4 +9,6 @@ table.dataTable thead .sorting_desc:after {
     content: none;
 }
 
-
+table.dataTable tbody td.bid_data_class{
+    color:blue;
+}

@@ -170,24 +170,16 @@ app.post('/loginRequest', (req, res) => {
     );
 });
 app.post('/api/insertRequest', (req, res) => {
-    var values = req.body;
+    var quote = req.body.params.quote;
+    var bid_number = req.body.params.bid_number;
+    console.log("bid", bid_number, quote);
 
-    let valuesArray = []
-    for(i in values){
-        valuesArray.push(values[i]);
-    }
-
-    //let statement = "INSERT INTO sales (bid_number, fabricator,fabricator_Url,fabricator_phone,fabricator_address,bid_received_date,bid_received_from,bid_sent_date,document_received,document_path,status,executive,bid_type,main_steel_hours,main_steel_est_schedule,misc_steel_hours,misc_steel_est_schedule,inclusion,exclusion) SET ?";
-
-    let statement = "INSERT INTO sales SET ?";
-
-
-    //"CREATE TABLE sales (bid_number varchar(50), fabricator varchar(50),fabricator_Url varchar(50),fabricator_phone varchar(50),fabricator_address varchar(50),bid_received_date varchar(50),bid_received_from varchar(50),bid_sent_date varchar(50),document_received varchar(50),document_path varchar(50),status varchar(50),executive varchar(50),bid_type varchar(50),main_steel_hours varchar(50),main_steel_est_schedule varchar(50),misc_steel_hours varchar(50),misc_steel_est_schedule varchar(50),inclusion varchar(50),exclusion varchar(50));"
-    let queryString = values.bid_number+''
-
+    let statement = "UPDATE sales SET inclusion=?, exclusion=?,main_steel_est_schedule=?,main_steel_hours=?,misc_steel_est_schedule=?, misc_steel_hours=?,status=?,bid_type=?,quote_price=?,engg_price=?,comments=? WHERE bid_number=?";
+    
     var query = connection.query(
         statement,
-        values,
+        [quote.inclusion,quote.exclusion,quote.main_steel_est_schedule,quote.main_steel_hours,quote.misc_steel_est_schedule,quote.misc_steel_hours,quote.status, quote.bid_type,quote.quote_price, quote.engg_price, quote.comments,
+        bid_number],
         (error, result, fields) => {
             if (error) {
                 console.log('*** INSERT ERROR *** | ' + error);
