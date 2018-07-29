@@ -1,9 +1,12 @@
 declare var require: any;
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import * as jsPDF from 'jspdf';
+
 var $ = require('jquery');
 var dt = require('datatables.net');
 export class Quote {
@@ -27,10 +30,11 @@ export class Quote {
   styleUrls: ['../../../../node_modules/datatables.net-dt/css/jquery.dataTables.css', './quote.component.scss']
 })
 export class QuoteComponent implements OnInit {
+  quoteInfoForm: FormGroup;
 
   title: string = "Quote";
   showMenu: boolean;
-
+  salesDetails: any;
   misc_inclusions: any[];
   misc_exclusions: any[];
   inclusions: any[] = [];
@@ -43,9 +47,11 @@ export class QuoteComponent implements OnInit {
 
   @ViewChild('mySidenav') mySideNav: ElementRef;
   @ViewChild('main') main: ElementRef;
+  @ViewChild('quote') quote: ElementRef;
 
 
   constructor(
+      private fb: FormBuilder,
       private authService:AuthService, 
       private flashMessage: FlashMessagesService, 
       private router: Router,
@@ -90,7 +96,32 @@ export class QuoteComponent implements OnInit {
     this.authService.getExclusions().subscribe(data => {
     
       this.misc_exclusions = data.data;      
-    });   
+    });  
+     
+    this.authService.getSalesDetails(bid_number).subscribe((data) => {
+      if (data) {
+        this.salesDetails = data.data[0];
+        console.log(this.salesDetails);
+      
+        this.quoteInfoForm = this.fb.group({
+          project_name: new FormControl(this.salesDetails.project_name),
+          main_steel_est_schedule: new FormControl(new Date(this.salesDetails.main_steel_est_schedule).toISOString().substring(0,10)),
+          main_steel_hours: new FormControl(this.salesDetails.main_steel_hours),
+          misc_steel_est_schedule: new FormControl(new Date(this.salesDetails.misc_steel_est_schedule).toISOString().substring(0,10)),
+          quote_price: new FormControl(this.salesDetails.quote_price),
+          engg_price: new FormControl(this.salesDetails.engg_price),
+          comments: new FormControl(this.salesDetails.comments),
+          misc_steel_hours: new FormControl(this.salesDetails.misc_steel_hours),
+          inclusion: new FormControl(this.salesDetails.inclusion),
+          exclusion: new FormControl(this.salesDetails.exclusion)
+        });
+    
+        // this.fabriatorInfoForm.disable();
+        this.quoteInfoForm.disable();
+        // console.log("status", this.bidInfoForm);
+        // this.estimationInfoForm.disable();
+      }
+    });
   };
 
   addInclusion(inc, event){
@@ -103,14 +134,44 @@ export class QuoteComponent implements OnInit {
     }
   }
 
-  addBidType(bid, event){
-    if(event.target.checked ===  true){
-      this.selectBidTypes.push(bid.value);
-    }
-    else{
-      let index = this.selectBidTypes.indexOf(bid.value);
-      this.selectBidTypes.splice(index, 1);
-    }
+  // addBidType(bid, event){
+  //   if(event.target.checked ===  true){
+  //     this.selectBidTypes.push(bid.value);
+  //   }
+  //   else{
+  //     let index = this.selectBidTypes.indexOf(bid.value);
+  //     this.selectBidTypes.splice(index, 1);
+  //   }
+  // }
+  cancel(){
+    history.back();
+  }
+
+  generateQuote(){
+    // const doc = new jsPDF();
+    // doc.addImage("../../assets/imgs/report_header.png", 0, 0);
+    // doc.save("Report.pdf");
+    // let specialElementHandlers = {
+    //   '#editor' : function(element, renderer){
+    //     return true;
+    //   }
+    // };
+
+    // let quote = this.quote.nativeElement;
+
+    // doc.fromHTML(quote.innerHTML, 15, 15, {
+    //   'widh': 190,
+    //   'elementHandlers' : specialElementHandlers
+    // });
+
+    // doc.save("Report.pdf");
+
+    // html2canvas(quote.innerHTML).then(function(canvas){
+    //   const doc = new jsPDF();
+    //   doc.save("Report.pdf");
+    // });
+
+  
   }
 
   addExclusion(exc, event){

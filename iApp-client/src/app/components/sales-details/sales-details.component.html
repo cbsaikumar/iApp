@@ -142,10 +142,10 @@
                 <input type="text" formControlName="bid_type" placeholder="Enter Bid Type Here.." class="form-control">
               </div>
             </div>
-            <div class="row" *ngIf="bidStatus.value === 'estimated'">
+            <div class="row" *ngIf="bidStatus.value != 'estimated'">
               <h5 class="col-sm-6 ">Estimation Info</h5>
             </div>
-            <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value === 'estimated'">
+            <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value != 'estimated'">
               <div class="col-sm-4 col-lg-4 ">
                 <label>Project</label>
                 <input type="text" formControlName="project_name" placeholder="Enter Project Name Here.." class="form-control">
