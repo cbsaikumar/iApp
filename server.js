@@ -9,7 +9,6 @@ const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
 const moment = require('moment');
-const bcrypt = require('bcrypt');
 
 
 const REFRESH_INTERVAL = 10000*60;
