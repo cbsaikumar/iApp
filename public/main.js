@@ -1929,14 +1929,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
+        // this.loginUrl = "http://localhost:5000/loginRequest";
+        // this.salesUrl = "http://localhost:5000/api/query/sales";
+        // this.usersUrl = "http://localhost:5000/api/query/users";
+        // this.rolesUrl = "http://localhost:5000/api/query/roles";
+        // this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
+        // this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
+        // this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
         this.http = http;
-        this.loginUrl = "http://localhost:5000/loginRequest";
-        this.salesUrl = "http://localhost:5000/api/query/sales";
-        this.usersUrl = "http://localhost:5000/api/query/users";
-        this.rolesUrl = "http://localhost:5000/api/query/roles";
-        this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
-        this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
-        this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
+        this.loginUrl = "loginRequest";
+        this.salesUrl = "api/query/sales";
+        this.usersUrl = "api/query/users";
+        this.rolesUrl = "api/query/roles";
+        this.inclusionsUrl = "api/query/misc_inclusions";
+        this.exClusionsUrl = "api/query/misc_exclusions";
+        this.saleInsertUrl = "api/insertRequest";
     }
     AuthService.prototype.login = function (username, password) {
         var params = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["URLSearchParams"]();
