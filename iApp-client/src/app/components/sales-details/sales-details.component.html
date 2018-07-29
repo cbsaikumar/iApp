@@ -71,17 +71,17 @@
   </div>
   <app-navbar></app-navbar>
 
-  <div class="container">
+  <div class="m-5">
     <div class="col-lg-12 well">
       <div class="row">
         <form *ngIf="dataLoaded">
           <div class="col-sm-12">
-            <div class="row">
+            <div class="row" [formGroup]="bidInfoForm">
               <div class="col-sm-6 ">
                 <p>Bid Number</p>
               </div>
               <div class="col-sm-6 ">
-                <input type="text" placeholder="Enter Bid Number Here.." class="form-control">
+                <input type="text" formControlName="bid_number" placeholder="Enter Bid Number Here.." class="form-control">
               </div>
             </div>
             <div class="row">
@@ -137,31 +137,18 @@
                 <label>Executive</label>
                 <input type="text" formControlName="executive" placeholder="Enter Executive Here.." class="form-control">
               </div>
-
-              <div class="row col-sm-12 col-lg-12 col-md-12">
-                <div class="col-sm-4 col-lg-4">
-                  <label>Bid Type</label>
-                </div>
-              </div>
-              <div class="col-sm-12 col-lg-12 col-md-12">
-                <div class="col-sm-4 col-lg-4 ">
-                  <input formControlName="bid_type" value="Structural" type="radio">Structural
-                </div>
-                <div class="col-sm-4 col-lg-4 ">
-                  <input formControlName="bid_type" type="radio" value="Miscellaneous">Miscellaneous
-                </div>
-                <div class="col-sm-4 col-lg-4 ">
-                  <input formControlName="bid_type" type="radio" value="Engineering">Engineering
-                </div>
+              <div class="col-sm-4 col-lg-4 ">
+                <label>Bid Type</label>
+                <input type="text" formControlName="bid_type" placeholder="Enter Bid Type Here.." class="form-control">
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="bidStatus.value === 'estimated'">
               <h5 class="col-sm-6 ">Estimation Info</h5>
             </div>
             <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value === 'estimated'">
               <div class="col-sm-4 col-lg-4 ">
                 <label>Project</label>
-                <input type="text" formControlName="project_name" placeholder="Enter Bid Type Here.." class="form-control">
+                <input type="text" formControlName="project_name" placeholder="Enter Project Name Here.." class="form-control">
               </div>
               <div class="col-sm-4 col-lg-4 ">
                 <label>Main Steel Hours</label>
@@ -200,9 +187,10 @@
               </div> -->
             </div>
             <div class="row">
-              <button type="button" (click)="prepareQuote()" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-3 col-sm-12">Prepare Quote</button>
-              <button type="button" (click)="sendForEstimation()" class="btn btn-sm btn-info submit-btn m-3 col-lg-3 col-md-3 col-sm-12">Send For Estimation</button>
-              <button type="button" (click)="close()" class="btn btn-sm btn-info submit-btn m-3 col-lg-3 col-md-3 col-sm-12">Close</button>
+              <button type="button" (click)="prepareQuote()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Prepare Quote</button>
+              <button type="button" (click)="reQuote()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Re-Quote</button>
+              <button type="button" (click)="sendForEstimation()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Send For Estimation</button>
+              <button type="button" (click)="close()" class="btn btn-sm btn-info submit-btn m-2 col-lg-2 col-md-3 col-sm-5">Close</button>
             </div>
           </div>
         </form>

@@ -61,9 +61,9 @@ export class SalesDetailsComponent implements OnInit {
         });
         this.bidInfoForm = this.fb.group({
           bid_number: new FormControl(this.salesDetails.bid_number),
-          bid_received_date: new FormControl(new Date(this.salesDetails.bid_received_date)),
+          bid_received_date: new FormControl(new Date(this.salesDetails.bid_received_date).toISOString().substring(0,10)),
           bid_received_from: new FormControl(this.salesDetails.bid_received_from),
-          bid_sent_date: new FormControl(this.salesDetails.bid_sent_date),
+          bid_sent_date: new FormControl(new Date(this.salesDetails.bid_sent_date).toISOString().substring(0,10)),
           bid_type: new FormControl(this.salesDetails.bid_type),
           document_path: new FormControl(this.salesDetails.document_path),
           document_received: new FormControl(this.salesDetails.document_received),
@@ -74,14 +74,14 @@ export class SalesDetailsComponent implements OnInit {
         this.estimationInfoForm = this.fb.group({
           inclusion: new FormControl(this.salesDetails.inclusion),
           project_name: new FormControl(this.salesDetails.project_name),
-          main_steel_est_schedule: new FormControl(this.salesDetails.main_steel_est_schedule),
+          main_steel_est_schedule: new FormControl(new Date(this.salesDetails.main_steel_est_schedule).toISOString().substring(0,10)),
           main_steel_hours: new FormControl(this.salesDetails.main_steel_hours),
-          misc_steel_est_schedule: new FormControl(this.salesDetails.misc_steel_est_schedule),
+          misc_steel_est_schedule: new FormControl(new Date(this.salesDetails.misc_steel_est_schedule).toISOString().substring(0,10)),
           misc_steel_hours: new FormControl(this.salesDetails.misc_steel_hours),
         });
       
         // this.fabriatorInfoForm.disable();
-        // this.bidInfoForm.disable();
+        this.bidInfoForm.disable();
         // console.log("status", this.bidInfoForm);
         // this.estimationInfoForm.disable();
       }
