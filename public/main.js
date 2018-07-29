@@ -72,7 +72,7 @@ module.exports = "\r\n\r\n\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<flash-messages></flash-messages>\r\n<main [@fadeAnimation]=\"o.isActivated ? o.activatedRoute : ''\">\r\n    <router-outlet #o=\"outlet\"></router-outlet>\r\n</main>"
+module.exports = "\r\n<main [@fadeAnimation]=\"o.isActivated ? o.activatedRoute : ''\">\r\n    <router-outlet #o=\"outlet\"></router-outlet>\r\n</main>\r\n<flash-messages class=\"container\" style=\"position: relative;\"></flash-messages>"
 
 /***/ }),
 
@@ -150,12 +150,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_side_nav_side_nav_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/side-nav/side-nav.component */ "./src/app/components/side-nav/side-nav.component.ts");
 /* harmony import */ var _components_new_lead_new_lead_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/new-lead/new-lead.component */ "./src/app/components/new-lead/new-lead.component.ts");
 /* harmony import */ var _components_roles_roles_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/roles/roles.component */ "./src/app/components/roles/roles.component.ts");
+/* harmony import */ var _components_sales_details_sales_details_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/sales-details/sales-details.component */ "./src/app/components/sales-details/sales-details.component.ts");
+/* harmony import */ var _components_quote_quote_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/quote/quote.component */ "./src/app/components/quote/quote.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -195,13 +199,16 @@ var AppModule = /** @class */ (function () {
                 _components_users_users_component__WEBPACK_IMPORTED_MODULE_17__["UsersComponent"],
                 _components_side_nav_side_nav_component__WEBPACK_IMPORTED_MODULE_20__["SideNavComponent"],
                 _components_new_lead_new_lead_component__WEBPACK_IMPORTED_MODULE_21__["NewLeadComponent"],
-                _components_roles_roles_component__WEBPACK_IMPORTED_MODULE_22__["RolesComponent"]
+                _components_roles_roles_component__WEBPACK_IMPORTED_MODULE_22__["RolesComponent"],
+                _components_sales_details_sales_details_component__WEBPACK_IMPORTED_MODULE_23__["SalesDetailsComponent"],
+                _components_quote_quote_component__WEBPACK_IMPORTED_MODULE_24__["QuoteComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _app_routing__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_4__["HttpModule"],
                 angular2_flash_messages__WEBPACK_IMPORTED_MODULE_15__["FlashMessagesModule"],
                 angular_bootstrap_md__WEBPACK_IMPORTED_MODULE_5__["MDBBootstrapModule"].forRoot(),
@@ -239,6 +246,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _guards_admin_guard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./guards/admin.guard */ "./src/app/guards/admin.guard.ts");
 /* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./guards/auth.guard */ "./src/app/guards/auth.guard.ts");
 /* harmony import */ var _components_new_lead_new_lead_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/new-lead/new-lead.component */ "./src/app/components/new-lead/new-lead.component.ts");
+/* harmony import */ var _components_sales_details_sales_details_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/sales-details/sales-details.component */ "./src/app/components/sales-details/sales-details.component.ts");
+/* harmony import */ var _components_quote_quote_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/quote/quote.component */ "./src/app/components/quote/quote.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -255,11 +264,15 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var appRoutes = [
     { path: 'login', component: _components_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
     { path: 'sales', component: _components_sales_sales_component__WEBPACK_IMPORTED_MODULE_6__["SalesComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"]] },
+    { path: 'sales/:bid_number', component: _components_sales_details_sales_details_component__WEBPACK_IMPORTED_MODULE_10__["SalesDetailsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"]] },
     { path: 'new-lead', component: _components_new_lead_new_lead_component__WEBPACK_IMPORTED_MODULE_9__["NewLeadComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"]] },
     { path: 'estimation', component: _components_estimation_estimation_component__WEBPACK_IMPORTED_MODULE_5__["EstimationComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"]] },
+    { path: 'quote/:bid_number', component: _components_quote_quote_component__WEBPACK_IMPORTED_MODULE_11__["QuoteComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"]] },
     { path: 'users', component: _components_users_users_component__WEBPACK_IMPORTED_MODULE_3__["UsersComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"], _guards_admin_guard__WEBPACK_IMPORTED_MODULE_7__["AdminGuard"]] },
     { path: 'roles', component: _components_roles_roles_component__WEBPACK_IMPORTED_MODULE_4__["RolesComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"], _guards_admin_guard__WEBPACK_IMPORTED_MODULE_7__["AdminGuard"]] },
     { path: '**', redirectTo: 'login' }
@@ -906,6 +919,200 @@ var NewLeadComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/quote/quote.component.html":
+/*!*******************************************************!*\
+  !*** ./src/app/components/quote/quote.component.html ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<aside id=\"left-panel\">\n    <div id=\"mySidenav\" #mySidenav class=\"sidenav\">\n        <div class=\"login-info\">\n            <span>\n                <!-- User image size is adjusted inside CSS, it should stay as it -->\n                <a href=\"javascript:void(0);\" id=\"show-shortcut\" data-action=\"toggleShortcut\" style=\"padding: 0px;\">\n                    <img src=\"../../../assets/imgs/sunny.png\" alt=\"me\" class=\"online\">\n                    <span>\n                        john.doe\n                    </span>\n                </a>\n            </span>\n        </div>\n        <ul>\n            <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Sales\" [routerLink]=\"['/sales']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-home\"></i>\n                    <span class=\"menu-item-parent\">Sales</span>\n                </a>\n            </li>\n            <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Estimation\" [routerLink]=\"['/estimation']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-list-alt\"></i>\n                    <span class=\"menu-item-parent\">Estimation</span>\n                </a>\n            </li>\n            <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Users\" [routerLink]=\"['/users']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-user-circle\"></i>\n                    <span class=\"menu-item-parent\">Users</span>\n                </a>\n            </li>\n            <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Roles\" [routerLink]=\"['/roles']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-users\"></i>\n                    <span class=\"menu-item-parent\">Roles</span>\n                </a>\n            </li>\n        </ul>\n\n        <span class=\"minifyme\" data-action=\"minifyMenu\" (click)=\"closeNav()\" style=\"\">\n            <i class=\"fa fa-arrow-circle-left hit\"></i>\n        </span>\n    </div>\n</aside>\n\n<div id=\"main\" #main>\n    <div id=\"ribbon\">\n        <span *ngIf=\"showMenu\" style=\"font-size:30px;cursor:pointer; color:aliceblue;\" (click)=\"openNav()\">&#9776;</span>\n        <span class=\"ribbon-button-alignment\">\n            <span id=\"refresh\" class=\"btn btn-ribbon\" data-action=\"resetWidgets\" data-title=\"refresh\" rel=\"tooltip\" data-placement=\"bottom\"\n                data-original-title=\"<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings.\"\n                data-html=\"true\">\n                <i class=\"fa fa-refresh\"></i>\n            </span>\n        </span>\n\n        <!-- breadcrumb -->\n        <ol class=\"breadcrumb\">\n            <li>Home</li>\n            <li>{{title}}</li>\n        </ol>\n        <div id=\"logout\" class=\"btn-header transparent pull-right\">\n            <span>\n                <a (click)=\"logout()\" title=\"Sign Out\" data-action=\"userLogout\" data-logout-msg=\"You can improve your security further after logging out by closing this opened browser\">\n                    <i class=\"fa fa-sign-out\"></i>\n                </a>\n            </span>\n        </div>\n        <!-- end breadcrumb -->\n    </div>\n    <app-navbar></app-navbar>\n\n    <div class=\"container\" *ngIf=\"!submitted && !submitSuccess\">\n        <div class=\"col-lg-12 well\">\n            <div class=\"row\">\n                <form #quoteForm=\"ngForm\" (ngSubmit)=\"addQuote(quoteForm.value);\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"row\">\n                            <h5 class=\"col-sm-6 form-group\">Estimation Info</h5>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>BidType</label>\n                            </div>\n                            <div class=\"col-sm-12 col-lg-12 form-group inclusions\">\n                                <p *ngFor=\"let bidType of bidTypes\" class=\"col-lg-3 col-sm-12 col-md-3\">\n                                    <input type=\"checkbox\" value=\"{{bidType}}\" #bid (change)=\"addBidType(bid, $event)\" name=\"bidTypes\">{{bidType}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Project Name</label>\n                                <input type=\"text\" name=\"project_name\" ngModel required placeholder=\"Enter Bid Type Name Here..\" class=\"form-control\">\n                            </div>\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Main Steel Hours</label>\n                                <input type=\"number\" ngModel required name=\"main_steel_hours\" placeholder=\"Enter Main Steel Hours Here..\" class=\"form-control\">\n                            </div>\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Main Steel Estimated Schedule</label>\n                                <input type=\"date\" ngModel required name=\"main_steel_est_schedule\" placeholder=\"Enter Main Steel Estimated Schedule Here..\"\n                                    class=\"form-control\">\n                            </div>\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Quote Price</label>\n                                <input type=\"number\" ngModel required name=\"quote_price\" placeholder=\"Enter Quote Price Here..\"\n                                    class=\"form-control\">\n                            </div>\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Engineering Price</label>\n                                <input type=\"number\" ngModel required name=\"engg_price\" placeholder=\"Enter Engineering Price Here..\"\n                                    class=\"form-control\">\n                            </div><div class=\"col-sm-12 col-lg-12 col-md-12\">\n                                <label>Remarks/Commnents</label>\n                                <textarea placeholder=\"Enter Remarks/Comments Here..\" rows=\"3\" class=\"form-control\" ngModel name=\"comments\"></textarea>\n                              </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Misc Steel Hours</label>\n                                <input type=\"number\" ngModel required name=\"misc_steel_hours\" placeholder=\"Enter Misc Steel Hours Here..\" class=\"form-control\">\n                            </div>\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Misc Steel Estimated Schedule</label>\n                                <input type=\"date\" ngModel required name=\"misc_steel_est_schedule\" placeholder=\"Enter Misc Steel Estimated Schedule Here..\"\n                                    class=\"form-control\">\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Inclusions</label>\n                            </div>\n                            <div class=\"col-sm-12 col-lg-12 form-group inclusions\">\n                                <p *ngFor=\"let inclusion of misc_inclusions\" class=\"col-lg-3 col-sm-12 col-md-3\">\n                                    <input type=\"checkbox\" value=\"{{inclusion.misc_inc_desc}}\" #inc (change)=\"addInclusion(inc, $event)\" name=\"inclusions\">{{inclusion.misc_inc_desc}}</p>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"col-sm-4 col-lg-4 form-group\">\n                                <label>Exclustions</label>\n                            </div>\n                            <div class=\"col-sm-12 col-lg-12 form-group\">\n                                <p *ngFor=\"let exclusion of misc_exclusions\">\n                                    <input type=\"checkbox\" value=\"{{exclusion.misc_exc_desc}}\" #exc (change)=\"addExclusion(exc, $event)\" name=\"exclusions\">{{exclusion.misc_exc_desc}}</p>\n                            </div>\n                        </div>\n                        <button type=\"submit\" [disabled]=\"!quoteForm.valid\" class=\"btn btn-md btn-info submit-btn\">Save</button>\n                    </div>\n                </form>\n            </div>\n        </div>\n    </div>\n    <div class=\"p-100 container well\" *ngIf=\"submitSuccess\">\n        <div class=\"text-center\">\n            <i class=\"fa fa-5x fa-check-circle\" style=\"color: green;\"></i>\n        </div>\n        <div class=\"\">\n            <span class=\"text-center\">\n                <h6>Added Quotation data.</h6>\n            </span>\n        </div>\n        <div class=\"alert alert-success text-center\">\n            <strong>Success!</strong> Added Successfully.\n        </div>\n    </div>\n    <div class=\"container well\" *ngIf=\"submitted\">\n        <div class=\"text-center\">\n            <i class=\"fa fa-5x fa-frown\" style=\"color: orangered;\"></i>\n        </div>\n        <div class=\"\">\n            <span class=\"text-center\">\n                <h6>Try again. You can either try again or go back.</h6>\n            </span>\n        </div>\n        <div class=\"alert alert-danger text-center\">\n            <strong>Error!</strong> Unsuccessful.\n        </div>\n    </div>\n    <app-footer></app-footer>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/quote/quote.component.scss":
+/*!*******************************************************!*\
+  !*** ./src/app/components/quote/quote.component.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".header,\n.marketing,\n.footer {\n  padding-right: 15px;\n  padding-left: 15px; }\n\n/* Custom page header */\n\n.header {\n  border-bottom: 1px solid #e5e5e5; }\n\n/* Make the masthead heading the same height as the navigation */\n\n.header h3 {\n  padding-bottom: 19px;\n  margin-top: 0;\n  margin-bottom: 0;\n  line-height: 40px; }\n\n/* Custom page footer */\n\n.footer {\n  padding-top: 19px;\n  color: #777;\n  border-top: 1px solid #e5e5e5; }\n\n/* Customize container */\n\n@media (min-width: 768px) {\n  .container {\n    max-width: 730px; } }\n\n.container-narrow > hr {\n  margin: 30px 0; }\n\n/* Main marketing message and sign up button */\n\n.jumbotron {\n  text-align: center;\n  border-bottom: 1px solid #e5e5e5; }\n\n.jumbotron .btn {\n  padding: 14px 24px;\n  font-size: 21px; }\n\n/* Supporting marketing content */\n\n.marketing {\n  margin: 40px 0; }\n\n.marketing p + h4 {\n  margin-top: 28px; }\n\n/* Responsive: Portrait tablets and up */\n\n@media screen and (min-width: 768px) {\n  /* Remove the padding we set earlier */\n  .header,\n  .marketing,\n  .footer {\n    padding-right: 0;\n    padding-left: 0; }\n  /* Space out the masthead */\n  .header {\n    margin-bottom: 30px; }\n  /* Remove the bottom border on the jumbotron for visual effect */\n  .jumbotron {\n    border-bottom: 0; } }\n\n.submit-btn {\n  background-color: #33679a; }\n\ninput[type=radio] {\n  box-sizing: border-box;\n  margin-right: 8px; }\n\n.well {\n  min-height: 20px;\n  padding: 19px;\n  margin-bottom: 20px;\n  background-color: #f5f5f5;\n  border: 1px solid #e3e3e3;\n  border-radius: 4px;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05); }\n\nlabel {\n  display: inline-block;\n  max-width: 100%;\n  font-size: 0.7rem;\n  margin-bottom: 5px;\n  font-weight: 700; }\n\n.inclusions p {\n  display: inline; }\n\n.inclusions {\n  padding-left: 0px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/components/quote/quote.component.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/components/quote/quote.component.ts ***!
+  \*****************************************************/
+/*! exports provided: Quote, QuoteComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Quote", function() { return Quote; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuoteComponent", function() { return QuoteComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! angular2-flash-messages */ "./node_modules/angular2-flash-messages/module/index.js");
+/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/auth.service */ "./src/app/services/auth.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+var dt = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js");
+var Quote = /** @class */ (function () {
+    function Quote(inclusion, exclusion, main_steel_est_schedule, main_steel_hours, misc_steel_est_schedule, misc_steel_hours, status, bid_type, quote_price, engg_price, comments) {
+        if (inclusion === void 0) { inclusion = ''; }
+        if (exclusion === void 0) { exclusion = ''; }
+        if (main_steel_est_schedule === void 0) { main_steel_est_schedule = null; }
+        if (main_steel_hours === void 0) { main_steel_hours = 0; }
+        if (misc_steel_est_schedule === void 0) { misc_steel_est_schedule = null; }
+        if (misc_steel_hours === void 0) { misc_steel_hours = 0; }
+        if (status === void 0) { status = ''; }
+        if (bid_type === void 0) { bid_type = ''; }
+        if (quote_price === void 0) { quote_price = 0; }
+        if (engg_price === void 0) { engg_price = 0; }
+        if (comments === void 0) { comments = ''; }
+        this.inclusion = inclusion;
+        this.exclusion = exclusion;
+        this.main_steel_est_schedule = main_steel_est_schedule;
+        this.main_steel_hours = main_steel_hours;
+        this.misc_steel_est_schedule = misc_steel_est_schedule;
+        this.misc_steel_hours = misc_steel_hours;
+        this.status = status;
+        this.bid_type = bid_type;
+        this.quote_price = quote_price;
+        this.engg_price = engg_price;
+        this.comments = comments;
+    }
+    return Quote;
+}());
+
+var QuoteComponent = /** @class */ (function () {
+    function QuoteComponent(authService, flashMessage, router, activateRoute) {
+        this.authService = authService;
+        this.flashMessage = flashMessage;
+        this.router = router;
+        this.activateRoute = activateRoute;
+        this.title = "Quote";
+        this.inclusions = [];
+        this.exclusions = [];
+        this.bidTypes = ['Structural', 'Miscellaneous', 'Engineering'];
+        this.selectBidTypes = [];
+    }
+    QuoteComponent.prototype.addQuote = function (quoteForm) {
+        var _this = this;
+        console.log("quoteForm", quoteForm);
+        var newQuoteForm;
+        newQuoteForm = quoteForm;
+        newQuoteForm.inclusion = this.inclusions.toString();
+        newQuoteForm.exclusion = this.exclusions.toString();
+        newQuoteForm.bid_type = this.selectBidTypes.toString();
+        console.log("newQuoteForm", newQuoteForm);
+        this.authService.addQuote(newQuoteForm, this.bid_number).subscribe(function (data) {
+            console.log("subscribe", data);
+            if (data.affectedRows > 0) {
+                _this.submitSuccess = !_this.submitSuccess;
+            }
+            else {
+                _this.submitted = !_this.submitted;
+            }
+        });
+    };
+    QuoteComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var bid_number = this.activateRoute.snapshot.params['bid_number'];
+        console.log("got bid number as", bid_number);
+        this.bid_number = bid_number;
+        this.authService.getInclusions().subscribe(function (data) {
+            _this.misc_inclusions = data.data;
+        });
+        this.authService.getExclusions().subscribe(function (data) {
+            _this.misc_exclusions = data.data;
+        });
+    };
+    ;
+    QuoteComponent.prototype.addInclusion = function (inc, event) {
+        if (event.target.checked === true) {
+            this.inclusions.push(inc.value);
+        }
+        else {
+            var index = this.inclusions.indexOf(inc.value);
+            this.inclusions.splice(index, 1);
+        }
+    };
+    QuoteComponent.prototype.addBidType = function (bid, event) {
+        if (event.target.checked === true) {
+            this.selectBidTypes.push(bid.value);
+        }
+        else {
+            var index = this.selectBidTypes.indexOf(bid.value);
+            this.selectBidTypes.splice(index, 1);
+        }
+    };
+    QuoteComponent.prototype.addExclusion = function (exc, event) {
+        if (event.target.checked === true) {
+            this.exclusions.push(exc.value);
+        }
+        else {
+            var index = this.exclusions.indexOf(exc.value);
+            this.exclusions.splice(index, 1);
+        }
+    };
+    QuoteComponent.prototype.openNav = function () {
+        this.showMenu = false;
+        this.mySideNav.nativeElement.style.width = "250px";
+        this.main.nativeElement.style.marginLeft = "250px";
+    };
+    QuoteComponent.prototype.closeNav = function () {
+        this.showMenu = true;
+        this.mySideNav.nativeElement.style.width = "0";
+        this.main.nativeElement.style.marginLeft = "0";
+    };
+    QuoteComponent.prototype.logout = function () {
+        sessionStorage.clear();
+        this.flashMessage.show('You are logged out!', { cssClass: 'alert-success text-center', timeout: 3000 });
+        this.router.navigate(['/login']);
+        return false;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('mySidenav'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], QuoteComponent.prototype, "mySideNav", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('main'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], QuoteComponent.prototype, "main", void 0);
+    QuoteComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-quote',
+            template: __webpack_require__(/*! ./quote.component.html */ "./src/app/components/quote/quote.component.html"),
+            styles: [__webpack_require__(/*! ../../../../node_modules/datatables.net-dt/css/jquery.dataTables.css */ "./node_modules/datatables.net-dt/css/jquery.dataTables.css"), __webpack_require__(/*! ./quote.component.scss */ "./src/app/components/quote/quote.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
+            angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1__["FlashMessagesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], QuoteComponent);
+    return QuoteComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/roles/roles.component.html":
 /*!*******************************************************!*\
   !*** ./src/app/components/roles/roles.component.html ***!
@@ -1021,6 +1228,168 @@ var RolesComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/sales-details/sales-details.component.html":
+/*!***********************************************************************!*\
+  !*** ./src/app/components/sales-details/sales-details.component.html ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<aside id=\"left-panel\">\n  <div id=\"mySidenav\" #mySidenav class=\"sidenav\">\n    <div class=\"login-info\">\n      <span>\n        <!-- User image size is adjusted inside CSS, it should stay as it -->\n        <a href=\"javascript:void(0);\" id=\"show-shortcut\" data-action=\"toggleShortcut\" style=\"padding: 0px;\">\n          <img src=\"../../../assets/imgs/sunny.png\" alt=\"me\" class=\"online\">\n          <span>\n            john.doe\n          </span>\n        </a>\n      </span>\n    </div>\n    <ul>\n      <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a href=\"#\" title=\"Sales\" [routerLink]=\"['/sales']\">\n          <i class=\"mr-2 fa fa-lg fa-fw fa-home\"></i>\n          <span class=\"menu-item-parent\">Sales</span>\n        </a>\n      </li>\n      <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a href=\"#\" title=\"Estimation\" [routerLink]=\"['/estimation']\">\n          <i class=\"mr-2 fa fa-lg fa-fw fa-list-alt\"></i>\n          <span class=\"menu-item-parent\">Estimation</span>\n        </a>\n      </li>\n      <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a href=\"#\" title=\"Users\" [routerLink]=\"['/users']\">\n          <i class=\"mr-2 fa fa-lg fa-fw fa-user-circle\"></i>\n          <span class=\"menu-item-parent\">Users</span>\n        </a>\n      </li>\n      <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a href=\"#\" title=\"Roles\" [routerLink]=\"['/roles']\">\n          <i class=\"mr-2 fa fa-lg fa-fw fa-users\"></i>\n          <span class=\"menu-item-parent\">Roles</span>\n        </a>\n      </li>\n    </ul>\n\n    <span class=\"minifyme\" data-action=\"minifyMenu\" (click)=\"closeNav()\" style=\"\">\n      <i class=\"fa fa-arrow-circle-left hit\"></i>\n    </span>\n  </div>\n</aside>\n\n<div id=\"main\" #main>\n  <div id=\"ribbon\">\n    <span *ngIf=\"showMenu\" style=\"font-size:30px;cursor:pointer; color:aliceblue;\" (click)=\"openNav()\">&#9776;</span>\n    <span class=\"ribbon-button-alignment\">\n      <span id=\"refresh\" class=\"btn btn-ribbon\" data-action=\"resetWidgets\" data-title=\"refresh\" rel=\"tooltip\" data-placement=\"bottom\"\n        data-original-title=\"<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings.\"\n        data-html=\"true\">\n        <i class=\"fa fa-refresh\"></i>\n      </span>\n    </span>\n\n    <!-- breadcrumb -->\n    <ol class=\"breadcrumb\">\n      <li>Home</li>\n      <li>{{title}}</li>\n    </ol>\n    <div id=\"logout\" class=\"btn-header transparent pull-right\">\n      <span>\n        <a (click)=\"logout()\" title=\"Sign Out\" data-action=\"userLogout\" data-logout-msg=\"You can improve your security further after logging out by closing this opened browser\">\n          <i class=\"fa fa-sign-out\"></i>\n        </a>\n      </span>\n    </div>\n    <!-- end breadcrumb -->\n  </div>\n  <app-navbar></app-navbar>\n\n  <div class=\"container\">\n    <div class=\"col-lg-12 well\">\n      <div class=\"row\">\n        <form *ngIf=\"dataLoaded\">\n          <div class=\"col-sm-12\">\n            <div class=\"row\">\n              <div class=\"col-sm-6 \">\n                <p>Bid Number</p>\n              </div>\n              <div class=\"col-sm-6 \">\n                <input type=\"text\" placeholder=\"Enter Bid Number Here..\" class=\"form-control\">\n              </div>\n            </div>\n            <div class=\"row\">\n              <h5 class=\"col-sm-6 \">Fabricator Info</h5>\n            </div>\n            <div class=\"row\" [formGroup]=\"fabriatorInfoForm\">\n              <div class=\"col-sm-4 col-lg-4\">\n                <label>Fabricator Name</label>\n                <input type=\"text\" formControlName=\"fabricator\" placeholder=\"Enter Fabricator Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Url</label>\n                <input type=\"text\" formControlName=\"fabricator_Url\" placeholder=\"Enter Url Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Phone</label>\n                <input type=\"text\" formControlName=\"fabricator_phone\" placeholder=\"Enter Phone Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-12 col-lg-12 col-md-12\">\n                <label>Address</label>\n                <textarea placeholder=\"Enter Address Here..\" rows=\"3\" class=\"form-control\" formControlName=\"fabricator_address\"></textarea>\n              </div>\n            </div>\n            <div class=\"row\">\n              <h5 class=\"col-sm-6 \">Bid Info</h5>\n            </div>\n            <div class=\"row\" [formGroup]=\"bidInfoForm\">\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Received Date</label>\n                <input type=\"date\" formControlName=\"bid_received_date\" placeholder=\"Enter Received Date Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Received From</label>\n                <input type=\"text\" formControlName=\"bid_received_from\" placeholder=\"Enter Received From Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Send Date</label>\n                <input type=\"date\" formControlName=\"bid_sent_date\" placeholder=\"Enter Send Date Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Document Received</label>\n                <input type=\"text\" formControlName=\"document_received\" placeholder=\"Enter Document Received Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Document Path</label>\n                <input type=\"text\" formControlName=\"document_path\" placeholder=\"Enter Document Path Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Bid Status</label>\n                <input type=\"text\" #bidStatus formControlName=\"status\" placeholder=\"Enter Bid Status Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Executive</label>\n                <input type=\"text\" formControlName=\"executive\" placeholder=\"Enter Executive Here..\" class=\"form-control\">\n              </div>\n\n              <div class=\"row col-sm-12 col-lg-12 col-md-12\">\n                <div class=\"col-sm-4 col-lg-4\">\n                  <label>Bid Type</label>\n                </div>\n              </div>\n              <div class=\"col-sm-12 col-lg-12 col-md-12\">\n                <div class=\"col-sm-4 col-lg-4 \">\n                  <input formControlName=\"bid_type\" value=\"Structural\" type=\"radio\">Structural\n                </div>\n                <div class=\"col-sm-4 col-lg-4 \">\n                  <input formControlName=\"bid_type\" type=\"radio\" value=\"Miscellaneous\">Miscellaneous\n                </div>\n                <div class=\"col-sm-4 col-lg-4 \">\n                  <input formControlName=\"bid_type\" type=\"radio\" value=\"Engineering\">Engineering\n                </div>\n              </div>\n            </div>\n            <div class=\"row\">\n              <h5 class=\"col-sm-6 \">Estimation Info</h5>\n            </div>\n            <div class=\"row\" [formGroup]=\"estimationInfoForm\" *ngIf=\"bidStatus.value === 'estimated'\">\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Project</label>\n                <input type=\"text\" formControlName=\"project_name\" placeholder=\"Enter Bid Type Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Main Steel Hours</label>\n                <input type=\"number\" formControlName=\"main_steel_hours\" placeholder=\"Enter Main Steel Hours Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Main Steel Estimated Schedule</label>\n                <input type=\"date\" formControlName=\"main_steel_est_schedule\" placeholder=\"Enter Main Steel Estimated Schedule Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Misc Steel Hours</label>\n                <input type=\"number\" formControlName=\"misc_steel_hours\" placeholder=\"Enter Misc Steel Hours Here..\" class=\"form-control\">\n              </div>\n              <div class=\"col-sm-4 col-lg-4 \">\n                <label>Misc Steel Estimated Schedule</label>\n                <input type=\"date\" formControlName=\"misc_steel_est_schedule\" placeholder=\"Enter Misc Steel Estimated Schedule Here..\" class=\"form-control\">\n              </div>\n              \n              <!-- <div class=\"row col-sm-12 col-lg-12 col-md-12\">\n                <div class=\"col-sm-4 col-lg-4 \">\n                  <label>Inclusions</label>\n                </div>\n                <div class=\"col-sm-12 col-lg-12\">\n                  <p *ngFor=\"let inclusion of misc_inclusions\" class=\"col-md-3 col-lg-3\">\n                    <input type=\"checkbox\" value=\"{{inclusion.misc_inc_desc}}\" #inc (change)=\"addInclusion(inc, $event)\" formControlName=\"inclusions\">{{inclusion.misc_inc_desc}}</p>\n                </div>\n              </div> -->\n              <!-- <div class=\"row col-sm-12 col-lg-12 col-md-12\">\n                <div class=\"col-sm-4 col-lg-4 \">\n                  <label>Exclustions</label>\n                </div>\n                <div class=\"col-sm-12 col-lg-12 \">\n                  <p *ngFor=\"let exclusion of misc_exclusions\">\n                    <input type=\"checkbox\" value=\"{{exclusion.misc_exc_desc}}\" #exc (change)=\"addExclusion(exc, $event)\" formControlName=\"exclusions\">{{exclusion.misc_exc_desc}}</p>\n                </div>\n              </div> -->\n            </div>\n            <div class=\"row\">\n              <button type=\"button\" (click)=\"prepareQuote()\" class=\"btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-3 col-sm-12\">Prepare Quote</button>\n              <button type=\"button\" (click)=\"sendForEstimation()\" class=\"btn btn-sm btn-info submit-btn m-3 col-lg-3 col-md-3 col-sm-12\">Send For Estimation</button>\n              <button type=\"button\" (click)=\"close()\" class=\"btn btn-sm btn-info submit-btn m-3 col-lg-3 col-md-3 col-sm-12\">Close</button>\n            </div>\n          </div>\n        </form>\n      </div>\n    </div>\n  </div>\n  <div class=\"p-100 container well\" *ngIf=\"submitSuccess\">\n    <div class=\"text-center\">\n      <i class=\"fa fa-5x fa-check-circle\" style=\"color: green;\"></i>\n    </div>\n    <div class=\"\">\n      <span class=\"text-center\">\n        <h6>You have Successfully submitted the form. You can either add another or go to home.</h6>\n      </span>\n    </div>\n    <div class=\"alert alert-success text-center\">\n      <strong>Success!</strong> Added Successfully.\n    </div>\n  </div>\n  <div class=\"container well\" *ngIf=\"submitted\">\n    <div class=\"text-center\">\n      <i class=\"fa fa-5x fa-frown\" style=\"color: orangered;\"></i>\n    </div>\n    <div class=\"\">\n      <span class=\"text-center\">\n        <h6>Try again. You can either try again or go back.</h6>\n      </span>\n    </div>\n    <div class=\"alert alert-danger text-center\">\n      <strong>Error!</strong> Unsuccessful.\n    </div>\n  </div>\n  <app-footer></app-footer>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/sales-details/sales-details.component.scss":
+/*!***********************************************************************!*\
+  !*** ./src/app/components/sales-details/sales-details.component.scss ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".header,\n.marketing,\n.footer {\n  padding-right: 15px;\n  padding-left: 15px; }\n\n/* Custom page header */\n\n.header {\n  border-bottom: 1px solid #e5e5e5; }\n\n/* Make the masthead heading the same height as the navigation */\n\n.header h3 {\n  padding-bottom: 19px;\n  margin-top: 0;\n  margin-bottom: 0;\n  line-height: 40px; }\n\n/* Custom page footer */\n\n.footer {\n  padding-top: 19px;\n  color: #777;\n  border-top: 1px solid #e5e5e5; }\n\n/* Customize container */\n\n@media (min-width: 768px) {\n  .container {\n    max-width: 730px; } }\n\n.container-narrow > hr {\n  margin: 30px 0; }\n\n/* Main marketing message and sign up button */\n\n.jumbotron {\n  text-align: center;\n  border-bottom: 1px solid #e5e5e5; }\n\n.jumbotron .btn {\n  padding: 14px 24px;\n  font-size: 21px; }\n\n/* Supporting marketing content */\n\n.marketing {\n  margin: 40px 0; }\n\n.marketing p + h4 {\n  margin-top: 28px; }\n\n/* Responsive: Portrait tablets and up */\n\n@media screen and (min-width: 768px) {\n  /* Remove the padding we set earlier */\n  .header,\n  .marketing,\n  .footer {\n    padding-right: 0;\n    padding-left: 0; }\n  /* Space out the masthead */\n  .header {\n    margin-bottom: 30px; }\n  /* Remove the bottom border on the jumbotron for visual effect */\n  .jumbotron {\n    border-bottom: 0; } }\n\n.submit-btn {\n  background-color: #33679a; }\n\ninput[type=radio] {\n  box-sizing: border-box;\n  margin-right: 8px; }\n\n.well {\n  min-height: 20px;\n  padding: 19px;\n  margin-bottom: 20px;\n  background-color: #f5f5f5;\n  border: 1px solid #e3e3e3;\n  border-radius: 4px;\n  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05); }\n\nlabel {\n  display: inline-block;\n  max-width: 100%;\n  font-size: 0.7rem;\n  margin-bottom: 5px;\n  font-weight: 700; }\n\n.inclusions p {\n  display: inline;\n  padding-left: 0px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/components/sales-details/sales-details.component.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/components/sales-details/sales-details.component.ts ***!
+  \*********************************************************************/
+/*! exports provided: SalesDetailsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SalesDetailsComponent", function() { return SalesDetailsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! angular2-flash-messages */ "./node_modules/angular2-flash-messages/module/index.js");
+/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+var dt = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.js");
+var SalesDetailsComponent = /** @class */ (function () {
+    function SalesDetailsComponent(fb, authService, flashMessage, router, activeRoute) {
+        this.fb = fb;
+        this.authService = authService;
+        this.flashMessage = flashMessage;
+        this.router = router;
+        this.activeRoute = activeRoute;
+        this.title = "Sales Data";
+        this.dataLoaded = false;
+        this.inclusions = [];
+        this.exclusions = [];
+    }
+    SalesDetailsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var bid_number = this.activeRoute.snapshot.params['bid_number'];
+        console.log(this.activeRoute.snapshot.params['bid_number']);
+        this.authService.getSalesDetails(bid_number).subscribe(function (data) {
+            if (data) {
+                _this.salesDetails = data.data[0];
+                console.log(_this.salesDetails);
+                _this.dataLoaded = true;
+                _this.fabriatorInfoForm = _this.fb.group({
+                    fabricator: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.fabricator),
+                    fabricator_Url: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.fabricator_Url),
+                    fabricator_address: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.fabricator_address),
+                    fabricator_phone: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.fabricator_phone)
+                });
+                _this.bidInfoForm = _this.fb.group({
+                    bid_number: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.bid_number),
+                    bid_received_date: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](new Date(_this.salesDetails.bid_received_date)),
+                    bid_received_from: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.bid_received_from),
+                    bid_sent_date: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.bid_sent_date),
+                    bid_type: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.bid_type),
+                    document_path: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.document_path),
+                    document_received: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.document_received),
+                    exclusion: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.exclusion),
+                    executive: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.executive),
+                    status: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.status)
+                });
+                _this.estimationInfoForm = _this.fb.group({
+                    inclusion: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.inclusion),
+                    project_name: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.project_name),
+                    main_steel_est_schedule: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.main_steel_est_schedule),
+                    main_steel_hours: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.main_steel_hours),
+                    misc_steel_est_schedule: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.misc_steel_est_schedule),
+                    misc_steel_hours: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](_this.salesDetails.misc_steel_hours),
+                });
+                // this.fabriatorInfoForm.disable();
+                // this.bidInfoForm.disable();
+                // console.log("status", this.bidInfoForm);
+                // this.estimationInfoForm.disable();
+            }
+        });
+    };
+    ;
+    SalesDetailsComponent.prototype.ngAfterViewChecked = function () {
+    };
+    SalesDetailsComponent.prototype.prepareQuote = function () {
+        var bid_number = this.salesDetails.bid_number;
+        console.log("sendForEst", bid_number);
+        this.router.navigate(['quote', bid_number]);
+    };
+    SalesDetailsComponent.prototype.close = function () {
+        history.back();
+    };
+    SalesDetailsComponent.prototype.openNav = function () {
+        this.showMenu = false;
+        this.mySideNav.nativeElement.style.width = "250px";
+        this.main.nativeElement.style.marginLeft = "250px";
+    };
+    SalesDetailsComponent.prototype.closeNav = function () {
+        this.showMenu = true;
+        this.mySideNav.nativeElement.style.width = "0";
+        this.main.nativeElement.style.marginLeft = "0";
+    };
+    SalesDetailsComponent.prototype.logout = function () {
+        sessionStorage.clear();
+        this.flashMessage.show('You are logged out!', { cssClass: 'alert-success text-center', timeout: 3000 });
+        this.router.navigate(['/login']);
+        return false;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('mySidenav'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], SalesDetailsComponent.prototype, "mySideNav", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('main'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], SalesDetailsComponent.prototype, "main", void 0);
+    SalesDetailsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-sales-details',
+            template: __webpack_require__(/*! ./sales-details.component.html */ "./src/app/components/sales-details/sales-details.component.html"),
+            styles: [__webpack_require__(/*! ../../../../node_modules/datatables.net-dt/css/jquery.dataTables.css */ "./node_modules/datatables.net-dt/css/jquery.dataTables.css"), __webpack_require__(/*! ./sales-details.component.scss */ "./src/app/components/sales-details/sales-details.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
+            _services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
+            angular2_flash_messages__WEBPACK_IMPORTED_MODULE_1__["FlashMessagesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], SalesDetailsComponent);
+    return SalesDetailsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/sales/sales.component.css":
 /*!******************************************************!*\
   !*** ./src/app/components/sales/sales.component.css ***!
@@ -1028,7 +1397,7 @@ var RolesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "table.dataTable thead .sorting:after{\r\n    opacity: 0.2;\r\n    content: none;\r\n}\r\ntable.dataTable thead .sorting_asc:after{\r\n    content: none;\r\n}\r\ntable.dataTable thead .sorting_desc:after {\r\n    content: none;\r\n}\r\n\r\n\r\n"
+module.exports = "table.dataTable thead .sorting:after{\r\n    opacity: 0.2;\r\n    content: none;\r\n}\r\ntable.dataTable thead .sorting_asc:after{\r\n    content: none;\r\n}\r\ntable.dataTable thead .sorting_desc:after {\r\n    content: none;\r\n}\r\ntable.dataTable tbody td.bid_data_class{\r\n    color:blue;\r\n}"
 
 /***/ }),
 
@@ -1039,7 +1408,7 @@ module.exports = "table.dataTable thead .sorting:after{\r\n    opacity: 0.2;\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<aside id=\"left-panel\">\n    <div id=\"mySidenav\" #mySidenav class=\"sidenav\">\n        <div class=\"login-info\">\n            <span>\n                <!-- User image size is adjusted inside CSS, it should stay as it -->\n                <a href=\"javascript:void(0);\" id=\"show-shortcut\" data-action=\"toggleShortcut\" style=\"padding: 0px;\">\n                    <img src=\"../../../assets/imgs/sunny.png\" alt=\"me\" class=\"online\">\n                    <span>\n                        john.doe\n                    </span>\n                </a>\n            </span>\n        </div>\n        <ul>\n            <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Sales\" [routerLink]=\"['/sales']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-home\"></i>\n                    <span class=\"menu-item-parent\">Sales</span>\n                </a>\n            </li>\n            <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Estimation\" [routerLink]=\"['/estimation']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-list-alt\"></i>\n                    <span class=\"menu-item-parent\">Estimation</span>\n                </a>\n            </li>\n            <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Users\" [routerLink]=\"['/users']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-user-circle\"></i>\n                    <span class=\"menu-item-parent\">Users</span>\n                </a>\n            </li>\n            <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Roles\" [routerLink]=\"['/roles']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-users\"></i>\n                    <span class=\"menu-item-parent\">Roles</span>\n                </a>\n            </li>\n        </ul>\n\n        <span class=\"minifyme\" data-action=\"minifyMenu\" (click)=\"closeNav()\" style=\"\">\n            <i class=\"fa fa-arrow-circle-left hit\"></i>\n        </span>\n    </div>\n</aside>\n\n<div id=\"main\" #main>\n    <div id=\"ribbon\">\n        <span *ngIf=\"showMenu\" style=\"font-size:30px;cursor:pointer; color:aliceblue;\" (click)=\"openNav()\">&#9776;</span>\n        <span class=\"ribbon-button-alignment\">\n            <span id=\"refresh\" class=\"btn btn-ribbon\" data-action=\"resetWidgets\" data-title=\"refresh\" rel=\"tooltip\" data-placement=\"bottom\"\n                data-original-title=\"<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings.\"\n                data-html=\"true\">\n                <i class=\"fa fa-refresh\"></i>\n            </span>\n        </span>\n\n        <!-- breadcrumb -->\n        <ol class=\"breadcrumb\">\n            <li>Home</li>\n            <li>{{title}}</li>\n        </ol>\n        <div id=\"logout\" class=\"btn-header transparent pull-right\">\n            <span>\n                <a (click)=\"logout()\" title=\"Sign Out\" data-action=\"userLogout\" data-logout-msg=\"You can improve your security further after logging out by closing this opened browser\">\n                    <i class=\"fa fa-sign-out\"></i>\n                </a>\n            </span>\n        </div>\n        <!-- end breadcrumb -->\n    </div>\n    <app-navbar></app-navbar>\n    <h4 style=\"display: inline; color:#33679a !important;\" class=\"ml-4 mt-1 text-primary\">Sales Dashboard</h4>\n    <a [routerLink]=\"['/new-lead']\" class=\"pull-right btn btn-info btn-md mt-1 button-custom\" style=\"background-color:#33679a; border-color:#33679a;\">\n        <span class=\"fa fa-plus\"></span> New Lead\n    </a>\n    <div class=\"container\">\n        <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" style=\"width:100%\">\n            <thead>\n                <tr>\n                    <th>Bid #</th>\n                    <th>Received Date</th>\n                    <th>Due Date</th>\n                    <th>Sent Date</th>\n                    <th>Fabricator</th>\n                    <th>Project</th>\n                    <th>Executive</th>\n                    <th>Status</th>\n                </tr>\n            </thead>\n        </table>\n    </div>\n    <app-footer></app-footer>\n</div>"
+module.exports = "<aside id=\"left-panel\">\n    <div id=\"mySidenav\" #mySidenav class=\"sidenav\">\n        <div class=\"login-info\">\n            <span>\n                <!-- User image size is adjusted inside CSS, it should stay as it -->\n                <a href=\"javascript:void(0);\" id=\"show-shortcut\" data-action=\"toggleShortcut\" style=\"padding: 0px;\">\n                    <img src=\"../../../assets/imgs/sunny.png\" alt=\"me\" class=\"online\">\n                    <span>\n                        john.doe\n                    </span>\n                </a>\n            </span>\n        </div>\n        <ul>\n            <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Sales\" [routerLink]=\"['/sales']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-home\"></i>\n                    <span class=\"menu-item-parent\">Sales</span>\n                </a>\n            </li>\n            <li class=\"active open\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Estimation\" [routerLink]=\"['/estimation']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-list-alt\"></i>\n                    <span class=\"menu-item-parent\">Estimation</span>\n                </a>\n            </li>\n            <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Users\" [routerLink]=\"['/users']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-user-circle\"></i>\n                    <span class=\"menu-item-parent\">Users</span>\n                </a>\n            </li>\n            <li class=\"active open\" *ngIf=\"authService.getUserInfo() === 'admin'\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\n                <a href=\"#\" title=\"Roles\" [routerLink]=\"['/roles']\">\n                    <i class=\"mr-2 fa fa-lg fa-fw fa-users\"></i>\n                    <span class=\"menu-item-parent\">Roles</span>\n                </a>\n            </li>\n        </ul>\n\n        <span class=\"minifyme\" data-action=\"minifyMenu\" (click)=\"closeNav()\" style=\"\">\n            <i class=\"fa fa-arrow-circle-left hit\"></i>\n        </span>\n    </div>\n</aside>\n\n<div id=\"main\" #main>\n    <div id=\"ribbon\">\n        <span *ngIf=\"showMenu\" style=\"font-size:30px;cursor:pointer; color:aliceblue;\" (click)=\"openNav()\">&#9776;</span>\n        <span class=\"ribbon-button-alignment\">\n            <span id=\"refresh\" class=\"btn btn-ribbon\" data-action=\"resetWidgets\" data-title=\"refresh\" rel=\"tooltip\" data-placement=\"bottom\"\n                data-original-title=\"<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings.\"\n                data-html=\"true\">\n                <i class=\"fa fa-refresh\"></i>\n            </span>\n        </span>\n\n        <!-- breadcrumb -->\n        <ol class=\"breadcrumb\">\n            <li>Home</li>\n            <li>{{title}}</li>\n        </ol>\n        <div id=\"logout\" class=\"btn-header transparent pull-right\">\n            <span>\n                <a (click)=\"logout()\" title=\"Sign Out\" data-action=\"userLogout\" data-logout-msg=\"You can improve your security further after logging out by closing this opened browser\">\n                    <i class=\"fa fa-sign-out\"></i>\n                </a>\n            </span>\n        </div>\n        <!-- end breadcrumb -->\n    </div>\n    <app-navbar></app-navbar>\n    <h4 style=\"display: inline; color:#33679a !important;\" class=\"ml-4 mt-1 text-primary\">Sales Dashboard</h4>\n    <a [routerLink]=\"['/new-lead']\" class=\"pull-right btn btn-info btn-md mt-1 button-custom\" style=\"background-color:#33679a; border-color:#33679a;\">\n        <span class=\"fa fa-plus\"></span> New Lead\n    </a>\n    <div class=\"container\">\n        <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" style=\"width:100%\">\n            <thead>\n                <tr>\n                    <th></th>\n                    <th>Bid #</th>\n                    <th>Received Date</th>\n                    <th>Due Date</th>\n                    <th>Sent Date</th>\n                    <th>Fabricator</th>\n                    <th>Project</th>\n                    <th>Executive</th>\n                    <th>Status</th>\n                </tr>\n            </thead>\n        </table>\n    </div>\n    <app-footer></app-footer>\n</div>"
 
 /***/ }),
 
@@ -1083,6 +1452,7 @@ var SalesComponent = /** @class */ (function () {
     }
     SalesComponent.prototype.ngOnInit = function () {
         var _this = this;
+        var _self = this;
         this.authService.getSales().subscribe(function (data) {
             console.log("sales", data, typeof (data.data));
             _this.salesData = data.data;
@@ -1091,11 +1461,39 @@ var SalesComponent = /** @class */ (function () {
                 ele.bid_due_date = new Date(ele.bid_due_date).toDateString();
                 ele.bid_sent_date = new Date(ele.bid_sent_date).toDateString();
             });
-            console.log("@@@", _this.salesData);
-            $('#example').DataTable({
+            function format(d) {
+                // `d` is the original data object for the row
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                    '<tr>' +
+                    '<td>Bid Number:</td>' +
+                    '<td>' + d.bid_number + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>Fabricator:</td>' +
+                    '<td>' + d.fabricator + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>Executive:</td>' +
+                    '<td>' + d.executive + '</td>' +
+                    '</tr>' +
+                    '</table>';
+            }
+            var table = $('#example').DataTable({
                 data: _this.salesData,
                 columns: [
-                    { data: 'bid_number' },
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": '',
+                        "render": function () {
+                            return '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+                        },
+                        width: "15px"
+                    },
+                    { "className": 'bid_class',
+                        data: 'bid_number',
+                    },
                     {
                         data: 'bid_received_date',
                         type: 'date'
@@ -1114,7 +1512,41 @@ var SalesComponent = /** @class */ (function () {
                     { data: 'status' }
                 ]
             });
+            $('#example tbody').on('click', 'td:nth-child(2)', function () {
+                var table = $('#example').DataTable();
+                var bid_number = table.cell(this).data();
+                if (bid_number != null) {
+                    _self.router.navigate(['/sales', bid_number]);
+                }
+            });
+            // $('#example tbody').on('mouseover', 'td:nth-child(2)', function () {
+            //   var table = $('#example').DataTable();
+            //   console.log(table.cell(this).data());
+            //   this.style.color="red";
+            // });
+            $('#example tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var tdi = tr.find("i.fa");
+                var row = table.row(tr);
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    tdi.first().removeClass('fa-minus-square');
+                    tdi.first().addClass('fa-plus-square');
+                }
+                else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                    tdi.first().removeClass('fa-plus-square');
+                    tdi.first().addClass('fa-minus-square');
+                }
+            });
         });
+    };
+    SalesComponent.prototype.openSalesDetails = function (bid_number) {
+        this.router.navigate(['sales', bid_number]);
     };
     SalesComponent.prototype.openNav = function () {
         this.showMenu = false;
@@ -1146,7 +1578,8 @@ var SalesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sales.component.html */ "./src/app/components/sales/sales.component.html"),
             styles: [__webpack_require__(/*! ../../../../node_modules/datatables.net-dt/css/jquery.dataTables.css */ "./node_modules/datatables.net-dt/css/jquery.dataTables.css"), __webpack_require__(/*! ./sales.component.css */ "./src/app/components/sales/sales.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], _services_auth_service__WEBPACK_IMPORTED_MODULE_0__["AuthService"], angular2_flash_messages__WEBPACK_IMPORTED_MODULE_2__["FlashMessagesService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], _services_auth_service__WEBPACK_IMPORTED_MODULE_0__["AuthService"],
+            angular2_flash_messages__WEBPACK_IMPORTED_MODULE_2__["FlashMessagesService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], SalesComponent);
     return SalesComponent;
 }());
@@ -1497,13 +1930,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.loginUrl = "/loginRequest";
-        this.salesUrl = "/api/query/sales";
-        this.usersUrl = "/api/query/users";
-        this.rolesUrl = "/api/query/roles";
-        this.inclusionsUrl = "/api/query/misc_inclusions";
-        this.exClusionsUrl = "/api/query/misc_exclusions";
-        this.saleInsertUrl = "/api/insertRequest";
+        this.loginUrl = "http://localhost:5000/loginRequest";
+        this.salesUrl = "http://localhost:5000/api/query/sales";
+        this.usersUrl = "http://localhost:5000/api/query/users";
+        this.rolesUrl = "http://localhost:5000/api/query/roles";
+        this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
+        this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
+        this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
     }
     AuthService.prototype.login = function (username, password) {
         var params = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["URLSearchParams"]();
@@ -1526,6 +1959,21 @@ var AuthService = /** @class */ (function () {
         return this.http.post(this.saleInsertUrl, data)
             .map(function (res) { return res.json(); });
     };
+    AuthService.prototype.addQuote = function (quote, bid_number) {
+        var statement = "insert into sales (status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
+        //params.append('Content-Type', 'application/json');
+        //params.append('statement', statement);
+        var headers = { "Content-Type": "application/x-www-form-urlencoded" };
+        var searchParams = {
+            params: {
+                quote: quote,
+                bid_number: bid_number
+            }
+        };
+        //console.log("url", this.saleInsertUrl);
+        return this.http.post(this.saleInsertUrl, searchParams)
+            .map(function (res) { return res.json(); });
+    };
     AuthService.prototype.getUserInfo = function () {
         if (sessionStorage.getItem('user_role_code')) {
             return sessionStorage.getItem('user_role_code');
@@ -1536,6 +1984,10 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.getSales = function () {
         return this.http.get(this.salesUrl)
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.getSalesDetails = function (bid_number) {
+        return this.http.get(this.salesUrl + "/" + bid_number)
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getUsers = function () {
