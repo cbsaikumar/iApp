@@ -19,21 +19,21 @@ export class AuthService {
   private saleInsertUrl: string; 
 
   constructor(private http: Http) { 
-    this.loginUrl = "http://localhost:5000/loginRequest";
-    this.salesUrl = "http://localhost:5000/api/query/sales";
-    this.usersUrl = "http://localhost:5000/api/query/users";
-    this.rolesUrl = "http://localhost:5000/api/query/roles";
-    this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
-    this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
-    this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
+    // this.loginUrl = "http://localhost:5000/loginRequest";
+    // this.salesUrl = "http://localhost:5000/api/query/sales";
+    // this.usersUrl = "http://localhost:5000/api/query/users";
+    // this.rolesUrl = "http://localhost:5000/api/query/roles";
+    // this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
+    // this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
+    // this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
 
-    // this.loginUrl = "loginRequest";
-    // this.salesUrl = "api/query/sales";
-    // this.usersUrl = "api/query/users";
-    // this.rolesUrl = "api/query/roles";
-    // this.inclusionsUrl = "api/query/misc_inclusions";
-    // this.exClusionsUrl = "api/query/misc_exclusions";
-    // this.saleInsertUrl = "api/insertRequest";
+    this.loginUrl = "loginRequest";
+    this.salesUrl = "api/query/sales";
+    this.usersUrl = "api/query/users";
+    this.rolesUrl = "api/query/roles";
+    this.inclusionsUrl = "api/query/misc_inclusions";
+    this.exClusionsUrl = "api/query/misc_exclusions";
+    this.saleInsertUrl = "api/insertRequest";
   }
 
   login(username: string, password: any) {

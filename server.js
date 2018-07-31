@@ -10,6 +10,10 @@ const compression = require('compression');
 const helmet = require('helmet');
 const moment = require('moment');
 
+var tempfile = require('tempfile');
+var officegen = require('officegen');
+var docx = officegen('docx');
+
 
 const REFRESH_INTERVAL = 10000*60;
 let connectTime = moment();
@@ -18,17 +22,17 @@ let lastActiveTime = moment();
 process.env['NODE_ENV'] = 'production';
 
 const connection = mysql.createConnection({
-    // host: appkeys.db.host,
-    // port: appkeys.db.port,
-    // user: appkeys.db.username,
-    // password: appkeys.db.password,
-    // database: appkeys.db.database,
+    host: appkeys.db.host,
+    port: appkeys.db.port,
+    user: appkeys.db.username,
+    password: appkeys.db.password,
+    database: appkeys.db.database,
 
-    host: appkeys.local_db.host,
-    port: appkeys.local_db.port,
-    user: appkeys.local_db.username,
-    password: appkeys.local_db.password,
-    database: appkeys.local_db.database,
+    // host: appkeys.local_db.host,
+    // port: appkeys.local_db.port,
+    // user: appkeys.local_db.username,
+    // password: appkeys.local_db.password,
+    // database: appkeys.local_db.database,
     
 });
 
@@ -215,6 +219,32 @@ app.post('/api/updateRequest/', (req, res) => {
         },
     );
 });
+
+//docx generator
+app.get('/docx', function(req, res){
+    var tempFilePath = tempfile('.docx');
+    docx.setDocSubject ( 'testDoc Subject' );
+    docx.setDocKeywords ( 'keywords' );
+    docx.setDescription ( 'test description' );
+
+    var pObj = docx.createP({align: 'center'});
+    pObj.addText('Policy Data', {bold: true, underline: true});
+
+    docx.on('finalize', function(written) {
+        console.log('Finish to create Word file.\nTotal bytes created: ' + written + '\n');
+    });
+    docx.on('error', function(err) {
+        console.log(err);
+    });
+
+   res.writeHead ( 200, {
+    "Content-Type": "application/vnd.openxmlformats-officedocument.documentml.document",
+    'Content-disposition': 'attachment; filename=testdoc.docx'
+    });
+    docx.generate(res);
+});
+
+
 app.post('/api/upsert/:ds', (req, res) => {
     /* STATUS, DATA, ERR */
     let result = {

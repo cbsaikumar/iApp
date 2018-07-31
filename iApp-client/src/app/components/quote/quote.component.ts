@@ -6,6 +6,9 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import * as jsPDF from 'jspdf';
+import * as html2canvas from 'html2canvas';
+(<any> window).html2canvas = html2canvas;
+
 
 var $ = require('jquery');
 var dt = require('datatables.net');
@@ -148,29 +151,40 @@ export class QuoteComponent implements OnInit {
   }
 
   generateQuote(){
-    // const doc = new jsPDF();
-    // doc.addImage("../../assets/imgs/report_header.png", 0, 0);
-    // doc.save("Report.pdf");
-    // let specialElementHandlers = {
-    //   '#editor' : function(element, renderer){
-    //     return true;
-    //   }
-    // };
-
-    // let quote = this.quote.nativeElement;
-
-    // doc.fromHTML(quote.innerHTML, 15, 15, {
-    //   'widh': 190,
-    //   'elementHandlers' : specialElementHandlers
-    // });
-
-    // doc.save("Report.pdf");
-
-    // html2canvas(quote.innerHTML).then(function(canvas){
-    //   const doc = new jsPDF();
+    const doc = new jsPDF('p', 'pt', 'letter');
+    
+    doc.addImage("../../assets/imgs/report_header.png", 70, 10);
+    // var options = {
+    //   //'width': 800,
+    //   };
+    // doc.addHTML($("#print-section"),-1, 220, options, function(){
     //   doc.save("Report.pdf");
     // });
+    doc.setLineWidth(0.05);
+    doc.line(20, 30, 200, 30);
+    doc.setFont("times");
+    doc.setFontType("bold");
+    doc.text(72, 40, 'PROPOSAL FOR DETAILING');
+    doc.text(50, 45, 'THE GERING HIGH SCHOOL ADDITION JOB');
+    doc.save("Report.pdf");
 
+    // let printContents, popupWin;
+    // printContents = document.getElementById('print-section').innerHTML;
+    // popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    // popupWin.document.open();
+    // popupWin.document.write(`
+    //   <html>
+    //     <head>
+    //       <title>Print tab</title>
+    //       <style>
+          
+    //       </style>
+    //     </head>
+    // <body onload="window.print();window.close()">${printContents}</body>
+    //   </html>`
+    // );
+    // popupWin.document.close();
+    
   
   }
 

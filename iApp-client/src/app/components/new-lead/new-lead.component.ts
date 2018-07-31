@@ -40,10 +40,8 @@ export class NewLeadComponent implements OnInit {
   title: string = "Add Lead";
   showMenu: boolean;
 
-  misc_inclusions: any[];
-  misc_exclusions: any[];
-  inclusions: any[] = [];
-  exclusions: any[] = [];
+  requirements: string[] = ["Structural", "Miscellaneous", "Engineering"];
+  
   submitSuccess: boolean;
   submitted: boolean;
 
@@ -63,8 +61,6 @@ export class NewLeadComponent implements OnInit {
     let newLeadData : LeadData;
     newLeadData = newLeadForm;
 
-    newLeadData.inclusion = this.inclusions.toString();
-    newLeadData.exclusion = this.exclusions.toString();
     console.log("newLeadData",newLeadData);
     
     this.authService.register(newLeadData).subscribe((data)=>{
@@ -78,36 +74,20 @@ export class NewLeadComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-    this.authService.getInclusions().subscribe(data => {
-      
-      this.misc_inclusions = data.data;      
-    });
-
-    this.authService.getExclusions().subscribe(data => {
-    
-      this.misc_exclusions = data.data;      
-    });   
+  ngOnInit() {  
   };
 
-  addInclusion(inc, event){
-    if(event.target.checked ===  true){
-      this.inclusions.push(inc.value);
-    }
-    else{
-      let index = this.inclusions.indexOf(inc.value);
-      this.inclusions.splice(index, 1);
-    }
+  cancel(){
+    history.back();
   }
 
-  addExclusion(exc, event){
+  addRequirement(req, event){
     if(event.target.checked ===  true){
-      this.exclusions.push(exc.value);
+      this.requirements.push(req.value);
     }
     else{
-      let index = this.exclusions.indexOf(exc.value);
-      this.exclusions.splice(index, 1);
+      let index = this.requirements.indexOf(req.value);
+      this.requirements.splice(index, 1);
     }
   }
 
