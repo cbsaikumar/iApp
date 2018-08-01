@@ -8,8 +8,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import { PdfmakeModule } from 'ng-pdf-make';
-import { PdfmakeService } from 'ng-pdf-make/pdfmake/pdfmake.service';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -29,6 +28,7 @@ import { NewLeadComponent } from './components/new-lead/new-lead.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { SalesDetailsComponent } from './components/sales-details/sales-details.component';
 import { QuoteComponent } from './components/quote/quote.component';
+import { FabricatorComponent } from './components/fabricator/fabricator.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { QuoteComponent } from './components/quote/quote.component';
     RolesComponent,
     SalesDetailsComponent,
     QuoteComponent,
+    FabricatorComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +60,7 @@ import { QuoteComponent } from './components/quote/quote.component';
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   
-  providers: [FlashMessagesService, PdfmakeService, AuthGuard, AdminGuard, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+  providers: [FlashMessagesService, AuthGuard, AdminGuard, Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

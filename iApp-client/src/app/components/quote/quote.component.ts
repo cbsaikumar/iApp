@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import * as jsPDF from 'jspdf';
 import * as html2canvas from 'html2canvas';
-(<any> window).html2canvas = html2canvas;
+
 
 
 var $ = require('jquery');

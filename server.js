@@ -202,6 +202,26 @@ app.post('/api/insertRequest', (req, res) => {
     );
 });
 
+app.post('/api/addFabricator', (req, res) => {
+    let fabricator = req.body.params.fabricator;
+    let statement = req.body.params.statement;
+    console.log("fabricator", fabricator, statement);
+    
+    var query = connection.query(
+        statement,
+        fabricator,
+        (error, result, fields) => {
+            if (error) {
+                console.log('*** INSERT ERROR *** | ' + error);
+                res.send(error);
+            } else {
+                console.log('*** INSERT SUCCESS *** | ' + JSON.stringify(result));
+                res.send(result);
+            }
+        },
+    );
+});
+
 app.post('/api/updateRequest/', (req, res) => {
     console.log('***** UPDATE REQUEST ****** | ' + JSON.stringify(req.body));
     var updateObj = req.body;

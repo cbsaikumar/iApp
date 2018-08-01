@@ -3,6 +3,7 @@ import { Http, Headers, URLSearchParams, ResponseContentType, RequestOptions } f
 import { LeadData } from '../components/new-lead/new-lead.component';
 import { Quote } from '../components/quote/quote.component';
 import 'rxjs/add/operator/map';
+import { Fabricator } from '../components/fabricator/fabricator.component';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,7 @@ export class AuthService {
     // this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
     // this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
     // this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
+    // this.fabricatorUrl = "http://localhost:5000/api/addFabricator";
 
     this.loginUrl = "loginRequest";
     this.salesUrl = "api/query/sales";
@@ -34,6 +36,7 @@ export class AuthService {
     this.inclusionsUrl = "api/query/misc_inclusions";
     this.exClusionsUrl = "api/query/misc_exclusions";
     this.saleInsertUrl = "api/insertRequest";
+    this.fabricatorUrl = "api/insertRequest";
   }
 
   login(username: string, password: any) {
@@ -78,10 +81,27 @@ export class AuthService {
           quote: quote,
           bid_number: bid_number
       }
-  }
+    }
     //console.log("url", this.saleInsertUrl);
 
     return this.http.post(this.saleInsertUrl, searchParams) 
+      .map(res => res.json());
+
+  }
+
+  addFabricator(fabricator:Fabricator){
+    let statement: string = "insert into fabricator set ?";
+   
+    let headers = { "Content-Type": "application/x-www-form-urlencoded" };
+
+    const searchParams = {
+      params: {
+          fabricator: fabricator,
+          statement: statement
+      }
+    }
+
+    return this.http.post(this.fabricatorUrl, searchParams) 
       .map(res => res.json());
 
   }
