@@ -74,79 +74,100 @@
     <div class="m-5" *ngIf="!submitted && !submitSuccess">
         <div class="col-lg-12 well">
             <div class="row">
-                <form #newLeadForm="ngForm">
+                <form [formGroup]="newLeadForm" style="width: 100%;">
                     <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-6 form-group">
-                                <p>Bid Number</p>
+                        <div class="row" formGroupName="fabricatorInfoForm">
+                            <div class="col-sm-6 col-lg-6 col-md-6 form-group">
+                                <p>Select a fabricator</p>
                             </div>
-                            <div class="col-sm-6 form-group">
-                                <input type="text" placeholder="Enter Bid Number Here.." name="bid_number" ngModel class="form-control" required>
+                            <div class="col-sm-6 col-lg-6 col-md-6 form-group">
+                                <select name="fabricator" class="form-control" (change)="onChange($event)" formControlName="fabricator">
+                                    <option value="" selected>Choose an option</option>
+                                    <option *ngFor="let fabricator of fabricators" value="{{fabricator.fabricator}}">{{fabricator.fabricator}}</option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h5 class="col-sm-6 form-group">Fabricator Info</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Fabricator Name</label>
-                                <input type="text" ngModel name="fabricator" required placeholder="Enter Fabricator Name Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Website</label>
-                                <input type="text" ngModel name="fabricator_Url" required placeholder="Enter Url Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Phone</label>
-                                <input type="text" ngModel name="fabricator_phone" required placeholder="Enter Phone Here.." class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea placeholder="Enter Address Here.." rows="3" required class="form-control" ngModel name="fabricator_address"></textarea>
-                        </div>
-
-                        <div class="row">
-                            <h5 class="col-sm-6 form-group">Bid Info</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Project Name</label>
-                                <input type="text" name="project_name" ngModel required placeholder="Enter Bid Type Name Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Received Date</label>
-                                <input type="date" ngModel name="bid_received_date" required placeholder="Enter Received Date Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Received From</label>
-                                <input type="text" ngModel name="bid_received_from" required placeholder="Enter Received From Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Send Date</label>
-                                <input type="date" ngModel name="bid_sent_date" required placeholder="Enter Send Date Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Document Received</label>
-                                <input type="text" ngModel name="document_received" required placeholder="Enter Document Received Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Document Path</label>
-                                <input type="text" ngModel name="document_path" required placeholder="Enter Document Path Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Bid Status</label>
-                                <input type="text" ngModel name="status" required placeholder="Enter Bid Status Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Executive</label>
-                                <input type="text" ngModel name="executive" required placeholder="Enter Executive Here.." class="form-control">
+                            <div *ngIf="showFabricatorInfo" class="row m-1">
+                                <h5 class="col-sm-12 col-lg-12 col-md-12">Fabricator Info</h5>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Contact Name</label>
+                                    <input type="text" formControlName="contact_name" placeholder="Enter Contact Name Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['contact_name'].valid && fabricatorInfoForm.controls['contact_name'].touched">Contact Name is required</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>E-Mail</label>
+                                    <input type="email" formControlName="email" placeholder="Enter Email Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['email'].valid && fabricatorInfoForm.controls['email'].touched">Enter valid email id.</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Phone</label>
+                                    <input type="tel" formControlName="phone" placeholder="Enter Phone Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['phone'].valid && fabricatorInfoForm.controls['phone'].touched">Phone is required</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Website</label>
+                                    <input type="url" formControlName="website" placeholder="Enter Website Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
+                                </div>
+                                <div class="col-sm-12 col-lg-12 col-md-12">
+                                    <label>Address</label>
+                                    <textarea placeholder="Enter Address Here.." formControlName="address" rows="3" class="form-control" name="address"></textarea>
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['address'].valid && fabricatorInfoForm.controls['address'].touched">Address is required</div> -->
+                                </div>
                             </div>
                         </div>
-                                                
-                        <button type="button" [disabled]="!newLeadForm.valid" (click)="register(newLeadForm.value)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Save</button>
-                        <button type="button" (click)="register(newLeadForm.value)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Publish</button>
-                        <button type="button" (click)="cancel()" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Cancel</button>
+                        <div class="row" formGroupName="bidInfoForm" style="border-left: none;">
+                            <h5 class="col-sm-12 col-lg-12 col-md-12">Bid Info</h5>
+                            <div class="row m-1">
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Project Name</label>
+                                    <input type="text" formControlName="project_name" required placeholder="Enter Project Name Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['contact_name'].valid && fabricatorInfoForm.controls['contact_name'].touched">Contact Name is required</div> -->
+                                </div>
+                                <div class="col-sm-12 col-lg-12 col-md-12">
+                                    <label>Project Address</label>
+                                    <textarea placeholder="Enter Project Address Here.."required formControlName="project_address" rows="3" class="form-control" name="address"></textarea>
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['address'].valid && fabricatorInfoForm.controls['address'].touched">Address is required</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Bid Received Date</label>
+                                    <input type="date" formControlName="bid_received_date" required placeholder="Enter Bid Received Date Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['email'].valid && fabricatorInfoForm.controls['email'].touched">Enter valid email id.</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Bid Due Date</label>
+                                    <input type="date" formControlName="bid_due_date" required placeholder="Enter Bid Due Date Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['phone'].valid && fabricatorInfoForm.controls['phone'].touched">Phone is required</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Document Received</label>
+                                    <input type="text" formControlName="document_received" required placeholder="Enter Document Received Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Document Path</label>
+                                    <input type="text" formControlName="document_path" required placeholder="Enter Document Path Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
+                                </div>
+                                <div class="col-sm-12 col-lg-12 col-md-12">
+                                    <label>Executive</label>
+                                    <input type="text" formControlName="executive" required placeholder="Enter Executive Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
+                                </div>
+                                
+                                <label class="col-sm-12 col-lg-12 col-md-12 mt-4">Requirements</label>
+                                <div class="col-sm-12 col-lg-12 col-md-12 text-center">
+                                    <p *ngFor="let requirement of defaultRequirements" class="d-inline mr-4">
+                                        <input type="checkbox" formControlName="requirements" #req (change)="addRequirement(req, $event)" value="{{requirement}}"> {{requirement}}
+                                    </p>
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 mt-4">
+                                    <button type="button" [disabled]="!newLeadForm.valid" (click)="register(newLeadForm.value)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Save</button>
+                                    <button type="button" (click)="register(newLeadForm.value)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Publish</button>
+                                    <button type="button" (click)="cancel()" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

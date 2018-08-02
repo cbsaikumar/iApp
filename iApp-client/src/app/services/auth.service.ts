@@ -28,6 +28,7 @@ export class AuthService {
     // this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
     // this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
     // this.fabricatorUrl = "http://localhost:5000/api/addFabricator";
+    // this.getFabricatorsUrl = "http://localhost:5000/api/query/fabricator";
 
     this.loginUrl = "loginRequest";
     this.salesUrl = "api/query/sales";
@@ -36,7 +37,8 @@ export class AuthService {
     this.inclusionsUrl = "api/query/misc_inclusions";
     this.exClusionsUrl = "api/query/misc_exclusions";
     this.saleInsertUrl = "api/insertRequest";
-    this.fabricatorUrl = "api/insertRequest";
+    this.fabricatorUrl = "api/addFabricator";
+    this.getFabricatorsUrl = "api/query/fabricator";
   }
 
   login(username: string, password: any) {
@@ -117,6 +119,11 @@ export class AuthService {
 
   getSales(){
     return this.http.get(this.salesUrl)
+      .map(res => res.json());
+  }
+
+  getFabricators(){
+    return this.http.get(this.getFabricatorsUrl)
       .map(res => res.json());
   }
 

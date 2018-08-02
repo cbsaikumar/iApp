@@ -1,9 +1,11 @@
 declare var require: any;
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Fabricator } from '../fabricator/fabricator.component';
 var $ = require('jquery');
 var dt = require('datatables.net');
 export class LeadData {
@@ -40,21 +42,33 @@ export class NewLeadComponent implements OnInit {
   title: string = "Add Lead";
   showMenu: boolean;
 
-  requirements: string[] = ["Structural", "Miscellaneous", "Engineering"];
-  
+  defaultRequirements: string[] = ["Structural", "Miscellaneous", "Engineering"];
+  requirements : string[] = [];
+  fabricatorInfoForm: FormGroup;
+  newLeadForm: FormGroup;
   submitSuccess: boolean;
   submitted: boolean;
+
+  selectedFabricator: any;
+  selectedFabricatorName: any;
+
+  public fabricators : Fabricator[];
+  fabricatorsNames : any;
+
+  showFabricatorInfo : boolean;
 
   @ViewChild('mySidenav') mySideNav: ElementRef;
   @ViewChild('main') main: ElementRef;
 
 
   constructor(
-      private authService:AuthService, 
-      private flashMessage: FlashMessagesService, 
-      private router: Router
-    ) {
-  }
+    private fb: FormBuilder,
+    private authService:AuthService, 
+    private flashMessage: FlashMessagesService, 
+    private router: Router,
+    private activateRoute : ActivatedRoute,
+    
+  ) { }
 
   register(newLeadForm:LeadData){
     console.log("newLeadForm",newLeadForm);
@@ -74,8 +88,74 @@ export class NewLeadComponent implements OnInit {
     });
   }
 
-  ngOnInit() {  
+  ngOnInit() { 
+    this.authService.getFabricators().subscribe((data)=>{
+      if(data){
+        this.fabricators = data.data;
+        console.log("fabricators", this.fabricators);
+      }
+    });  
+    
+    this.newLeadForm = this.fb.group({
+        fabricatorInfoForm : this.fb.group({
+          fabricator: new FormControl(),
+          contact_name: new FormControl(''),
+          email: new FormControl(''),
+          phone: new FormControl(''),
+          website: new FormControl(''),
+          address: new FormControl(''),
+        }),
+        bidInfoForm : this.fb.group({
+          project_name: new FormControl(''),
+          project_address: new FormControl(''),
+          bid_received_date: new FormControl(null),
+          bid_due_date: new FormControl(null),
+          document_received: new FormControl(''),
+          document_path: new FormControl(''),
+          requirements: new FormControl(),
+          executive: new FormControl('')
+        }),
+    });
+
+    //this.newLeadForm.controls['bidInfoForm'].disable();
+
+    this.newLeadForm.controls['fabricatorInfoForm'].disable();
+    //@ts-ignore
+    this.newLeadForm.controls['fabricatorInfoForm'].controls['fabricator'].enable();
   };
+  
+  onChange(event){
+    this.selectedFabricatorName = event.target.value;
+    console.log("selected",  this.selectedFabricatorName);
+    this.selectedFabricator = this.fabricators.filter((element, index, array)=>{
+      return element.fabricator === this.selectedFabricatorName;
+    });
+
+    console.log("elemtn", this.selectedFabricator);
+
+    this.newLeadForm.setValue({
+      fabricatorInfoForm : {
+        fabricator : this.selectedFabricator[0]['fabricator'],
+        contact_name : this.selectedFabricator[0]['contact_name'],
+        email : this.selectedFabricator[0]['email'],
+        phone : this.selectedFabricator[0]['phone'],
+        website : this.selectedFabricator[0]['website'],
+        address : this.selectedFabricator[0]['address'],
+      },
+      bidInfoForm : {
+        project_name: '',
+        project_address: '',
+        bid_received_date: null,
+        bid_due_date: null,
+        document_received: null,
+        document_path: '',
+        requirements: [],
+        executive: ''
+      },
+    });
+    
+    this.showFabricatorInfo = true;
+  }
 
   cancel(){
     history.back();
@@ -89,6 +169,8 @@ export class NewLeadComponent implements OnInit {
       let index = this.requirements.indexOf(req.value);
       this.requirements.splice(index, 1);
     }
+
+    console.log("reqs", this.requirements);
   }
 
   openNav() {
