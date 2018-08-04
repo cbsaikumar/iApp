@@ -53,6 +53,7 @@ export class NewLeadComponent implements OnInit {
   selectedFabricatorName: any;
 
   public fabricators : Fabricator[];
+  public salesCount: number;
   fabricatorsNames : any;
 
   showFabricatorInfo : boolean;
@@ -70,14 +71,23 @@ export class NewLeadComponent implements OnInit {
     
   ) { }
 
-  register(newLeadForm:LeadData){
-    console.log("newLeadForm",newLeadForm);
-    let newLeadData : LeadData;
-    newLeadData = newLeadForm;
+  publish(newLeadForm:any, canPublish: boolean){
+    let bid_number = "ABCD".concat((this.salesCount+1).toString());
+    console.log("bid_number",bid_number);
+  
+    const merged = Object.assign(newLeadForm.bidInfoForm, this.selectedFabricator[0]);
+    merged.bid_number = bid_number;
+    merged.requirements = this.requirements.toString();
+    if(canPublish){
+      merged.status = "RFQ";
+    }
+    else{
+      merged.status = "Open";
+    }
+    console.log("newLeadForm", merged);
 
-    console.log("newLeadData",newLeadData);
     
-    this.authService.register(newLeadData).subscribe((data)=>{
+    this.authService.addLead(merged).subscribe((data)=>{
       console.log("subscribe", data);
       if(data.affectedRows>0){
         this.submitSuccess = !this.submitSuccess;
@@ -89,6 +99,13 @@ export class NewLeadComponent implements OnInit {
   }
 
   ngOnInit() { 
+    
+    this.authService.getCount("sales").subscribe(data=>{
+      if(data){
+        this.salesCount = data.data[0]["count"];
+      }
+    });
+
     this.authService.getFabricators().subscribe((data)=>{
       if(data){
         this.fabricators = data.data;
@@ -98,12 +115,12 @@ export class NewLeadComponent implements OnInit {
     
     this.newLeadForm = this.fb.group({
         fabricatorInfoForm : this.fb.group({
-          fabricator: new FormControl(),
-          contact_name: new FormControl(''),
-          email: new FormControl(''),
-          phone: new FormControl(''),
-          website: new FormControl(''),
-          address: new FormControl(''),
+          fabricator_name: new FormControl(),
+          fabricator_contact_name: new FormControl(''),
+          fabricator_email: new FormControl(''),
+          fabricator_phone: new FormControl(''),
+          fabricator_website: new FormControl(''),
+          fabricator_address: new FormControl(''),
         }),
         bidInfoForm : this.fb.group({
           project_name: new FormControl(''),
@@ -113,6 +130,7 @@ export class NewLeadComponent implements OnInit {
           document_received: new FormControl(''),
           document_path: new FormControl(''),
           requirements: new FormControl(),
+          bid_received_from : new FormControl(''),
           executive: new FormControl('')
         }),
     });
@@ -121,35 +139,36 @@ export class NewLeadComponent implements OnInit {
 
     this.newLeadForm.controls['fabricatorInfoForm'].disable();
     //@ts-ignore
-    this.newLeadForm.controls['fabricatorInfoForm'].controls['fabricator'].enable();
+    this.newLeadForm.controls['fabricatorInfoForm'].controls['fabricator_name'].enable();
   };
   
   onChange(event){
     this.selectedFabricatorName = event.target.value;
     console.log("selected",  this.selectedFabricatorName);
     this.selectedFabricator = this.fabricators.filter((element, index, array)=>{
-      return element.fabricator === this.selectedFabricatorName;
+      return element.fabricator_name === this.selectedFabricatorName;
     });
 
     console.log("elemtn", this.selectedFabricator);
 
     this.newLeadForm.setValue({
       fabricatorInfoForm : {
-        fabricator : this.selectedFabricator[0]['fabricator'],
-        contact_name : this.selectedFabricator[0]['contact_name'],
-        email : this.selectedFabricator[0]['email'],
-        phone : this.selectedFabricator[0]['phone'],
-        website : this.selectedFabricator[0]['website'],
-        address : this.selectedFabricator[0]['address'],
+        fabricator_name : this.selectedFabricator[0]['fabricator_name'],
+        fabricator_contact_name : this.selectedFabricator[0]['fabricator_contact_name'],
+        fabricator_email : this.selectedFabricator[0]['fabricator_email'],
+        fabricator_phone : this.selectedFabricator[0]['fabricator_phone'],
+        fabricator_website : this.selectedFabricator[0]['fabricator_website'],
+        fabricator_address : this.selectedFabricator[0]['fabricator_address'],
       },
       bidInfoForm : {
         project_name: '',
         project_address: '',
         bid_received_date: null,
         bid_due_date: null,
+        bid_received_from : '',
         document_received: null,
         document_path: '',
-        requirements: [],
+        requirements: '',
         executive: ''
       },
     });
@@ -159,6 +178,10 @@ export class NewLeadComponent implements OnInit {
 
   cancel(){
     history.back();
+  }
+
+  tryAgain(){
+    this.submitSuccess =false;
   }
 
   addRequirement(req, event){

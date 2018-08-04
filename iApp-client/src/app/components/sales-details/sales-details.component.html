@@ -76,35 +76,48 @@
       <div class="row">
         <form *ngIf="dataLoaded">
           <div class="col-sm-12">
-            <div class="row" [formGroup]="bidInfoForm">
-              <div class="col-sm-6 ">
+            <div class="row" [formGroup]="fabricatorInfoForm">
+              <div class="col-sm-6 col-md-6 col-lg-6">
                 <p>Bid Number</p>
               </div>
-              <div class="col-sm-6 ">
-                <input type="text" formControlName="bid_number" placeholder="Enter Bid Number Here.." class="form-control">
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <input type="text" value="{{bid_number}}" disabled placeholder="Enter Bid Number Here.." class="form-control">
+              </div>
+              <div class="row m-1">
+                <h5 class="col-sm-12 col-lg-12 col-md-12">Fabricator Info</h5>
+                <div class="col-sm-4 col-lg-6 col-md-6">
+                  <label>Fabricator Name</label>
+                  <input type="text" formControlName="fabricator_name" placeholder="Enter Fabricator Name Here.." class="form-control">
+                  <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['contact_name'].valid && fabricatorInfoForm.controls['contact_name'].touched">Contact Name is required</div> -->
+                </div>
+                <div class="col-sm-4 col-lg-6 col-md-6">
+                  <label>Contact Name</label>
+                  <input type="text" formControlName="fabricator_contact_name" placeholder="Enter Contact Name Here.." class="form-control">
+                  <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['contact_name'].valid && fabricatorInfoForm.controls['contact_name'].touched">Contact Name is required</div> -->
+                </div>
+                <div class="col-sm-4 col-lg-6 col-md-6">
+                  <label>E-Mail</label>
+                  <input type="email" formControlName="fabricator_email" placeholder="Enter Email Here.." class="form-control">
+                  <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['email'].valid && fabricatorInfoForm.controls['email'].touched">Enter valid email id.</div> -->
+                </div>
+                <div class="col-sm-4 col-lg-6 col-md-6">
+                  <label>Phone</label>
+                  <input type="tel" formControlName="fabricator_phone" placeholder="Enter Phone Here.." class="form-control">
+                  <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['phone'].valid && fabricatorInfoForm.controls['phone'].touched">Phone is required</div> -->
+                </div>
+                <div class="col-sm-4 col-lg-6 col-md-6">
+                  <label>Website</label>
+                  <input type="url" formControlName="fabricator_website" placeholder="Enter Website Here.." class="form-control">
+                  <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
+                </div>
+                <div class="col-sm-12 col-lg-12 col-md-12">
+                  <label>Address</label>
+                  <textarea placeholder="Enter Address Here.." formControlName="fabricator_address" rows="3" class="form-control" name="address"></textarea>
+                  <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['address'].valid && fabricatorInfoForm.controls['address'].touched">Address is required</div> -->
+                </div>
               </div>
             </div>
-            <div class="row">
-              <h5 class="col-sm-6 ">Fabricator Info</h5>
-            </div>
-            <div class="row" [formGroup]="fabriatorInfoForm">
-              <div class="col-sm-4 col-lg-4">
-                <label>Fabricator Name</label>
-                <input type="text" formControlName="fabricator" placeholder="Enter Fabricator Here.." class="form-control">
-              </div>
-              <div class="col-sm-4 col-lg-4 ">
-                <label>Url</label>
-                <input type="text" formControlName="fabricator_Url" placeholder="Enter Url Here.." class="form-control">
-              </div>
-              <div class="col-sm-4 col-lg-4 ">
-                <label>Phone</label>
-                <input type="text" formControlName="fabricator_phone" placeholder="Enter Phone Here.." class="form-control">
-              </div>
-              <div class="col-sm-12 col-lg-12 col-md-12">
-                <label>Address</label>
-                <textarea placeholder="Enter Address Here.." rows="3" class="form-control" formControlName="fabricator_address"></textarea>
-              </div>
-            </div>
+            <hr class="border-top-1 border-dark" />
             <div class="row">
               <h5 class="col-sm-6 ">Bid Info</h5>
             </div>
@@ -138,10 +151,11 @@
                 <input type="text" formControlName="executive" placeholder="Enter Executive Here.." class="form-control">
               </div>
               <div class="col-sm-4 col-lg-4 ">
-                <label>Bid Type</label>
-                <input type="text" formControlName="bid_type" placeholder="Enter Bid Type Here.." class="form-control">
+                <label>Requirements</label>
+                <input type="text" formControlName="requirements" placeholder="Enter Requirements Here.." class="form-control">
               </div>
             </div>
+            <hr class="border-top-1 border-dark" />
             <div class="row" *ngIf="bidStatus.value != 'estimated'">
               <h5 class="col-sm-6 ">Estimation Info</h5>
             </div>
@@ -166,7 +180,7 @@
                 <label>Misc Steel Estimated Schedule</label>
                 <input type="date" formControlName="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
               </div>
-              
+
               <!-- <div class="row col-sm-12 col-lg-12 col-md-12">
                 <div class="col-sm-4 col-lg-4 ">
                   <label>Inclusions</label>
@@ -186,6 +200,7 @@
                 </div>
               </div> -->
             </div>
+
             <div class="row">
               <button type="button" (click)="prepareQuote()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Prepare Quote</button>
               <button type="button" (click)="reQuote()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Re-Quote</button>

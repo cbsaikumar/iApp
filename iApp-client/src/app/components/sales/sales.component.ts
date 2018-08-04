@@ -50,7 +50,7 @@ export class SalesComponent implements OnInit {
           '</tr>' +
           '<tr>' +
           '<td>Fabricator:</td>' +
-          '<td>' + d.fabricator + '</td>' +
+          '<td>' + d.fabricator_name + '</td>' +
           '</tr>' +
           '<tr>' +
           '<td>Executive:</td>' +
@@ -89,7 +89,7 @@ export class SalesComponent implements OnInit {
             data: 'bid_sent_date',
             type: 'date'
           },
-          { data: 'fabricator' },
+          { data: 'fabricator_name' },
           { data: 'project_name' },
           { data: 'executive' },
           { data: 'status' }

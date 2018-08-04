@@ -19,10 +19,11 @@ export class SalesDetailsComponent implements OnInit {
   salesDetails: any;
   showMenu: boolean;
   salesDetailsForm: FormGroup;
-  fabriatorInfoForm: FormGroup;
+  fabricatorInfoForm: FormGroup;
   bidInfoForm: FormGroup;
   estimationInfoForm: FormGroup;
   dataLoaded: boolean = false;
+  bid_number : string;
 
   misc_inclusions: any[];
   misc_exclusions: any[];
@@ -45,31 +46,32 @@ export class SalesDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    let bid_number = this.activeRoute.snapshot.params['bid_number'];
+    this.bid_number = this.activeRoute.snapshot.params['bid_number'];
     console.log(this.activeRoute.snapshot.params['bid_number']);
-    this.authService.getSalesDetails(bid_number).subscribe((data) => {
+    this.authService.getSalesDetails(this.bid_number).subscribe((data) => {
       if (data) {
         this.salesDetails = data.data[0];
         console.log(this.salesDetails);
         this.dataLoaded = true;
     
-        this.fabriatorInfoForm = this.fb.group({
-          fabricator: new FormControl(this.salesDetails.fabricator),
-          fabricator_Url: new FormControl(this.salesDetails.fabricator_Url),
+        this.fabricatorInfoForm = this.fb.group({
+          fabricator_name: new FormControl(this.salesDetails.fabricator_name),
+          fabricator_website: new FormControl(this.salesDetails.fabricator_website),
           fabricator_address: new FormControl(this.salesDetails.fabricator_address),
-          fabricator_phone: new FormControl(this.salesDetails.fabricator_phone)
+          fabricator_phone: new FormControl(this.salesDetails.fabricator_phone),
+          fabricator_email: new FormControl(this.salesDetails.fabricator_email),
+          fabricator_contact_name: new FormControl(this.salesDetails.fabricator_contact_name)
         });
         this.bidInfoForm = this.fb.group({
           bid_number: new FormControl(this.salesDetails.bid_number),
           bid_received_date: new FormControl(new Date(this.salesDetails.bid_received_date).toISOString().substring(0,10)),
           bid_received_from: new FormControl(this.salesDetails.bid_received_from),
           bid_sent_date: new FormControl(new Date(this.salesDetails.bid_sent_date).toISOString().substring(0,10)),
-          bid_type: new FormControl(this.salesDetails.bid_type),
+          requirements: new FormControl(this.salesDetails.requirements),
           document_path: new FormControl(this.salesDetails.document_path),
           document_received: new FormControl(this.salesDetails.document_received),
-          exclusion: new FormControl(this.salesDetails.exclusion),
-          executive: new FormControl(this.salesDetails.executive),
-          status: new FormControl(this.salesDetails.status)
+          status: new FormControl(this.salesDetails.status),
+          executive: new FormControl(this.salesDetails.executive)
         });
         this.estimationInfoForm = this.fb.group({
           inclusion: new FormControl(this.salesDetails.inclusion),
@@ -80,7 +82,7 @@ export class SalesDetailsComponent implements OnInit {
           misc_steel_hours: new FormControl(this.salesDetails.misc_steel_hours),
         });
       
-        // this.fabriatorInfoForm.disable();
+        this.fabricatorInfoForm.disable();
         this.bidInfoForm.disable();
         // console.log("status", this.bidInfoForm);
         // this.estimationInfoForm.disable();

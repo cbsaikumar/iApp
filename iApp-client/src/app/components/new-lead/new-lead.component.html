@@ -74,48 +74,48 @@
     <div class="m-5" *ngIf="!submitted && !submitSuccess">
         <div class="col-lg-12 well">
             <div class="row">
-                <form [formGroup]="newLeadForm" style="width: 100%;">
+                <form [formGroup]="newLeadForm" style="width: 100%;" autocomplete="on">
                     <div class="col-sm-12">
                         <div class="row" formGroupName="fabricatorInfoForm">
                             <div class="col-sm-6 col-lg-6 col-md-6 form-group">
                                 <p>Select a fabricator</p>
                             </div>
                             <div class="col-sm-6 col-lg-6 col-md-6 form-group">
-                                <select name="fabricator" class="form-control" (change)="onChange($event)" formControlName="fabricator">
+                                <select name="fabricator" class="form-control" (change)="onChange($event)" formControlName="fabricator_name">
                                     <option value="" selected>Choose an option</option>
-                                    <option *ngFor="let fabricator of fabricators" value="{{fabricator.fabricator}}">{{fabricator.fabricator}}</option>
+                                    <option *ngFor="let fabricator of fabricators" value="{{fabricator.fabricator_name}}">{{fabricator.fabricator_name}}</option>
                                 </select>
                             </div>
                             <div *ngIf="showFabricatorInfo" class="row m-1">
                                 <h5 class="col-sm-12 col-lg-12 col-md-12">Fabricator Info</h5>
                                 <div class="col-sm-4 col-lg-6 col-md-6">
                                     <label>Contact Name</label>
-                                    <input type="text" formControlName="contact_name" placeholder="Enter Contact Name Here.." class="form-control">
+                                    <input type="text" formControlName="fabricator_contact_name" placeholder="Enter Contact Name Here.." class="form-control">
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['contact_name'].valid && fabricatorInfoForm.controls['contact_name'].touched">Contact Name is required</div> -->
                                 </div>
                                 <div class="col-sm-4 col-lg-6 col-md-6">
                                     <label>E-Mail</label>
-                                    <input type="email" formControlName="email" placeholder="Enter Email Here.." class="form-control">
+                                    <input type="email" formControlName="fabricator_email" placeholder="Enter Email Here.." class="form-control">
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['email'].valid && fabricatorInfoForm.controls['email'].touched">Enter valid email id.</div> -->
                                 </div>
                                 <div class="col-sm-4 col-lg-6 col-md-6">
                                     <label>Phone</label>
-                                    <input type="tel" formControlName="phone" placeholder="Enter Phone Here.." class="form-control">
+                                    <input type="tel" formControlName="fabricator_phone" placeholder="Enter Phone Here.." class="form-control">
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['phone'].valid && fabricatorInfoForm.controls['phone'].touched">Phone is required</div> -->
                                 </div>
                                 <div class="col-sm-4 col-lg-6 col-md-6">
                                     <label>Website</label>
-                                    <input type="url" formControlName="website" placeholder="Enter Website Here.." class="form-control">
+                                    <input type="url" formControlName="fabricator_website" placeholder="Enter Website Here.." class="form-control">
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
                                 </div>
                                 <div class="col-sm-12 col-lg-12 col-md-12">
                                     <label>Address</label>
-                                    <textarea placeholder="Enter Address Here.." formControlName="address" rows="3" class="form-control" name="address"></textarea>
+                                    <textarea placeholder="Enter Address Here.." formControlName="fabricator_address" rows="3" class="form-control" name="address"></textarea>
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['address'].valid && fabricatorInfoForm.controls['address'].touched">Address is required</div> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="row" formGroupName="bidInfoForm" style="border-left: none;">
+                        <div class="row" *ngIf="showFabricatorInfo" formGroupName="bidInfoForm" style="border-left: none;">
                             <h5 class="col-sm-12 col-lg-12 col-md-12">Bid Info</h5>
                             <div class="row m-1">
                                 <div class="col-sm-4 col-lg-6 col-md-6">
@@ -125,7 +125,8 @@
                                 </div>
                                 <div class="col-sm-12 col-lg-12 col-md-12">
                                     <label>Project Address</label>
-                                    <textarea placeholder="Enter Project Address Here.."required formControlName="project_address" rows="3" class="form-control" name="address"></textarea>
+                                    <textarea placeholder="Enter Project Address Here.." required formControlName="project_address" rows="3" class="form-control"
+                                        name="address"></textarea>
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['address'].valid && fabricatorInfoForm.controls['address'].touched">Address is required</div> -->
                                 </div>
                                 <div class="col-sm-4 col-lg-6 col-md-6">
@@ -137,6 +138,11 @@
                                     <label>Bid Due Date</label>
                                     <input type="date" formControlName="bid_due_date" required placeholder="Enter Bid Due Date Here.." class="form-control">
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['phone'].valid && fabricatorInfoForm.controls['phone'].touched">Phone is required</div> -->
+                                </div>
+                                <div class="col-sm-4 col-lg-6 col-md-6">
+                                    <label>Bid Received From</label>
+                                    <input type="text" formControlName="bid_received_from" required placeholder="Enter Document Received Here.." class="form-control">
+                                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
                                 </div>
                                 <div class="col-sm-4 col-lg-6 col-md-6">
                                     <label>Document Received</label>
@@ -153,7 +159,7 @@
                                     <input type="text" formControlName="executive" required placeholder="Enter Executive Here.." class="form-control">
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
                                 </div>
-                                
+
                                 <label class="col-sm-12 col-lg-12 col-md-12 mt-4">Requirements</label>
                                 <div class="col-sm-12 col-lg-12 col-md-12 text-center">
                                     <p *ngFor="let requirement of defaultRequirements" class="d-inline mr-4">
@@ -162,8 +168,8 @@
                                     <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div> -->
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 mt-4">
-                                    <button type="button" [disabled]="!newLeadForm.valid" (click)="register(newLeadForm.value)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Save</button>
-                                    <button type="button" (click)="register(newLeadForm.value)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Publish</button>
+                                    <button type="button" (click)="publish(newLeadForm.value, false)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Save</button>
+                                    <button type="button" [disabled]="!newLeadForm.valid" (click)="publish(newLeadForm.value, true)" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Publish</button>
                                     <button type="button" (click)="cancel()" class="btn btn-sm btn-info submit-btn mr-4 col-lg-3 col-md-3 col-sm-5">Cancel</button>
                                 </div>
                             </div>
@@ -173,30 +179,35 @@
             </div>
         </div>
     </div>
-    <div class="p-100 container well" *ngIf="submitSuccess">
-        <div class="text-center">
-            <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+    <div>
+        <div class="p-100 container well" *ngIf="submitSuccess">
+            <div class="text-center">
+                <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+            </div>
+            <div class="">
+                <span class="text-center">
+                    <h6>You have Successfully submitted the form. You can either add another or go to home.</h6>
+                </span>
+            </div>
+            <div class="alert alert-success text-center">
+                <strong>Success!</strong> Added Successfully.
+            </div>
         </div>
-        <div class="">
-            <span class="text-center">
-                <h6>You have Successfully submitted the form. You can either add another or go to home.</h6>
-            </span>
+        <div class="container well" *ngIf="submitted">
+            <div class="text-center">
+                <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
+            </div>
+            <div class="">
+                <span class="text-center">
+                    <h6>Try again. You can either try again or go back.</h6>
+                </span>
+            </div>
+            <div class="alert alert-danger text-center">
+                <strong>Error!</strong> Unsuccessful.
+            </div>
         </div>
-        <div class="alert alert-success text-center">
-            <strong>Success!</strong> Added Successfully.
-        </div>
-    </div>
-    <div class="container well" *ngIf="submitted">
-        <div class="text-center">
-            <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
-        </div>
-        <div class="">
-            <span class="text-center">
-                <h6>Try again. You can either try again or go back.</h6>
-            </span>
-        </div>
-        <div class="alert alert-danger text-center">
-            <strong>Error!</strong> Unsuccessful.
+        <div *ngIf="submitSuccess" class="text-center">
+            <button type="button" (click)="tryAgain()" class="btn btn-info btn-md mt-4 button-custom" style="background-color:#33679a; border-color:#33679a;">Try Again</button>
         </div>
     </div>
     <app-footer></app-footer>

@@ -17,7 +17,7 @@ export class AuthService {
   private rolesUrl: string;
   private inclusionsUrl: string; 
   private exClusionsUrl: string; 
-  private saleInsertUrl: string; 
+  private insertUrl: string; 
 
   constructor(private http: Http) { 
     // this.loginUrl = "http://localhost:5000/loginRequest";
@@ -26,9 +26,10 @@ export class AuthService {
     // this.rolesUrl = "http://localhost:5000/api/query/roles";
     // this.inclusionsUrl = "http://localhost:5000/api/query/misc_inclusions";
     // this.exClusionsUrl = "http://localhost:5000/api/query/misc_exclusions";
-    // this.saleInsertUrl = "http://localhost:5000/api/insertRequest";
+    // this.insertUrl = "http://localhost:5000/api/insertRequest";
     // this.fabricatorUrl = "http://localhost:5000/api/addFabricator";
     // this.getFabricatorsUrl = "http://localhost:5000/api/query/fabricator";
+    // this.CountUrl = "http://localhost:5000/api/count/";
 
     this.loginUrl = "loginRequest";
     this.salesUrl = "api/query/sales";
@@ -36,9 +37,10 @@ export class AuthService {
     this.rolesUrl = "api/query/roles";
     this.inclusionsUrl = "api/query/misc_inclusions";
     this.exClusionsUrl = "api/query/misc_exclusions";
-    this.saleInsertUrl = "api/insertRequest";
+    this.insertUrl = "api/insertRequest";
     this.fabricatorUrl = "api/addFabricator";
     this.getFabricatorsUrl = "api/query/fabricator";
+    this.CountUrl = "api/count/";
   }
 
   login(username: string, password: any) {
@@ -58,18 +60,25 @@ export class AuthService {
       .map(res => res.json());
   };
 
-  register(data:LeadData){
-    let statement: string = "insert into sales (bid_number, status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
-    //params.append('Content-Type', 'application/json');
-    //params.append('statement', statement);
-    let headers = { "Content-Type": "application/x-www-form-urlencoded" };
-
-    
+  addLead(newLead:LeadData){
+    //let statement: string = "insert into sales (bid_number, status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
+    let statement = "insert into sales set ? ";
+    const searchParams = {
+      params: {
+          data: newLead,
+          statement: statement
+      }
+    }
     //console.log("url", this.saleInsertUrl);
 
-    return this.http.post(this.saleInsertUrl, data) 
+    return this.http.post(this.insertUrl, searchParams) 
       .map(res => res.json());
 
+  }
+
+  getCount(tableName:string){
+    return this.http.get(this.CountUrl+tableName)
+      .map(res => res.json());
   }
 
   addQuote(quote:Quote, bid_number:number){
@@ -129,7 +138,7 @@ export class AuthService {
 
   getSalesDetails(bid_number){
     
-    return this.http.get(this.salesUrl+"/"+bid_number)
+    return this.http.get(this.salesUrl+"/"+bid_number.toString())
       .map(res => res.json());
   }
 

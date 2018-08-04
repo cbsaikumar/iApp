@@ -132,11 +132,11 @@ const returnResult = (err, data) => {
     return resultObj;
 };
 
-app.get('/api/query/sales/:bid', (req, res) => {
-    console.log("bid", req.params.bid);
+app.get('/api/query/sales/:bid_number', (req, res) => {
+    console.log("bid", req.params.bid_number);
     /* STATUS, DATA, ERR */
-    let bid_number = connection.escape(req.params.bid);
-    let sql = 'select * from sales where bid_number= '.concat(req.params.bid);
+    let bid_number = connection.escape(req.params.bid_number);
+    let sql = 'select * from sales where bid_number= '.concat(bid_number);
     //console.log(sql);
     connection.query(sql, (error, result, fields) => {
         res.send(returnResult(error, result));
@@ -148,6 +148,17 @@ app.get('/api/query/:ds', (req, res) => {
     /* STATUS, DATA, ERR */
     let tableName = connection.escape(req.params.ds);
     let sql = 'select * from '.concat(req.params.ds);
+    //console.log(sql);
+    connection.query(sql, (error, result, fields) => {
+        res.send(returnResult(error, result));
+    });
+});
+
+app.get('/api/count/:ds', (req, res) => {
+    console.log("ds", req.params.ds);
+    /* STATUS, DATA, ERR */
+    let tableName = connection.escape(req.params.ds);
+    let sql = 'select count(*) as count from '.concat(req.params.ds);
     //console.log(sql);
     connection.query(sql, (error, result, fields) => {
         res.send(returnResult(error, result));
@@ -180,16 +191,16 @@ app.post('/loginRequest', (req, res) => {
     );
 });
 app.post('/api/insertRequest', (req, res) => {
-    var quote = req.body.params.quote;
-    var bid_number = req.body.params.bid_number;
-    console.log("bid", bid_number, quote);
+    var data = req.body.params.data;
+    var statement = req.body.params.statement;
 
-    let statement = "UPDATE sales SET inclusion=?, exclusion=?,main_steel_est_schedule=?,main_steel_hours=?,misc_steel_est_schedule=?, misc_steel_hours=?,status=?,bid_type=?,quote_price=?,engg_price=?,comments=? WHERE bid_number=?";
+    console.log("data", data);
+
+    //let statement = "UPDATE sales SET inclusion=?, exclusion=?,main_steel_est_schedule=?,main_steel_hours=?,misc_steel_est_schedule=?, misc_steel_hours=?,status=?,bid_type=?,quote_price=?,engg_price=?,comments=? WHERE bid_number=?";
     
     var query = connection.query(
         statement,
-        [quote.inclusion,quote.exclusion,quote.main_steel_est_schedule,quote.main_steel_hours,quote.misc_steel_est_schedule,quote.misc_steel_hours,quote.status, quote.bid_type,quote.quote_price, quote.engg_price, quote.comments,
-        bid_number],
+        data,
         (error, result, fields) => {
             if (error) {
                 console.log('*** INSERT ERROR *** | ' + error);
@@ -201,6 +212,8 @@ app.post('/api/insertRequest', (req, res) => {
         },
     );
 });
+
+
 
 app.post('/api/addFabricator', (req, res) => {
     let fabricator = req.body.params.fabricator;

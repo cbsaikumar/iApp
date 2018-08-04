@@ -80,34 +80,34 @@
                       <div class="row">
                           <div class="col-sm-4 col-lg-6 col-md-6">
                               <label>Fabricator</label>
-                              <input type="text" formControlName="fabricator" required placeholder="Enter Fabricator Name Here.." class="form-control">
-                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['fabricator'].valid && fabricatorInfoForm.controls['fabricator'].touched">Fabricator is required</div>
+                              <input type="text" formControlName="fabricator_name" required placeholder="Enter Fabricator Name Here.." class="form-control">
+                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['fabricator_name'].valid && fabricatorInfoForm.controls['fabricator_name'].touched">Fabricator is required</div>
                           </div>
                           <div class="col-sm-4 col-lg-6 col-md-6">
                               <label>Contact Name</label>
-                              <input type="text" formControlName="contact_name" required placeholder="Enter Contact Name Here.." class="form-control">
-                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['contact_name'].valid && fabricatorInfoForm.controls['contact_name'].touched">Contact Name is required</div>
+                              <input type="text" formControlName="fabricator_contact_name" required placeholder="Enter Contact Name Here.." class="form-control">
+                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['fabricator_contact_name'].valid && fabricatorInfoForm.controls['fabricator_contact_name'].touched">Contact Name is required</div>
                           </div>
                           <div class="col-sm-4 col-lg-6 col-md-6">
                               <label>E-Mail</label>
-                              <input type="email" formControlName="email" required placeholder="Enter Email Here.."
+                              <input type="email" formControlName="fabricator_email" required placeholder="Enter Email Here.."
                                   class="form-control">
-                                <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['email'].valid && fabricatorInfoForm.controls['email'].touched">Enter valid email id.</div>
+                                <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['fabricator_email'].valid && fabricatorInfoForm.controls['fabricator_email'].touched">Enter valid email id.</div>
                           </div>
                           <div class="col-sm-4 col-lg-6 col-md-6">
                               <label>Phone</label>
-                              <input type="tel" formControlName="phone" required placeholder="Enter Phone Here.." class="form-control">
-                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['phone'].valid && fabricatorInfoForm.controls['phone'].touched">Phone is required</div>
+                              <input type="tel" formControlName="fabricator_phone" required placeholder="Enter Phone Here.." class="form-control">
+                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['fabricator_phone'].valid && fabricatorInfoForm.controls['fabricator_phone'].touched">Phone is required</div>
                           </div>
                           <div class="col-sm-4 col-lg-6 col-md-6">
                               <label>Website</label>
-                              <input type="url" formControlName="website" required placeholder="Enter Website Here.." class="form-control">
-                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['website'].valid && fabricatorInfoForm.controls['website'].touched">Website is required</div>
+                              <input type="url" formControlName="fabricator_website" required placeholder="Enter Website Here.." class="form-control">
+                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['fabricator_website'].valid && fabricatorInfoForm.controls['fabricator_website'].touched">Website is required</div>
                           </div>
                           <div class="col-sm-12 col-lg-12 col-md-12">
                               <label>Address</label>
-                              <textarea placeholder="Enter Address Here.."  required formControlName="address" rows="3" class="form-control" name="address"></textarea>
-                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['address'].valid && fabricatorInfoForm.controls['address'].touched">Address is required</div>
+                              <textarea placeholder="Enter Address Here.."  required formControlName="fabricator_address" rows="3" class="form-control" name="address"></textarea>
+                              <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['fabricator_address'].valid && fabricatorInfoForm.controls['fabricator_address'].touched">Address is required</div>
                           </div>
                         </div>
                       <div class="row">

@@ -5,12 +5,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 export class Fabricator {
-  constructor(public fabricator: string='',
-              public contact_name: string='',
-              public email : string = '',
-              public phone : string = '',
-              public website : string = '',
-              public address : string = ''
+  constructor(public fabricator_name: string='',
+              public fabricator_contact_name: string='',
+              public fabricator_email : string = '',
+              public fabricator_phone : string = '',
+              public fabricator_website : string = '',
+              public fabricator_address : string = ''
             ) { }
 }
 
@@ -41,12 +41,12 @@ export class FabricatorComponent implements OnInit {
 
   ngOnInit() {
     this.fabricatorInfoForm = this.fb.group({
-      fabricator: new FormControl('',[Validators.required]),
-      contact_name: new FormControl('',[Validators.required]),
-      email: new FormControl('',[Validators.required, Validators.email]),
-      phone: new FormControl('',[Validators.required]),
-      website: new FormControl('',[Validators.required]),
-      address: new FormControl('',[Validators.required]),
+      fabricator_name: new FormControl('',[Validators.required]),
+      fabricator_contact_name: new FormControl('',[Validators.required]),
+      fabricator_email: new FormControl('',[Validators.required, Validators.email]),
+      fabricator_phone: new FormControl('',[Validators.required]),
+      fabricator_website: new FormControl('',[Validators.required]),
+      fabricator_address: new FormControl('',[Validators.required]),
     });
   }
 
