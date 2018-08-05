@@ -13,17 +13,12 @@ import * as html2canvas from 'html2canvas';
 var $ = require('jquery');
 var dt = require('datatables.net');
 export class Quote {
-  constructor(public inclusion: string='',
-              public exclusion: string='',
-              public main_steel_est_schedule : Date = null,
-              public main_steel_hours : number = 0,
-              public misc_steel_est_schedule : Date = null,
-              public misc_steel_hours : number = 0,
-              public status : string = '',
-              public bid_type : string = '',
+  constructor(
               public quote_price : number = 0,
               public engg_price : number = 0,
-              public comments : string = ''
+              public comments : string = '',
+              public status : string = '',
+              public sales_id : string = '',
             ) { }
 }
 
@@ -62,19 +57,22 @@ export class QuoteComponent implements OnInit {
     ) {
   }
 
-  addQuote(quoteForm:Quote){
+  save(quoteForm : Quote, status : string){
     console.log("quoteForm",quoteForm);
+    let sales_id = sessionStorage.getItem('sales_id');
+    console.log('sales_id',sales_id);
     let newQuoteForm : Quote;
     newQuoteForm = quoteForm;
-
-    newQuoteForm.inclusion = this.inclusions.toString();
-    newQuoteForm.exclusion = this.exclusions.toString();
-    newQuoteForm.bid_type = this.selectBidTypes.toString();
-    
-   
+    if(status){
+      newQuoteForm.status = "Quote Sent";
+    }
+    else{
+      newQuoteForm.status = "Quote Pending";
+    }
+    newQuoteForm.sales_id = sales_id;
     console.log("newQuoteForm",newQuoteForm);
     
-    this.authService.addQuote(newQuoteForm, this.bid_number).subscribe((data)=>{
+    this.authService.addQuote(newQuoteForm).subscribe((data)=>{
       console.log("subscribe", data);
       if(data.affectedRows>0){
         this.submitSuccess = !this.submitSuccess;
@@ -90,41 +88,14 @@ export class QuoteComponent implements OnInit {
     let bid_number = this.activateRoute.snapshot.params['bid_number'];
     console.log("got bid number as", bid_number);
     this.bid_number = bid_number;
-
-    this.authService.getInclusions().subscribe(data => {
-      
-      this.misc_inclusions = data.data;      
+    
+    this.quoteInfoForm = this.fb.group({
+      quote_price: new FormControl(),
+      engg_price: new FormControl(),
+      comments: new FormControl(''),
     });
 
-    this.authService.getExclusions().subscribe(data => {
-    
-      this.misc_exclusions = data.data;      
-    });  
-     
-    this.authService.getSalesDetails(bid_number).subscribe((data) => {
-      if (data) {
-        this.salesDetails = data.data[0];
-        console.log(this.salesDetails);
-      
-        this.quoteInfoForm = this.fb.group({
-          project_name: new FormControl(this.salesDetails.project_name),
-          main_steel_est_schedule: new FormControl(new Date(this.salesDetails.main_steel_est_schedule).toISOString().substring(0,10)),
-          main_steel_hours: new FormControl(this.salesDetails.main_steel_hours),
-          misc_steel_est_schedule: new FormControl(new Date(this.salesDetails.misc_steel_est_schedule).toISOString().substring(0,10)),
-          quote_price: new FormControl(this.salesDetails.quote_price),
-          engg_price: new FormControl(this.salesDetails.engg_price),
-          comments: new FormControl(this.salesDetails.comments),
-          misc_steel_hours: new FormControl(this.salesDetails.misc_steel_hours),
-          inclusion: new FormControl(this.salesDetails.inclusion),
-          exclusion: new FormControl(this.salesDetails.exclusion)
-        });
-    
-        // this.fabriatorInfoForm.disable();
-        this.quoteInfoForm.disable();
-        // console.log("status", this.bidInfoForm);
-        // this.estimationInfoForm.disable();
-      }
-    });
+    //this.quoteInfoForm.disable();
   };
 
   addInclusion(inc, event){
@@ -137,15 +108,6 @@ export class QuoteComponent implements OnInit {
     }
   }
 
-  // addBidType(bid, event){
-  //   if(event.target.checked ===  true){
-  //     this.selectBidTypes.push(bid.value);
-  //   }
-  //   else{
-  //     let index = this.selectBidTypes.indexOf(bid.value);
-  //     this.selectBidTypes.splice(index, 1);
-  //   }
-  // }
   cancel(){
     history.back();
   }
@@ -186,6 +148,11 @@ export class QuoteComponent implements OnInit {
     // popupWin.document.close();
     
   
+  }
+
+  tryAgain(){
+    this.submitSuccess =false;
+    this.submitted = false;
   }
 
   addExclusion(exc, event){

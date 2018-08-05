@@ -71,26 +71,19 @@
     </div>
     <app-navbar></app-navbar>
 
-    <div id="quote" #quote class="container">
+    <div id="quote" #quote class="container" *ngIf="!submitSuccess || submitted ">
         <div class="col-lg-12 well">
             <div class="row">
-                <form>
-                    <h5 class="col-sm-6 form-group">Estimation Info</h5>
-                    <div class="col-sm-12" [formGroup]="quoteInfoForm">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <p>Bid Number</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="text" value="{{bid_number}}" disabled placeholder="Enter Bid Number Here.." class="form-control">
+                </div>
+                <form [formGroup]="quoteInfoForm">
+                    <h5 class="col-sm-6 form-group">Quotation Info</h5>
+                    <div class="col-sm-12">
                         <div class="row" id="print-section">
-                            <div class="col-sm-4 col-lg-4">
-                                <label>Project Name</label>
-                                <input type="text" formControlName="project_name" required placeholder="Enter Project Name Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4">
-                                <label>Main Steel Hours</label>
-                                <input type="number" formControlName="main_steel_hours" required placeholder="Enter Main Steel Hours Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4">
-                                <label>Main Steel Estimated Schedule</label>
-                                <input type="date" formControlName="main_steel_est_schedule" required placeholder="Enter Main Steel Estimated Schedule Here.."
-                                    class="form-control">
-                            </div>
                             <div class="col-sm-4 col-lg-4">
                                 <label>Quote Price</label>
                                 <input type="number" formControlName="quote_price" required placeholder="Enter Quote Price Here.." class="form-control">
@@ -101,29 +94,12 @@
                             </div>
                             <div class="col-sm-12 col-lg-12 col-md-12">
                                 <label>Remarks/Comments</label>
-                                <textarea placeholder="Enter Remarks/Comments Here.." formControlName="comments" rows="3" class="form-control" name="comments"></textarea>
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Misc Steel Hours</label>
-                                <input type="number" formControlName="misc_steel_hours" required placeholder="Enter Misc Steel Hours Here.." class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-4 form-group">
-                                <label>Misc Steel Estimated Schedule</label>
-                                <input type="date" formControlName="misc_steel_est_schedule" required placeholder="Enter Misc Steel Estimated Schedule Here.."
-                                    class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-6 form-group">
-                                <label>Inclusions</label>
-                                <input type="text" formControlName="inclusion" required class="form-control">
-                            </div>
-                            <div class="col-sm-4 col-lg-6 form-group">
-                                <label>Exclusions</label>
-                                <input type="text" formControlName="exclusion" required class="form-control">
+                                <textarea placeholder="Enter Remarks/Comments Here.." required formControlName="comments" rows="3" class="form-control" name="comments"></textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <button type="submit" [disabled]="!quoteForm.valid" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Save</button>
-                            <button type="button" (click)="generateQuote()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Generate Quote</button>
+                            <button type="button" (click)="save(quoteInfoForm.value, false)" [disabled]="!quoteInfoForm.valid" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Save</button>
+                            <button type="button" (click)="save(quoteInfoForm.value, true)" [disabled]="!quoteInfoForm.valid" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Generate Quote</button>
                             <button type="button" (click)="cancel()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Cancel</button>
                         </div>
                     </div>
@@ -156,6 +132,9 @@
         <div class="alert alert-danger text-center">
             <strong>Error!</strong> Unsuccessful.
         </div>
+    </div>
+    <div *ngIf="submitted && !submitSuccess" class="text-center">
+        <button type="button" (click)="tryAgain()" class="btn btn-info btn-md mt-4 button-custom" style="background-color:#33679a; border-color:#33679a;">Try Again</button>
     </div>
     <app-footer></app-footer>
 </div>

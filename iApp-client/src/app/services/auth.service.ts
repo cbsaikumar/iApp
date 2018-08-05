@@ -30,6 +30,7 @@ export class AuthService {
     // this.fabricatorUrl = "http://localhost:5000/api/addFabricator";
     // this.getFabricatorsUrl = "http://localhost:5000/api/query/fabricator";
     // this.CountUrl = "http://localhost:5000/api/count/";
+    // this.latestUrl = "http://localhost:5000/api/latest";
 
     this.loginUrl = "loginRequest";
     this.salesUrl = "api/query/sales";
@@ -41,6 +42,7 @@ export class AuthService {
     this.fabricatorUrl = "api/addFabricator";
     this.getFabricatorsUrl = "api/query/fabricator";
     this.CountUrl = "api/count/";
+    this.latestUrl = "api/latest";
   }
 
   login(username: string, password: any) {
@@ -81,22 +83,56 @@ export class AuthService {
       .map(res => res.json());
   }
 
-  addQuote(quote:Quote, bid_number:number){
-    let statement: string = "insert into sales (status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
+  getLatestQuote(){
+    let sales_id = sessionStorage.getItem('sales_id');
+
+    let statement = "select * from quote where sales_id = ? order by quote_id DESC limit 1";
+    
+    const insertParams = {
+      params: {
+          statement: statement,
+          sales_id: sales_id,
+      }
+    }
+
+    return this.http.post(this.latestUrl,insertParams)
+      .map(res => res.json());
+  }
+
+  addQuote(quote:Quote){
+    let statement: string = "insert into quote set ? ";
+    let statement_2: string = "update sales set ? where sales_id = ? ";
+    //let headers = { "Content-Type": "application/x-www-form-urlencoded" };
+
+    const insertParams = {
+      params: {
+          data: quote,
+          statement: statement,
+          statement_2: statement_2
+      }
+    }
+
+    return this.http.post(this.insertUrl, insertParams) 
+      .map(res => res.json());
+
+  }
+
+  updateBidStatus(status: string, bid_number: string ){
+    console.log("update", status, bid_number, this.salesUrl);
+    let statement: string = "update sales set status = ? where bid_number = ? ";
     //params.append('Content-Type', 'application/json');
     //params.append('statement', statement);
     let headers = { "Content-Type": "application/x-www-form-urlencoded" };
 
     const searchParams = {
       params: {
-          quote: quote,
-          bid_number: bid_number
+          statement: statement,
+          bid_number: bid_number,
+          status : status
       }
     }
-    //console.log("url", this.saleInsertUrl);
 
-    return this.http.post(this.saleInsertUrl, searchParams) 
-      .map(res => res.json());
+    return this.http.put(this.salesUrl, searchParams);
 
   }
 

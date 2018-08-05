@@ -132,6 +132,15 @@ const returnResult = (err, data) => {
     return resultObj;
 };
 
+app.put('/api/query/sales', (req, res) => {
+    /* STATUS, DATA, ERR */
+    console.log("params", req.body.params);
+    let params = req.body.params;
+    connection.query(params.statement, [params.status, params.bid_number], (error, result, fields) => {
+        res.send(returnResult(error, result));
+    });
+});
+
 app.get('/api/query/sales/:bid_number', (req, res) => {
     console.log("bid", req.params.bid_number);
     /* STATUS, DATA, ERR */
@@ -142,6 +151,8 @@ app.get('/api/query/sales/:bid_number', (req, res) => {
         res.send(returnResult(error, result));
     });
 });
+
+
 
 app.get('/api/query/:ds', (req, res) => {
     console.log("ds", req.params.ds);
@@ -161,6 +172,20 @@ app.get('/api/count/:ds', (req, res) => {
     let sql = 'select count(*) as count from '.concat(req.params.ds);
     //console.log(sql);
     connection.query(sql, (error, result, fields) => {
+        res.send(returnResult(error, result));
+    });
+});
+
+app.post('/api/latest', (req, res) => {
+    
+    /* STATUS, DATA, ERR */
+    let statement = req.body.params.statement;
+    let sales_id = req.body.params.sales_id;
+    
+    //let sql = 'select * from ? where sales_id = 28 order by quote_id DESC limit 1';
+    //console.log(sql);
+    connection.query(statement, [sales_id], (error, result, fields) => {
+        console.log("yum", result);
         res.send(returnResult(error, result));
     });
 });
@@ -193,6 +218,7 @@ app.post('/loginRequest', (req, res) => {
 app.post('/api/insertRequest', (req, res) => {
     var data = req.body.params.data;
     var statement = req.body.params.statement;
+    var statement_2 = req.body.params.statement_2;
 
     console.log("data", data);
 
@@ -208,6 +234,18 @@ app.post('/api/insertRequest', (req, res) => {
             } else {
                 console.log('*** INSERT SUCCESS *** | ' + JSON.stringify(result));
                 res.send(result);
+            }
+        },
+    );
+
+    var query = connection.query(
+        statement_2,
+        [data, data.sales_id],
+        (error, result, fields) => {
+            if (error) {
+                console.log('*** INSERT ERROR *** | ' + error);
+            } else {
+                console.log('*** INSERT SUCCESS *** | ' + JSON.stringify(result));
             }
         },
     );

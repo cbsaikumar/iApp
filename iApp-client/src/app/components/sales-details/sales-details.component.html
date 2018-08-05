@@ -71,7 +71,7 @@
   </div>
   <app-navbar></app-navbar>
 
-  <div class="m-5">
+  <div class="m-5" *ngIf="!submitted && !submitSuccess">
     <div class="col-lg-12 well">
       <div class="row">
         <form *ngIf="dataLoaded">
@@ -155,87 +155,105 @@
                 <input type="text" formControlName="requirements" placeholder="Enter Requirements Here.." class="form-control">
               </div>
             </div>
-            <hr class="border-top-1 border-dark" />
-            <div class="row" *ngIf="bidStatus.value != 'estimated'">
-              <h5 class="col-sm-6 ">Estimation Info</h5>
-            </div>
-            <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value != 'estimated'">
-              <div class="col-sm-4 col-lg-4 ">
-                <label>Project</label>
-                <input type="text" formControlName="project_name" placeholder="Enter Project Name Here.." class="form-control">
+            <div *ngIf="bidStatus.value != 'Open' || bidStatus.value != 'RFQ'">
+              <hr class="border-top-1 border-dark" />
+              <div class="row">
+                <h5 class="col-sm-6 ">Estimation Info</h5>
               </div>
-              <div class="col-sm-4 col-lg-4 ">
-                <label>Main Steel Hours</label>
-                <input type="number" formControlName="main_steel_hours" placeholder="Enter Main Steel Hours Here.." class="form-control">
-              </div>
-              <div class="col-sm-4 col-lg-4 ">
-                <label>Main Steel Estimated Schedule</label>
-                <input type="date" formControlName="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.." class="form-control">
-              </div>
-              <div class="col-sm-4 col-lg-4 ">
-                <label>Misc Steel Hours</label>
-                <input type="number" formControlName="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
-              </div>
-              <div class="col-sm-4 col-lg-4 ">
-                <label>Misc Steel Estimated Schedule</label>
-                <input type="date" formControlName="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
-              </div>
-
-              <!-- <div class="row col-sm-12 col-lg-12 col-md-12">
-                <div class="col-sm-4 col-lg-4 ">
+              <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value != 'Open' || bidStatus.value != 'RFQ'">
+                <div class="col-sm-6 col-lg-6 ">
+                  <label>Project</label>
+                  <input type="text" formControlName="project_name" placeholder="Enter Project Name Here.." class="form-control">
+                </div>
+                <div class="col-sm-6 col-lg-6 ">
+                  <label>Main Steel Hours</label>
+                  <input type="number" formControlName="main_steel_hours" placeholder="Enter Main Steel Hours Here.." class="form-control">
+                </div>
+                <div class="col-sm-6 col-lg-6 ">
+                  <label>Main Steel Estimated Schedule</label>
+                  <input type="date" formControlName="main_steel_est_schedule" placeholder="Enter Main Steel Estimated Schedule Here.." class="form-control">
+                </div>
+                <div class="col-sm-6 col-lg-6 ">
+                  <label>Misc Steel Hours</label>
+                  <input type="number" formControlName="misc_steel_hours" placeholder="Enter Misc Steel Hours Here.." class="form-control">
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                  <label>Misc Steel Estimated Schedule</label>
+                  <input type="date" formControlName="misc_steel_est_schedule" placeholder="Enter Misc Steel Estimated Schedule Here.." class="form-control">
+                </div>
+                <div class="col-sm-6 col-lg-6 ">
                   <label>Inclusions</label>
+                  <input type="number" formControlName="inclusions" class="form-control">
                 </div>
-                <div class="col-sm-12 col-lg-12">
-                  <p *ngFor="let inclusion of misc_inclusions" class="col-md-3 col-lg-3">
-                    <input type="checkbox" value="{{inclusion.misc_inc_desc}}" #inc (change)="addInclusion(inc, $event)" formControlName="inclusions">{{inclusion.misc_inc_desc}}</p>
+                <div class="col-sm-6 col-lg-6 ">
+                  <label>Exclusions</label>
+                  <input type="number" formControlName="exclusions" class="form-control">
                 </div>
-              </div> -->
-              <!-- <div class="row col-sm-12 col-lg-12 col-md-12">
-                <div class="col-sm-4 col-lg-4 ">
-                  <label>Exclustions</label>
+              </div>
+              <div *ngIf="bidStatus.value === 'Quote Sent' || bidStatus.value === 'Quote Pending'">
+                <hr class="border-top-1 border-dark" />
+                <div class="row">
+                  <h5 class="col-sm-6 ">Quote Info</h5>
                 </div>
-                <div class="col-sm-12 col-lg-12 ">
-                  <p *ngFor="let exclusion of misc_exclusions">
-                    <input type="checkbox" value="{{exclusion.misc_exc_desc}}" #exc (change)="addExclusion(exc, $event)" formControlName="exclusions">{{exclusion.misc_exc_desc}}</p>
+                <div class="row" [formGroup]="quoteInfoForm" *ngIf="bidStatus.value === 'Quote Sent' || bidStatus.value === 'Quote Pending'" >
+                  <div class="col-sm-6 col-lg-6 ">
+                    <label>Quote Price</label>
+                    <input type="text" formControlName="quote_price" placeholder="Enter Quote Price Here.." class="form-control">
+                  </div>
+                  <div class="col-sm-6 col-lg-6 ">
+                    <label>Engg Price</label>
+                    <input type="text" formControlName="engg_price" placeholder="Enter Engg Price Here.." class="form-control">
+                  </div>
+                  <div class="col-sm-12 col-lg-12 col-md-12">
+                    <label>Comments</label>
+                    <textarea placeholder="Enter Comments Here.." formControlName="comments" rows="3" class="form-control" name="address"></textarea>
+                    <!-- <div class="alert alert-danger" *ngIf="!fabricatorInfoForm.controls['address'].valid && fabricatorInfoForm.controls['address'].touched">Address is required</div> -->
+                  </div>
                 </div>
-              </div> -->
+              </div>
             </div>
 
             <div class="row">
-              <button type="button" (click)="prepareQuote()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Prepare Quote</button>
-              <button type="button" (click)="reQuote()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Re-Quote</button>
-              <button type="button" (click)="sendForEstimation()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Send For Estimation</button>
-              <button type="button" (click)="close()" class="btn btn-sm btn-info submit-btn m-2 col-lg-2 col-md-3 col-sm-5">Close</button>
+              <button type="button" *ngIf="bidStatus.value === 'Estimate Received'" (click)="prepareQuote()" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Prepare Quote</button>
+              <button type="button" *ngIf="bidStatus.value === 'Quote Sent' || bidStatus.value === 'Quote Pending'" (click)="reQuote()"
+                class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Re-Quote</button>
+              <button type="button" *ngIf="bidStatus.value === 'RFQ'" (click)="sendForEstimation()" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Send For Estimation</button>
+              <button type="button" (click)="close()" class="btn btn-sm btn-info submit-btn m-3 col-lg-2 col-md-3 col-sm-5">Close</button>
             </div>
           </div>
         </form>
       </div>
     </div>
   </div>
-  <div class="p-100 container well" *ngIf="submitSuccess">
-    <div class="text-center">
-      <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+  <div>
+    <div class="p-100 container well" *ngIf="submitSuccess">
+      <div class="text-center">
+        <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+      </div>
+      <div class="">
+        <span class="text-center">
+          <h6>Bid has been sent for estimation.</h6>
+        </span>
+      </div>
+      <div class="alert alert-success text-center">
+        <strong>Success!</strong> Sent Successfully.
+      </div>
     </div>
-    <div class="">
-      <span class="text-center">
-        <h6>You have Successfully submitted the form. You can either add another or go to home.</h6>
-      </span>
+    <div class="container well" *ngIf="submitted">
+      <div class="text-center">
+        <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
+      </div>
+      <div class="">
+        <span class="text-center">
+          <h6>Try again. You can either try again or go back.</h6>
+        </span>
+      </div>
+      <div class="alert alert-danger text-center">
+        <strong>Error!</strong> Unsuccessful.
+      </div>
     </div>
-    <div class="alert alert-success text-center">
-      <strong>Success!</strong> Added Successfully.
-    </div>
-  </div>
-  <div class="container well" *ngIf="submitted">
-    <div class="text-center">
-      <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
-    </div>
-    <div class="">
-      <span class="text-center">
-        <h6>Try again. You can either try again or go back.</h6>
-      </span>
-    </div>
-    <div class="alert alert-danger text-center">
-      <strong>Error!</strong> Unsuccessful.
+    <div *ngIf="submitted && !submitSuccess" class="text-center">
+      <button type="button" (click)="tryAgain()" class="btn btn-info btn-md mt-4 button-custom" style="background-color:#33679a; border-color:#33679a;">Try Again</button>
     </div>
   </div>
   <app-footer></app-footer>

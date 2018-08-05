@@ -16,12 +16,14 @@ var dt = require('datatables.net');
 export class SalesDetailsComponent implements OnInit {
 
   title: string = "Sales Data";
-  salesDetails: any;
+  public salesDetails: any;
+  public quoteDetails : any;
   showMenu: boolean;
-  salesDetailsForm: FormGroup;
-  fabricatorInfoForm: FormGroup;
-  bidInfoForm: FormGroup;
-  estimationInfoForm: FormGroup;
+  public salesDetailsForm: FormGroup;
+  public fabricatorInfoForm: FormGroup;
+  public bidInfoForm: FormGroup;
+  public quoteInfoForm: FormGroup;
+  public estimationInfoForm: FormGroup;
   dataLoaded: boolean = false;
   bid_number : string;
 
@@ -46,6 +48,17 @@ export class SalesDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    this.authService.getInclusions().subscribe(data => {
+      
+      this.misc_inclusions = data.data;      
+    });
+
+    this.authService.getExclusions().subscribe(data => {
+    
+      this.misc_exclusions = data.data;      
+    });  
+     
     this.bid_number = this.activeRoute.snapshot.params['bid_number'];
     console.log(this.activeRoute.snapshot.params['bid_number']);
     this.authService.getSalesDetails(this.bid_number).subscribe((data) => {
@@ -53,6 +66,7 @@ export class SalesDetailsComponent implements OnInit {
         this.salesDetails = data.data[0];
         console.log(this.salesDetails);
         this.dataLoaded = true;
+        sessionStorage.setItem("sales_id", this.salesDetails.sales_id);
     
         this.fabricatorInfoForm = this.fb.group({
           fabricator_name: new FormControl(this.salesDetails.fabricator_name),
@@ -74,18 +88,44 @@ export class SalesDetailsComponent implements OnInit {
           executive: new FormControl(this.salesDetails.executive)
         });
         this.estimationInfoForm = this.fb.group({
-          inclusion: new FormControl(this.salesDetails.inclusion),
+          inclusions: new FormControl(this.salesDetails.inclusion),
+          exclusions: new FormControl(this.salesDetails.exclusion),
           project_name: new FormControl(this.salesDetails.project_name),
-          main_steel_est_schedule: new FormControl(new Date(this.salesDetails.main_steel_est_schedule).toISOString().substring(0,10)),
+          main_steel_est_schedule: new FormControl((this.salesDetails.main_steel_est_schedule)),
           main_steel_hours: new FormControl(this.salesDetails.main_steel_hours),
-          misc_steel_est_schedule: new FormControl(new Date(this.salesDetails.misc_steel_est_schedule).toISOString().substring(0,10)),
+          misc_steel_est_schedule: new FormControl((this.salesDetails.misc_steel_est_schedule)),
           misc_steel_hours: new FormControl(this.salesDetails.misc_steel_hours),
         });
+        this.quoteInfoForm = this.fb.group({
+          quote_price: new FormControl(),
+          engg_price: new FormControl(),
+          comments: new FormControl(),
+        });
+        
       
         this.fabricatorInfoForm.disable();
         this.bidInfoForm.disable();
+        this.estimationInfoForm.disable();
+        this.quoteInfoForm.disable();
+        
         // console.log("status", this.bidInfoForm);
         // this.estimationInfoForm.disable();
+      }
+    });
+
+    this.authService.getLatestQuote().subscribe(data=>{
+      console.log("latest", data, typeof (data.data));
+      console.log("length", data.data.length);
+      if (data.data.length>0) {
+        this.quoteDetails = data.data[0];
+        console.log("quotes",this.quoteDetails);
+
+        this.quoteInfoForm = this.fb.group({
+          quote_price: new FormControl(this.quoteDetails.quote_price),
+          engg_price: new FormControl(this.quoteDetails.engg_price),
+          comments: new FormControl(this.quoteDetails.comments),
+        });
+        this.quoteInfoForm.disable();
       }
     });
   };
@@ -94,10 +134,58 @@ export class SalesDetailsComponent implements OnInit {
 
   }
 
+  addInclusion(inc, event){
+    if(event.target.checked ===  true){
+      this.inclusions.push(inc.value);
+    }
+    else{
+      let index = this.inclusions.indexOf(inc.value);
+      this.inclusions.splice(index, 1);
+    }
+    console.log("inc", this.inclusions);
+  }
+
+  addExclusion(exc, event){
+    if(event.target.checked ===  true){
+      this.exclusions.push(exc.value);
+    }
+    else{
+      let index = this.exclusions.indexOf(exc.value);
+      this.exclusions.splice(index, 1);
+    }
+    console.log("inc", this.exclusions);
+  }
+
+  reQuote(){
+    this.prepareQuote();
+  }
+
   prepareQuote(){
     let bid_number = this.salesDetails.bid_number;
     console.log("sendForEst", bid_number);
     this.router.navigate(['quote', bid_number]);
+  }
+
+
+  sendForEstimation(){
+    console.log("yes", this.bid_number);
+    let status = "Estimate Pending";
+    let response;
+    this.authService.updateBidStatus(status, this.bid_number).subscribe(res => {
+      response = res.json();
+      console.log("res", response);
+      if(response.data.changedRows == 1){
+        this.submitSuccess = true;
+      }
+      else{
+        this.submitted = true;
+      }
+    });
+  }
+
+  tryAgain(){
+    this.submitSuccess = false;
+    this.submitted = false;
   }
 
   close(){

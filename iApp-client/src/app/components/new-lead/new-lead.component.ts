@@ -1,7 +1,7 @@
 declare var require: any;
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from '../../services/auth.service';
@@ -127,7 +127,7 @@ export class NewLeadComponent implements OnInit {
           project_address: new FormControl(''),
           bid_received_date: new FormControl(null),
           bid_due_date: new FormControl(null),
-          document_received: new FormControl(''),
+          document_received: new FormControl('', Validators.maxLength(5)),
           document_path: new FormControl(''),
           requirements: new FormControl(),
           bid_received_from : new FormControl(''),
@@ -182,6 +182,7 @@ export class NewLeadComponent implements OnInit {
 
   tryAgain(){
     this.submitSuccess =false;
+    this.submitted = false;
   }
 
   addRequirement(req, event){
