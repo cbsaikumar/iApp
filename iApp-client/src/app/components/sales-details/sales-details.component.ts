@@ -18,6 +18,7 @@ export class SalesDetailsComponent implements OnInit {
   title: string = "Sales Data";
   public salesDetails: any;
   public quoteDetails : any;
+  public estimationDetails : any;
   showMenu: boolean;
   public salesDetailsForm: FormGroup;
   public fabricatorInfoForm: FormGroup;
@@ -88,13 +89,13 @@ export class SalesDetailsComponent implements OnInit {
           executive: new FormControl(this.salesDetails.executive)
         });
         this.estimationInfoForm = this.fb.group({
-          inclusions: new FormControl(this.salesDetails.inclusion),
-          exclusions: new FormControl(this.salesDetails.exclusion),
+          inclusions: new FormControl(''),
+          exclusions: new FormControl(''),
           project_name: new FormControl(this.salesDetails.project_name),
-          main_steel_est_schedule: new FormControl((this.salesDetails.main_steel_est_schedule)),
-          main_steel_hours: new FormControl(this.salesDetails.main_steel_hours),
-          misc_steel_est_schedule: new FormControl((this.salesDetails.misc_steel_est_schedule)),
-          misc_steel_hours: new FormControl(this.salesDetails.misc_steel_hours),
+          main_steel_est_schedule: new FormControl(),
+          main_steel_hours: new FormControl(),
+          misc_steel_est_schedule: new FormControl(),
+          misc_steel_hours: new FormControl(),
         });
         this.quoteInfoForm = this.fb.group({
           quote_price: new FormControl(),
@@ -107,6 +108,10 @@ export class SalesDetailsComponent implements OnInit {
         this.bidInfoForm.disable();
         this.estimationInfoForm.disable();
         this.quoteInfoForm.disable();
+
+        // if(this.bidInfoForm.value['status'].value === 'Estimate Pending'){
+        //   this.estimationInfoForm.enable();
+        // }
         
         // console.log("status", this.bidInfoForm);
         // this.estimationInfoForm.disable();
@@ -126,6 +131,25 @@ export class SalesDetailsComponent implements OnInit {
           comments: new FormControl(this.quoteDetails.comments),
         });
         this.quoteInfoForm.disable();
+      }
+    });
+
+    this.authService.getLatestEstimation().subscribe(data=>{
+      console.log("latest", data, typeof (data.data));
+      console.log("length", data.data.length);
+      if (data.data.length>0) {
+        this.estimationDetails = data.data[0];
+        console.log("estimationDetails",this.estimationDetails);
+
+        this.estimationInfoForm = this.fb.group({
+          inclusions: new FormControl(this.estimationDetails.inclusion),
+          exclusions: new FormControl(this.estimationDetails.exclusion),
+          main_steel_est_schedule: new FormControl(new Date(this.estimationDetails.main_steel_est_schedule).toISOString().substring(0,10)),
+          main_steel_hours: new FormControl(this.estimationDetails.main_steel_hours),
+          misc_steel_est_schedule: new FormControl(new Date(this.estimationDetails.misc_steel_est_schedule).toISOString().substring(0,10)),
+          misc_steel_hours: new FormControl(this.estimationDetails.misc_steel_hours),
+        });
+        this.estimationInfoForm.disable();
       }
     });
   };
@@ -164,6 +188,12 @@ export class SalesDetailsComponent implements OnInit {
     let bid_number = this.salesDetails.bid_number;
     console.log("sendForEst", bid_number);
     this.router.navigate(['quote', bid_number]);
+  }
+
+  addEstimation(){
+    let bid_number = this.salesDetails.bid_number;
+    console.log("add estimation", bid_number);
+    this.router.navigate(['estimation', bid_number]);
   }
 
 

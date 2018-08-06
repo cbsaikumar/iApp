@@ -18,12 +18,6 @@
                     <span class="menu-item-parent">Sales</span>
                 </a>
             </li>
-            <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a href="#" title="Estimation" [routerLink]="['/estimation']">
-                    <i class="mr-2 fa fa-lg fa-fw fa-list-alt"></i>
-                    <span class="menu-item-parent">Estimation</span>
-                </a>
-            </li>
             <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a href="#" title="Users" [routerLink]="['/users']">
                     <i class="mr-2 fa fa-lg fa-fw fa-user-circle"></i>
@@ -70,20 +64,93 @@
         <!-- end breadcrumb -->
     </div>
     <app-navbar></app-navbar>
-    <h4 style="display: inline; color:#33679a !important;" class="ml-4 mt-1 text-primary">Estimation</h4>
-    <div class="container">
-        <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Bid #</th>
-                    <th>Company</th>
-                    <th>Assign Date</th>
-                    <th>Completion Date</th>
-                    <th>Assigned to</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-        </table>
+
+    <div id="estimation" #estimation class="container" *ngIf="!submitSuccess || submitted ">
+        <div class="col-lg-12 well">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <p>Bid Number</p>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="text" value="{{bid_number}}" disabled placeholder="Enter Bid Number Here.." class="form-control">
+                </div>
+                <form [formGroup]="estimationInfoForm">
+                    <h5 class="col-sm-6 form-group">Estimation Info</h5>
+                    <div class="col-sm-12">
+                        <div class="row" id="print-section">
+                            <div class="col-sm-6 col-lg-6 ">
+                                <label>Main Steel Hours</label>
+                                <input type="number" formControlName="main_steel_hours" required placeholder="Enter Main Steel Hours Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-6 col-lg-6 ">
+                                <label>Main Steel Estimated Schedule</label>
+                                <input type="date" formControlName="main_steel_est_schedule" required placeholder="Enter Main Steel Estimated Schedule Here.."
+                                    class="form-control">
+                            </div>
+                            <div class="col-sm-6 col-lg-6 ">
+                                <label>Misc Steel Hours</label>
+                                <input type="number" formControlName="misc_steel_hours" required placeholder="Enter Misc Steel Hours Here.." class="form-control">
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <label>Misc Steel Estimated Schedule</label>
+                                <input type="date" formControlName="misc_steel_est_schedule" required placeholder="Enter Misc Steel Estimated Schedule Here.."
+                                    class="form-control">
+                            </div>
+                            <div class="col-sm-12 col-lg-12 col-md-12">
+                                <label>Inclusions</label>
+                                <p *ngFor="let inclusion of misc_inclusions">
+                                    <input type="checkbox" #inc (change)="addInclusion(inc, $event)" value="{{inclusion.misc_inc_desc}}">{{inclusion.misc_inc_desc}}
+                                </p>
+                            </div>
+                            <div class="col-sm-12 col-lg-12 col-md-12">
+                                <label>Exclusions</label>
+                                <p *ngFor="let exclusion of misc_exclusions">
+                                    <input type="checkbox" #exc (change)="addExclusion(exc, $event)" value="{{exclusion.misc_exc_desc}}">{{exclusion.misc_exc_desc}}
+                                </p>
+                            </div>
+                            <div class="col-sm-12 col-lg-12 col-md-12">
+                                <label>Remarks/Comments</label>
+                                <textarea placeholder="Enter Remarks/Comments Here.." required formControlName="comments" rows="3" class="form-control" name="comments"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" (click)="save(estimationInfoForm.value, false)" [disabled]="!estimationInfoForm.valid" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Save</button>
+                            <button type="button" (click)="save(estimationInfoForm.value, true)" [disabled]="!estimationInfoForm.valid" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Publish</button>
+                            <button type="button" (click)="cancel()" class="btn btn-sm btn-info submit-btn m-2 col-lg-3 col-md-3 col-sm-5">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="p-100 container well" *ngIf="submitSuccess">
+        <div class="text-center">
+            <i class="fa fa-5x fa-check-circle" style="color: green;"></i>
+        </div>
+        <div class="">
+            <span class="text-center">
+                <h6>Added Quotation data.</h6>
+            </span>
+        </div>
+        <div class="alert alert-success text-center">
+            <strong>Success!</strong> Added Successfully.
+        </div>
+    </div>
+    <div class="container well" *ngIf="submitted">
+        <div class="text-center">
+            <i class="fa fa-5x fa-frown" style="color: orangered;"></i>
+        </div>
+        <div class="">
+            <span class="text-center">
+                <h6>Try again. You can either try again or go back.</h6>
+            </span>
+        </div>
+        <div class="alert alert-danger text-center">
+            <strong>Error!</strong> Unsuccessful.
+        </div>
+    </div>
+    <div *ngIf="submitted && !submitSuccess" class="text-center">
+        <button type="button" (click)="tryAgain()" class="btn btn-info btn-md mt-4 button-custom" style="background-color:#33679a; border-color:#33679a;">Try Again</button>
     </div>
     <app-footer></app-footer>
 </div>

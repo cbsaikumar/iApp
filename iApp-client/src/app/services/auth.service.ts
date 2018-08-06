@@ -4,6 +4,7 @@ import { LeadData } from '../components/new-lead/new-lead.component';
 import { Quote } from '../components/quote/quote.component';
 import 'rxjs/add/operator/map';
 import { Fabricator } from '../components/fabricator/fabricator.component';
+import { Estimation } from '../components/estimation/estimation.component';
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +100,22 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  getLatestEstimation(){
+    let sales_id = sessionStorage.getItem('sales_id');
+
+    let statement = "select * from estimate where sales_id = ? order by Estimate_id DESC limit 1";
+    
+    const insertParams = {
+      params: {
+          statement: statement,
+          sales_id: sales_id,
+      }
+    }
+
+    return this.http.post(this.latestUrl,insertParams)
+      .map(res => res.json());
+  }
+
   addQuote(quote:Quote){
     let statement: string = "insert into quote set ? ";
     let statement_2: string = "update sales set ? where sales_id = ? ";
@@ -107,6 +124,24 @@ export class AuthService {
     const insertParams = {
       params: {
           data: quote,
+          statement: statement,
+          statement_2: statement_2
+      }
+    }
+
+    return this.http.post(this.insertUrl, insertParams) 
+      .map(res => res.json());
+
+  }
+
+  addEstimation(estimation:Estimation){
+    let statement: string = "insert into estimate set ? ";
+    let statement_2: string = "update sales set ? where sales_id = ? ";
+    //let headers = { "Content-Type": "application/x-www-form-urlencoded" };
+
+    const insertParams = {
+      params: {
+          data: estimation,
           statement: statement,
           statement_2: statement_2
       }

@@ -7,7 +7,7 @@ module.exports = {
     database: 'iapp',
   },
   db: {
-    host: '129.150.117.222',
+    host: '',
     port: '3306',
     username: 'root',
     password: 'Irs2rvp6xoni#',

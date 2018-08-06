@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   { path: 'sales', component: SalesComponent, canActivate: [AuthGuard] },
   { path: 'sales/:bid_number', component: SalesDetailsComponent, canActivate: [AuthGuard] },
   { path: 'new-lead', component: NewLeadComponent, canActivate: [AuthGuard] },
-  { path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard] },
+  { path: 'estimation/:bid_number', component: EstimationComponent, canActivate: [AuthGuard] },
   { path: 'fabricator', component: FabricatorComponent, canActivate: [AuthGuard] },
   { path: 'quote/:bid_number', component: QuoteComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate:[AuthGuard, AdminGuard] },

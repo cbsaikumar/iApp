@@ -18,12 +18,6 @@
           <span class="menu-item-parent">Sales</span>
         </a>
       </li>
-      <li class="active open" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-        <a href="#" title="Estimation" [routerLink]="['/estimation']">
-          <i class="mr-2 fa fa-lg fa-fw fa-list-alt"></i>
-          <span class="menu-item-parent">Estimation</span>
-        </a>
-      </li>
       <li class="active open" *ngIf="authService.getUserInfo() === 'admin'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
         <a href="#" title="Users" [routerLink]="['/users']">
           <i class="mr-2 fa fa-lg fa-fw fa-user-circle"></i>
@@ -155,12 +149,12 @@
                 <input type="text" formControlName="requirements" placeholder="Enter Requirements Here.." class="form-control">
               </div>
             </div>
-            <div *ngIf="bidStatus.value != 'Open' || bidStatus.value != 'RFQ'">
+            <div *ngIf="bidStatus.value === 'Estimate Received' || bidStatus.value === 'Quote Pending' || bidStatus.value === 'Quote Sent'">
               <hr class="border-top-1 border-dark" />
               <div class="row">
                 <h5 class="col-sm-6 ">Estimation Info</h5>
               </div>
-              <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value != 'Open' || bidStatus.value != 'RFQ'">
+              <div class="row" [formGroup]="estimationInfoForm" *ngIf="bidStatus.value === 'Estimate Received' || bidStatus.value === 'Quote Pending' || bidStatus.value === 'Quote Sent'">
                 <div class="col-sm-6 col-lg-6 ">
                   <label>Project</label>
                   <input type="text" formControlName="project_name" placeholder="Enter Project Name Here.." class="form-control">
@@ -183,11 +177,11 @@
                 </div>
                 <div class="col-sm-6 col-lg-6 ">
                   <label>Inclusions</label>
-                  <input type="number" formControlName="inclusions" class="form-control">
+                  <input type="text" formControlName="inclusions" class="form-control">
                 </div>
                 <div class="col-sm-6 col-lg-6 ">
                   <label>Exclusions</label>
-                  <input type="number" formControlName="exclusions" class="form-control">
+                  <input type="text" formControlName="exclusions" class="form-control">
                 </div>
               </div>
               <div *ngIf="bidStatus.value === 'Quote Sent' || bidStatus.value === 'Quote Pending'">
@@ -218,6 +212,7 @@
               <button type="button" *ngIf="bidStatus.value === 'Quote Sent' || bidStatus.value === 'Quote Pending'" (click)="reQuote()"
                 class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Re-Quote</button>
               <button type="button" *ngIf="bidStatus.value === 'RFQ'" (click)="sendForEstimation()" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Send For Estimation</button>
+              <button type="button" *ngIf="bidStatus.value === 'Estimate Pending'" (click)="addEstimation()" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Add Estimation Info</button>
               <button type="button" (click)="close()" class="btn btn-sm btn-info submit-btn m-3 col-lg-2 col-md-3 col-sm-5">Close</button>
             </div>
           </div>
