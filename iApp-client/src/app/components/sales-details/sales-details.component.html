@@ -208,6 +208,7 @@
             </div>
 
             <div class="row">
+              <button type="button" *ngIf="bidStatus.value === 'Open'" (click)="publishLead(fabricatorInfoForm.value, bidInfoForm.value)" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Publish Lead</button>
               <button type="button" *ngIf="bidStatus.value === 'Estimate Received'" (click)="prepareQuote()" class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Prepare Quote</button>
               <button type="button" *ngIf="bidStatus.value === 'Quote Sent' || bidStatus.value === 'Quote Pending'" (click)="reQuote()"
                 class="btn btn-sm btn-info submit-btn m-3 col-lg-4 col-md-4 col-sm-5">Re-Quote</button>
@@ -227,7 +228,7 @@
       </div>
       <div class="">
         <span class="text-center">
-          <h6>Bid has been sent for estimation.</h6>
+          <h6>{{message}}</h6>
         </span>
       </div>
       <div class="alert alert-success text-center">
@@ -240,7 +241,7 @@
       </div>
       <div class="">
         <span class="text-center">
-          <h6>Try again. You can either try again or go back.</h6>
+          <h6>{{message}}</h6>
         </span>
       </div>
       <div class="alert alert-danger text-center">

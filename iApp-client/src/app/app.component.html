@@ -1,5 +1,6 @@
 
 <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
     <router-outlet #o="outlet"></router-outlet>
+    <div class="text-center m-auto position-relative"><i class="fa fa-spinner fa-spin" style="font-size:48px;"></i></div>
 </main>
 <flash-messages class="container" style="position: relative;"></flash-messages>

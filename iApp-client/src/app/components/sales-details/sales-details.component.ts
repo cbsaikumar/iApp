@@ -34,6 +34,7 @@ export class SalesDetailsComponent implements OnInit {
   exclusions: any[] = [];
   submitSuccess: boolean;
   submitted: boolean;
+  message: string;
 
   @ViewChild('mySidenav') mySideNav: ElementRef;
   @ViewChild('main') main: ElementRef;
@@ -103,11 +104,14 @@ export class SalesDetailsComponent implements OnInit {
           comments: new FormControl(),
         });
         
-      
         this.fabricatorInfoForm.disable();
         this.bidInfoForm.disable();
         this.estimationInfoForm.disable();
         this.quoteInfoForm.disable();
+
+        if(this.salesDetails.status === 'Open'){
+          this.bidInfoForm.enable();
+        }
 
         // if(this.bidInfoForm.value['status'].value === 'Estimate Pending'){
         //   this.estimationInfoForm.enable();
@@ -155,6 +159,25 @@ export class SalesDetailsComponent implements OnInit {
   };
 
   ngAfterViewChecked() {
+
+  }
+
+  publishLead(fabricator, bid){
+    bid.status = "RFQ";
+
+    let newLead = Object.assign(fabricator, bid);
+
+    this.authService.publishLead(newLead).subscribe((data)=>{
+      console.log("subscribe", data);
+      if(data.affectedRows>0){
+        this.submitSuccess = !this.submitSuccess;
+        this.message = "Lead has been published.";
+      }
+      else{
+        this.submitted = !this.submitted;
+        this.message = "There has been an error while submitting Lead, Please try again.";
+      }
+    });;
 
   }
 
@@ -206,9 +229,11 @@ export class SalesDetailsComponent implements OnInit {
       console.log("res", response);
       if(response.data.changedRows == 1){
         this.submitSuccess = true;
+        this.message = "Bid has been sent for estimation.";
       }
       else{
         this.submitted = true;
+        this.message = "Try again. You can either try again or go back.";
       }
     });
   }

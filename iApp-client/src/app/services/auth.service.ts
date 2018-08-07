@@ -63,6 +63,18 @@ export class AuthService {
       .map(res => res.json());
   };
 
+  publishLead(publishLeadData:LeadData){
+    let statement = "update sales set ? where bid_number = "+'\''+publishLeadData.bid_number+'\'';
+    const searchParams = {
+      params: {
+          data: publishLeadData,
+          statement: statement
+      }
+    }
+    return this.http.post(this.insertUrl, searchParams) 
+    .map(res => res.json());
+  };
+
   addLead(newLead:LeadData){
     //let statement: string = "insert into sales (bid_number, status, bid_type ,document_path, document_received, exclusion, executive,fabricator_address, fabricator, inclusion,main_steel_est_schedule,main_steel_hours,misc_steel_est_schedule,misc_steel_hours,fabricator_phone,bid_received_date,bid_received_from,bid_sent_date,fabricator_Url) values ? ";
     let statement = "insert into sales set ? ";
